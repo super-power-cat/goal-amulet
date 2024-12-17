@@ -12,11 +12,18 @@ const questions: Question[] = [
 
 function App() {
   const [responses, setResponses] = useState<Question[]>(questions);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const handleAnswersChange = (questionId: number, answers: Answer[]) => {
     setResponses(prev => prev.map(q => 
       q.id === questionId ? { ...q, answers } : q
     ));
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(prev => prev + 1);
+    }
   };
 
   const isComplete = responses.every(q => q.answers.length > 0 && 
@@ -30,17 +37,19 @@ function App() {
         </h1>
         
         <div className="space-y-6">
-          {questions.map((question) => (
+          {questions.slice(0, currentQuestionIndex + 1).map((question) => (
             <QuestionSection
               key={question.id}
               question={question.text}
               initialAnswers={responses.find(q => q.id === question.id)?.answers}
               onAnswersChange={(answers) => handleAnswersChange(question.id, answers)}
+              onNext={handleNextQuestion}
+              showNext={question.id === questions[currentQuestionIndex].id && currentQuestionIndex < questions.length - 1}
             />
           ))}
         </div>
 
-        {isComplete && (
+        {currentQuestionIndex === questions.length - 1 && isComplete && (
           <div className="mt-8 p-6 bg-white rounded-lg shadow-sm">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">회고 완료!</h3>
             <div className="space-y-6">

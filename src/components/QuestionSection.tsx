@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import AnswerInput from './AnswerInput';
 import { Answer } from '../types';
+import s from './QuestionSection.module.css';
 
 interface QuestionSectionProps {
   question: string;
   initialAnswers?: Answer[];
   onAnswersChange: (answers: Answer[]) => void;
+  onNext: () => void;
+  showNext: boolean;
 }
 
 export default function QuestionSection({
   question,
   initialAnswers = [{ id: '1', text: '' }],
   onAnswersChange,
+  onNext,
+  showNext,
 }: QuestionSectionProps) {
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
 
@@ -37,8 +42,11 @@ export default function QuestionSection({
     onAnswersChange(newAnswers);
   };
 
+  const canProceed = answers.every(answer => answer.text.trim() !== '');
+
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+    <div className={'bg-white rounded-lg shadow-sm p-6 mb-6'}>
+      <p className={s.text}>1</p>
       <h2 className="text-xl font-bold text-gray-800 mb-4">{question}</h2>
       <AnswerInput
         answers={answers}
@@ -46,6 +54,21 @@ export default function QuestionSection({
         onAddAnswer={handleAddAnswer}
         onRemoveAnswer={handleRemoveAnswer}
       />
+      {showNext && (
+        <div className="mt-4 flex justify-end">
+          <button
+            onClick={onNext}
+            disabled={!answers.some(answer => answer.text.trim().length > 0)}
+            className={`px-6 py-2 rounded-lg transition-colors ${
+              answers.some(answer => answer.text.trim().length > 0)
+                ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            다음
+          </button>
+        </div>
+      )}
     </div>
   );
 }
