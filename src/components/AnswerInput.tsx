@@ -1,4 +1,3 @@
-import React from 'react';
 import { PlusCircle, X } from 'lucide-react';
 import { Answer } from '../types';
 
@@ -7,6 +6,7 @@ interface AnswerInputProps {
   onAnswerChange: (id: string, text: string) => void;
   onAddAnswer: () => void;
   onRemoveAnswer: (id: string) => void;
+  isSingleAnswer: boolean;
 }
 
 export default function AnswerInput({
@@ -14,6 +14,7 @@ export default function AnswerInput({
   onAnswerChange,
   onAddAnswer,
   onRemoveAnswer,
+  isSingleAnswer,
 }: AnswerInputProps) {
   return (
     <div className="space-y-3">
@@ -38,14 +39,16 @@ export default function AnswerInput({
         </div>
       ))}
       
-      <button
-        type="button"
-        onClick={onAddAnswer}
-        className="flex items-center gap-2 text-blue-600 hover:text-blue-700"
-      >
-        <PlusCircle size={20} />
-        <span>답변 추가</span>
-      </button>
+      {!isSingleAnswer && (
+        <button
+          type="button"
+          onClick={onAddAnswer}
+          className="flex items-center gap-2 text-blue-600 hover:text-blue-700"
+        >
+          <PlusCircle size={20} />
+          <span>답변 추가</span>
+        </button>
+      )}
     </div>
   );
 }

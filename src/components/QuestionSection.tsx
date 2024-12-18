@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AnswerInput from './AnswerInput';
 import { Answer } from '../types';
 import s from './QuestionSection.module.css';
@@ -9,6 +9,7 @@ interface QuestionSectionProps {
   onAnswersChange: (answers: Answer[]) => void;
   onNext: () => void;
   showNext: boolean;
+  isSingleAnswer: boolean;
 }
 
 export default function QuestionSection({
@@ -17,6 +18,7 @@ export default function QuestionSection({
   onAnswersChange,
   onNext,
   showNext,
+  isSingleAnswer,
 }: QuestionSectionProps) {
   const initialAnswers = [{ id: '1', text: '' }];
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
@@ -55,6 +57,7 @@ export default function QuestionSection({
         onAnswerChange={handleAnswerChange}
         onAddAnswer={handleAddAnswer}
         onRemoveAnswer={handleRemoveAnswer}
+        isSingleAnswer={isSingleAnswer}
       />
       {showNext && (
         <div className="mt-4 flex justify-end">

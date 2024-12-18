@@ -3,11 +3,11 @@ import QuestionSection from './components/QuestionSection';
 import { Question, Answer } from './types';
 
 const questions: Question[] = [
-  { id: 1, text: '이름이 뭐예요?', answers: [] },
-  { id: 2, text: '24년 회고를 해볼까요?', answers: [] },
-  { id: 3, text: '올해의 가장 큰 성과는 무엇인가요?', answers: [] },
-  { id: 4, text: '내년의 목표는 무엇인가요?', answers: [] },
-  { id: 5, text: '나에게 하고 싶은 말이 있다면?', answers: [] },
+  { id: 1, text: '이름이 뭐예요?', answers: [], isSingleAnswer: true, isRefresh: false },
+  { id: 2, text: '24년 회고를 해볼까요?', answers: [], isSingleAnswer: false, isRefresh: true },
+  { id: 3, text: '올해의 가장 큰 성과는 무엇인가요?', answers: [], isSingleAnswer: false, isRefresh: true },
+  { id: 4, text: '내년의 목표는 무엇인가요?', answers: [], isSingleAnswer: false, isRefresh: true},
+  { id: 5, text: '나에게 하고 싶은 말이 있다면?', answers: [], isSingleAnswer: false, isRefresh: true },
 ];
 
 function App() {
@@ -45,6 +45,7 @@ function App() {
               onAnswersChange={(answers) => handleAnswersChange(question.id, answers)}
               onNext={handleNextQuestion}
               showNext={question.id === questions[currentQuestionIndex].id && currentQuestionIndex < questions.length - 1}
+              isSingleAnswer={question.isSingleAnswer}
             />
           ))}
         </div>
