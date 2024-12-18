@@ -13,15 +13,17 @@ interface QuestionSectionProps {
 
 export default function QuestionSection({
   question,
-  initialAnswers = [{ id: '1', text: '' }],
+  
   onAnswersChange,
   onNext,
   showNext,
 }: QuestionSectionProps) {
+  const initialAnswers = [{ id: '1', text: '' }];
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
 
   const handleAddAnswer = () => {
     const newAnswers = [...answers, { id: Date.now().toString(), text: '' }];
+
     setAnswers(newAnswers);
     onAnswersChange(newAnswers);
   };
