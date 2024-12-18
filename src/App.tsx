@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import QuestionSection from './components/QuestionSection';
 import { Question, Answer } from './types';
 
@@ -6,7 +6,7 @@ const questions: Question[] = [
   { id: 1, text: '이름이 뭐예요?', answers: [], isSingleAnswer: true, isRefresh: false },
   { id: 2, text: '24년 회고를 해볼까요?', answers: [], isSingleAnswer: false, isRefresh: true },
   { id: 3, text: '올해의 가장 큰 성과는 무엇인가요?', answers: [], isSingleAnswer: false, isRefresh: true },
-  { id: 4, text: '내년의 목표는 무엇인가요?', answers: [], isSingleAnswer: false, isRefresh: true},
+  { id: 4, text: '내년의 목표는 무엇인가요?', answers: [], isSingleAnswer: false, isRefresh: true },
   { id: 5, text: '나에게 하고 싶은 말이 있다면?', answers: [], isSingleAnswer: false, isRefresh: true },
 ];
 
@@ -15,7 +15,7 @@ function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const handleAnswersChange = (questionId: number, answers: Answer[]) => {
-    setResponses(prev => prev.map(q => 
+    setResponses(prev => prev.map(q =>
       q.id === questionId ? { ...q, answers } : q
     ));
   };
@@ -26,31 +26,33 @@ function App() {
     }
   };
 
-  const isComplete = responses.every(q => q.answers.length > 0 && 
-    q.answers.every(a => a.text.trim() !== ''));
+  // const isComplete = responses.every(q => q.answers.length > 0 &&
+  //   q.answers.every(a => a.text.trim() !== ''));
 
+  console.log(currentQuestionIndex);
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto py-12 px-4">
         <h1 className="text-3xl font-bold text-center text-gray-900 mb-8">
           2024년 회고
         </h1>
-        
+
         <div className="space-y-6">
-          {questions.slice(0, currentQuestionIndex + 1).map((question) => (
+          {questions.slice(0, currentQuestionIndex + 1).map((question, index) => (
             <QuestionSection
               key={question.id}
               question={question.text}
-              initialAnswers={responses.find(q => q.id === question.id)?.answers}
+              initialAnswers={responses.find((q) => q.id === question.id)?.answers}
               onAnswersChange={(answers) => handleAnswersChange(question.id, answers)}
               onNext={handleNextQuestion}
-              showNext={question.id === questions[currentQuestionIndex].id && currentQuestionIndex < questions.length - 1}
+              showNext={index === currentQuestionIndex && currentQuestionIndex < questions.length - 1}
+              isLast={index === questions.length - 1}
               isSingleAnswer={question.isSingleAnswer}
             />
           ))}
         </div>
 
-        {currentQuestionIndex === questions.length - 1 && isComplete && (
+        {/* {currentQuestionIndex === questions.length && isComplete && (
           <div className="mt-8 p-6 bg-white rounded-lg shadow-sm">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">회고 완료!</h3>
             <div className="space-y-6">
@@ -66,7 +68,7 @@ function App() {
               ))}
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
