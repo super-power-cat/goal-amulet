@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AnswerInput from './AnswerInput';
 import { Answer } from '../types';
+import { useNavigate } from 'react-router-dom';
 
 interface QuestionSectionProps {
   question: string;
@@ -19,6 +20,7 @@ export default function QuestionSection({
   isLast,
   isSingleAnswer,
 }: QuestionSectionProps) {
+  const navigate = useNavigate();
   const initialAnswers = [{ id: '1', text: '' }];
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
 
@@ -73,7 +75,13 @@ export default function QuestionSection({
       {isLast && (
         <div className="mt-4 flex justify-end">
           <button
-            onClick={onNext}
+            onClick={() => {
+              if (canProceed) {
+                navigate('/result', {
+                  state: { responses: answers }
+                });
+              }
+            }}
             disabled={!canProceed}
             className={`px-6 py-2 rounded-lg transition-colors ${canProceed
               ? 'bg-blue-600 text-white hover:bg-blue-700'

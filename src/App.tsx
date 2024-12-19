@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import QuestionSection from './components/QuestionSection';
+import Result from './components/Result'; // Result 컴포넌트 가져오기
 import { Question, Answer } from './types';
 
 const questions: Question[] = [
@@ -10,7 +12,7 @@ const questions: Question[] = [
   { id: 5, text: '나에게 하고 싶은 말이 있다면?', answers: [], isSingleAnswer: false, isRefresh: true },
 ];
 
-function App() {
+function QuestionFlow() {
   const [responses, setResponses] = useState<Question[]>(questions);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
@@ -51,26 +53,19 @@ function App() {
             />
           ))}
         </div>
-
-        {/* {currentQuestionIndex === questions.length && isComplete && (
-          <div className="mt-8 p-6 bg-white rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">회고 완료!</h3>
-            <div className="space-y-6">
-              {responses.map((q) => (
-                <div key={q.id} className="border-b border-gray-200 pb-4 last:border-0">
-                  <p className="font-medium text-gray-700 mb-2">{q.text}</p>
-                  <ul className="ml-4 space-y-1">
-                    {q.answers.map((answer, idx) => (
-                      <li key={idx} className="text-gray-600">• {answer.text}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        )} */}
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<QuestionFlow />} />
+        <Route path="/result" element={<Result />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
