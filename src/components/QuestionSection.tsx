@@ -2,6 +2,7 @@ import { useState } from 'react';
 import AnswerInput from './AnswerInput';
 import { Answer } from '../types';
 import { useNavigate } from 'react-router-dom';
+import styles from './QuestionSection.module.css';
 
 interface QuestionSectionProps {
   question: string;
@@ -49,8 +50,8 @@ export default function QuestionSection({
   const canProceed = answers.every((answer) => answer.text.trim() !== '');
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">{question}</h2>
+    <div className={styles.container}>
+      <h2 className={styles.question}>{question}</h2>
       <AnswerInput
         answers={answers}
         onAnswerChange={handleAnswerChange}
@@ -59,21 +60,18 @@ export default function QuestionSection({
         isSingleAnswer={isSingleAnswer}
       />
       {showNext && (
-        <div className="mt-4 flex justify-end">
+        <div className={styles.buttonContainer}>
           <button
             onClick={onNext}
             disabled={!canProceed}
-            className={`px-6 py-2 rounded-lg transition-colors ${canProceed
-              ? 'bg-blue-600 text-white hover:bg-blue-700'
-              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              }`}
+            className={styles.button}
           >
             다음
           </button>
         </div>
       )}
       {isLast && (
-        <div className="mt-4 flex justify-end">
+        <div className={styles.buttonContainer}>
           <button
             onClick={() => {
               if (canProceed) {
@@ -83,10 +81,7 @@ export default function QuestionSection({
               }
             }}
             disabled={!canProceed}
-            className={`px-6 py-2 rounded-lg transition-colors ${canProceed
-              ? 'bg-blue-600 text-white hover:bg-blue-700'
-              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              }`}
+            className={styles.button}
           >
             완료
           </button>

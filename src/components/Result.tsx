@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation } from 'react-router-dom';
+import styles from './Result.module.css';
 
 interface Answer {
   text: string;
@@ -16,13 +17,13 @@ const Result = () => {
   const responses = location.state?.responses || [];
 
   return (
-    <div className="mt-8 p-6 bg-white rounded-lg shadow-sm">
-      <h3 className="text-xl font-semibold text-gray-800 mb-4">회고 완료!</h3>
-      <div className="space-y-6">
+    <div className={styles.container}>
+      <h3 className={styles.title}>회고 완료!</h3>
+      <div className={styles.responseList}>
         {responses.map((answer: Response, idx: number) => (
-          <div key={idx} className="border-b border-gray-200 pb-4 last:border-0">
-            <ul className="ml-4 space-y-1">
-              <li className="text-gray-600">• {answer.text}</li>
+          <div key={idx} className={styles.responseItem}>
+            <ul className={styles.answerList}>
+              <li className={styles.answerItem}>• {answer.text}</li>
             </ul>
           </div>
         ))}

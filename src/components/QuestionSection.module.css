@@ -1,3 +1,41 @@
-.text {
-    color: red;
+.container {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.question {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.buttonContainer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.button:disabled {
+  background-color: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.button:not(:disabled) {
+  background-color: #2563eb;
+  color: white;
+}
+
+.button:not(:disabled):hover {
+  background-color: #1d4ed8;
 }

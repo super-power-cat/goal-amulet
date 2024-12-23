@@ -1,0 +1,38 @@
+.container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.responseList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.responseItem {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 1rem;
+}
+
+.responseItem:last-child {
+  border-bottom: none;
+}
+
+.answerList {
+  margin-left: 1rem;
+}
+
+.answerItem {
+  color: #4b5563;
+  margin-bottom: 0.25rem;
+} 
