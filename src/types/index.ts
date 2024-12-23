@@ -18,3 +18,17 @@ export interface FirestoreQuestion {
   isSingleAnswer: boolean;
   isRefresh: boolean;
 }
+
+export interface Comment {
+  id: string;
+  text: string;
+  author: string;
+  createdAt: string;
+}
+
+export interface ReflectionResponse {
+  questionId: number;
+  questionText: string;
+  answers: Answer[];
+  comments: Comment[];
+}
