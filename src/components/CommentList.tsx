@@ -39,41 +39,44 @@ export const CommentList: React.FC<CommentListProps> = ({ comments, onAddComment
         )}
       </div>
 
-      {isAdding && (
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <input
-            type="text"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            placeholder="닉네임을 입력하세요..."
-            className={styles.input}
-          />
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="댓글을 입력하세요..."
-            className={styles.textarea}
-          />
-          <div className={styles.buttons}>
-            <button
-              type="button"
-              onClick={() => setIsAdding(false)}
-              className={styles.cancelButton}
-            >
-              취소
-            </button>
-            <button
-              type="submit"
-              disabled={!newComment.trim() || !author.trim()}
-              className={styles.submitButton}
-            >
-              등록
-            </button>
-          </div>
-        </form>
-      )}
-
       <div className={styles.commentList}>
+        {isAdding && (
+          <div className={`${styles.comment} ${styles.newComment}`}>
+            <form onSubmit={handleSubmit} className={styles.commentForm}>
+              <textarea
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                placeholder="메모를 남겨보세요..."
+                className={styles.commentInput}
+              />
+              <div className={styles.commentFooter}>
+                <input
+                  type="text"
+                  value={author}
+                  onChange={(e) => setAuthor(e.target.value)}
+                  placeholder="닉네임"
+                  className={styles.authorInput}
+                />
+                <div className={styles.buttonGroup}>
+                  <button
+                    type="button"
+                    onClick={() => setIsAdding(false)}
+                    className={styles.cancelButton}
+                  >
+                    취소
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={!newComment.trim() || !author.trim()}
+                    className={styles.submitButton}
+                  >
+                    저장
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        )}
         {comments.map((comment) => (
           <Comment key={comment.id} comment={comment} />
         ))}
