@@ -1,18 +1,20 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { useQuestions } from './hooks/useQuestions';
 import QuestionSection from './components/QuestionSection';
 import Result from './components/Result'; // Result 컴포넌트 가져오기
 import { Question, Answer } from './types';
 
-const questions: Question[] = [
-  { id: 1, text: '이름이 뭐예요?', answers: [], isSingleAnswer: true, isRefresh: false },
-  { id: 2, text: '24년 회고를 해볼까요?', answers: [], isSingleAnswer: false, isRefresh: true },
-  { id: 3, text: '올해의 가장 큰 성과는 무엇인가요?', answers: [], isSingleAnswer: false, isRefresh: true },
-  { id: 4, text: '내년의 목표는 무엇인가요?', answers: [], isSingleAnswer: false, isRefresh: true },
-  { id: 5, text: '나에게 하고 싶은 말이 있다면?', answers: [], isSingleAnswer: false, isRefresh: true },
-];
+// const questions: Question[] = [
+//   { id: 1, text: '이름이 뭐예요?', answers: [], isSingleAnswer: true, isRefresh: false },
+//   { id: 2, text: '24년 회고를 해볼까요?', answers: [], isSingleAnswer: false, isRefresh: true },
+//   { id: 3, text: '올해의 가장 큰 성과는 무엇인가요?', answers: [], isSingleAnswer: false, isRefresh: true },
+//   { id: 4, text: '내년의 목표는 무엇인가요?', answers: [], isSingleAnswer: false, isRefresh: true },
+//   { id: 5, text: '나에게 하고 싶은 말이 있다면?', answers: [], isSingleAnswer: false, isRefresh: true },
+// ];
 
 function QuestionFlow() {
+  const { questions, loading, error } = useQuestions();
   const [responses, setResponses] = useState<Question[]>(questions);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
@@ -30,8 +32,7 @@ function QuestionFlow() {
 
   // const isComplete = responses.every(q => q.answers.length > 0 &&
   //   q.answers.every(a => a.text.trim() !== ''));
-
-  console.log(currentQuestionIndex);
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto py-12 px-4">
@@ -43,7 +44,7 @@ function QuestionFlow() {
           {questions.slice(0, currentQuestionIndex + 1).map((question, index) => (
             <QuestionSection
               key={question.id}
-              question={question.text}
+              question={question.content}
               initialAnswers={responses.find((q) => q.id === question.id)?.answers}
               onAnswersChange={(answers) => handleAnswersChange(question.id, answers)}
               onNext={handleNextQuestion}
