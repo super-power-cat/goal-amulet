@@ -6,7 +6,7 @@ import { saveUserReview } from '../services/reviewService';
 import styles from './QuestionSection.module.css';
 
 interface QuestionSectionProps {
-  question: string;
+  content: string;
   initialAnswers?: Answer[];
   onAnswersChange: (answers: Answer[]) => void;
   onNext: () => void;
@@ -17,7 +17,7 @@ interface QuestionSectionProps {
 }
 
 export default function QuestionSection({
-  question,
+  content,
   onAnswersChange,
   onNext,
   showNext,
@@ -71,7 +71,7 @@ export default function QuestionSection({
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.question}>{question}</h2>
+      <h2 className={styles.question}>{content}</h2>
       <AnswerInput
         answers={answers}
         onAnswerChange={handleAnswerChange}

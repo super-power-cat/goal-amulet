@@ -45,7 +45,7 @@ export default function QuestionFlow() {
           {responses.slice(0, currentQuestionIndex + 1).map((question, index) => (
             <QuestionSection
               key={question.id}
-              question={question.content}
+              content={question.content}
               initialAnswers={responses.find((q) => q.id === question.id)?.answers}
               onAnswersChange={(answers) => handleAnswersChange(question.id, answers)}
               onNext={handleNextQuestion}
