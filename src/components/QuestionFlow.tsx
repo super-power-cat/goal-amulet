@@ -1,13 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuestions } from '../hooks/useQuestions';
-import QuestionSection from '../components/QuestionSection';
+import QuestionSection from './QuestionSection';
 import { Question, Answer } from '../types';
 import styles from '../App.module.css';
 
-function QuestionFlow() {
-  const { questions, loading, error } = useQuestions();
-  const [responses, setResponses] = useState<Question[]>(questions);
+export default function QuestionFlow() {
+  const { questions: fetchedQuestions, loading, error } = useQuestions();
+  const [responses, setResponses] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+  useEffect(() => {
+    if (fetchedQuestions) {
+      setResponses(fetchedQuestions.map(q => ({
+        ...q,
+        answers: []
+      })));
+    }
+  }, [fetchedQuestions]);
+
+  if (loading) return <div>로딩 중...</div>;
+  if (error) return <div>{error}</div>;
+  if (!responses.length) return <div>질문을 불러오는 중...</div>;
 
   const handleAnswersChange = (questionId: number, answers: Answer[]) => {
     setResponses(prev => prev.map(q =>
@@ -16,7 +29,7 @@ function QuestionFlow() {
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < responses.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
     }
   };
@@ -29,16 +42,17 @@ function QuestionFlow() {
         </h1>
 
         <div className={styles.questionList}>
-          {questions.slice(0, currentQuestionIndex + 1).map((question, index) => (
+          {responses.slice(0, currentQuestionIndex + 1).map((question, index) => (
             <QuestionSection
               key={question.id}
               question={question.content}
               initialAnswers={responses.find((q) => q.id === question.id)?.answers}
               onAnswersChange={(answers) => handleAnswersChange(question.id, answers)}
               onNext={handleNextQuestion}
-              showNext={index === currentQuestionIndex && currentQuestionIndex < questions.length - 1}
-              isLast={index === questions.length - 1}
+              showNext={index === currentQuestionIndex && currentQuestionIndex < responses.length - 1}
+              isLast={index === responses.length - 1}
               isSingleAnswer={question.isSingleAnswer}
+              allResponses={responses}
             />
           ))}
         </div>
@@ -46,5 +60,3 @@ function QuestionFlow() {
     </div>
   );
 }
-
-export default QuestionFlow;

@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AnswerInput from './AnswerInput';
 import { Answer } from '../types';
-import { useNavigate } from 'react-router-dom';
+import { saveUserReview } from '../services/reviewService';
 import styles from './QuestionSection.module.css';
 
 interface QuestionSectionProps {
@@ -12,7 +13,9 @@ interface QuestionSectionProps {
   showNext: boolean;
   isLast: boolean;
   isSingleAnswer: boolean;
+  allResponses: Answer[]; // Add this prop
 }
+
 export default function QuestionSection({
   question,
   onAnswersChange,
@@ -20,10 +23,12 @@ export default function QuestionSection({
   showNext,
   isLast,
   isSingleAnswer,
+  allResponses, // Add this prop
 }: QuestionSectionProps) {
   const navigate = useNavigate();
   const initialAnswers = [{ id: '1', text: '' }];
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleAddAnswer = () => {
     const newAnswers = [...answers, { id: Date.now().toString(), text: '' }];
@@ -45,6 +50,21 @@ export default function QuestionSection({
     );
     setAnswers(newAnswers);
     onAnswersChange(newAnswers);
+  };
+
+  const handleComplete = async () => {
+    if (canProceed && !isSubmitting) {
+      setIsSubmitting(true);
+      try {
+        const reviewId = await saveUserReview(allResponses); // save review
+        navigate(`/result/${reviewId}`);
+      } catch (error) {
+        console.error('Error saving review:', error);
+        // Handle error appropriately
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
   };
 
   const canProceed = answers.every((answer) => answer.text.trim() !== '');
@@ -73,17 +93,11 @@ export default function QuestionSection({
       {isLast && (
         <div className={styles.buttonContainer}>
           <button
-            onClick={() => {
-              if (canProceed) {
-                navigate('/result', {
-                  state: { responses: answers }
-                });
-              }
-            }}
-            disabled={!canProceed}
+            onClick={handleComplete}
+            disabled={!canProceed || isSubmitting}
             className={styles.button}
           >
-            완료
+            {isSubmitting ? '저장 중...' : '완료'}
           </button>
         </div>
       )}

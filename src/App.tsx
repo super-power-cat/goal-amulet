@@ -1,14 +1,13 @@
-
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
-import Result from './components/Result';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import QuestionFlow from './components/QuestionFlow';
+import Result from './components/Result';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<QuestionFlow />} />
-        <Route path="/result" element={<Result />} />
+        <Route path="/result/:reviewId" element={<Result />} />
       </Routes>
     </BrowserRouter>
   );

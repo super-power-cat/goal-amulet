@@ -1,5 +1,5 @@
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
-import { db } from '../config/firebase'
+import { db } from '../config/firebase';
 import { FirestoreQuestion, Question } from '../types';
 
 export const fetchQuestions = async (): Promise<Question[]> => {
@@ -12,7 +12,7 @@ export const fetchQuestions = async (): Promise<Question[]> => {
       const data = doc.data() as FirestoreQuestion;
       return {
         ...data,
-        answers: [] // 초기 답변은 빈 배열로 설정
+        answers: []
       };
     });
   } catch (error) {
