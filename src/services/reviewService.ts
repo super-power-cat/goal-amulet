@@ -1,9 +1,9 @@
 import { collection, doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { Question, Result } from '../types';
+import { BasicQuestion, Result } from '../types';
 import { generateUniqueId } from '../utils/idGenerator';
 
-export const saveUserReview = async (questions: Question[]): Promise<string> => {
+export const saveUserReview = async (questions: BasicQuestion[]): Promise<string> => {
   const resultId = generateUniqueId();
   
   try {

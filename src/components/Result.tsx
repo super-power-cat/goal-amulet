@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUserReview } from '../services/reviewService';
-import { Question, Comment as CommentType } from '../types';
+import { Question, Comment as CommentType, BasicQuestion } from '../types';
 import { CommentList } from './CommentList';
 import styles from './Result.module.css';
 
 const Result = () => {
   const { reviewId } = useParams();
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<BasicQuestion[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

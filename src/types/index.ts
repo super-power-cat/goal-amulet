@@ -15,6 +15,7 @@ export interface BasicQuestion {
   id: number;
   content: string;
   answers: Answer[];
+  comments: Comment[];
 }
 
 export interface FirestoreQuestion {

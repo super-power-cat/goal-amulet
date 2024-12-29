@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnswerInput from './AnswerInput';
-import { Answer } from '../types';
+import { Answer, Question, BasicQuestion } from '../types';
 import { saveUserReview } from '../services/reviewService';
 import styles from './QuestionSection.module.css';
 
@@ -13,7 +13,7 @@ interface QuestionSectionProps {
   showNext: boolean;
   isLast: boolean;
   isSingleAnswer: boolean;
-  allResponses: Answer[]; // Add this prop
+  allResponses: Question[]; // Add this prop
 }
 
 export default function QuestionSection({
@@ -56,7 +56,16 @@ export default function QuestionSection({
     if (canProceed && !isSubmitting) {
       setIsSubmitting(true);
       try {
-        const reviewId = await saveUserReview(allResponses); // save review
+        // Convert allResponses to BasicQuestion type
+        const basicQuestions: BasicQuestion[] = allResponses.map(rs => {
+          return {
+            id: rs.id,
+            content: rs.content,
+            answers: rs.answers,
+            comments: []
+          }
+        })
+        const reviewId = await saveUserReview(basicQuestions); // Save review
         navigate(`/result/${reviewId}`);
       } catch (error) {
         console.error('Error saving review:', error);
@@ -66,6 +75,7 @@ export default function QuestionSection({
       }
     }
   };
+  
 
   const canProceed = answers.every((answer) => answer.text.trim() !== '');
 
