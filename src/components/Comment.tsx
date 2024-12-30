@@ -13,7 +13,7 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
       <div className={styles.footer}>
         <span className={styles.author}>{comment.author}</span>
         <span className={styles.date}>
-          {new Date(comment.createdAt).toLocaleDateString()}
+          {comment.createdAt.toDate().toLocaleDateString()}
         </span>
       </div>
     </div>

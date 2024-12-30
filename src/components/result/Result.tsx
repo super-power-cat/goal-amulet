@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUserReview } from '../../services/reviewService';
+import { getComments } from '../../services/commentService';
 import { BasicQuestion, Question } from '../../types';
 import { ResultHeader } from './ResultHeader';
 import { ResponseList } from './ResponseResult';
@@ -17,13 +18,18 @@ const Result = () => {
       if (!reviewId) return;
       
       try {
-        const result = await getUserReview(reviewId);
-        // Initialize questions with empty comments array
-        const questionsWithEmptyComments: BasicQuestion[] = result.questions.map(question => ({
+        const [result, comments] = await Promise.all([
+          getUserReview(reviewId),
+          getComments(reviewId)
+        ]);
+
+        // 각 질문에 해당하는 댓글을 매핑
+        const questionsWithComments: BasicQuestion[] = result.questions.map(question => ({
           ...question,
-          comments: []
+          comments: comments.filter(comment => comment.questionId === question.id)
         }));
-        setQuestions(questionsWithEmptyComments);
+
+        setQuestions(questionsWithComments);
       } catch (err) {
         setError('데이터를 불러오는데 실패했습니다.');
       } finally {

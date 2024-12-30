@@ -1,4 +1,4 @@
-import { collection, query, where, getDocs, addDoc, orderBy } from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc, orderBy, Timestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { Comment } from '../types';
 
@@ -14,7 +14,7 @@ export const saveComment = async (
       questionId,
       text,
       author,
-      createdAt: new Date().toISOString(),
+      createdAt: Timestamp.fromDate(new Date()),
     };
 
     const docRef = await addDoc(collection(db, 'comments'), comment);
@@ -30,13 +30,13 @@ export const saveComment = async (
 };
 
 export const getComments = async (resultId: string): Promise<Comment[]> => {
+    console.log('getComments', resultId);
   try {
     const q = query(
-      collection(db, 'comments'),
-      where('resultId', '==', resultId),
-      orderBy('createdAt', 'desc')
-    );
-
+        collection(db, 'comments'),
+        where('resultId', '==', resultId)
+      );
+      
     const querySnapshot = await getDocs(q);
     return querySnapshot.docs.map(doc => ({
       id: doc.id,

@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface Answer {
   id: string;
   text: string;
@@ -36,7 +38,7 @@ export interface Comment {
   id: string;
   text: string;
   author: string;
-  createdAt: string;
+  createdAt: Timestamp;
   resultId: string;
   questionId: number;
 }
