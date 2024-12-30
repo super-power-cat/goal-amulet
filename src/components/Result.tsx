@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUserReview } from '../services/reviewService';
 import { Question, Comment as CommentType, BasicQuestion } from '../types';
+import ShareButtons from './share/ShareButtons';
 import { CommentList } from './CommentList';
 import styles from './Result.module.css';
 
@@ -52,9 +53,13 @@ const Result = () => {
     );
   };
 
+  const shareUrl = window.location.href;
+  const shareTitle = '2024년 회고';
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>2024년 회고</h1>
+      <ShareButtons url={shareUrl} title={shareTitle} />
       <div className={styles.responses}>
         {questions.map((question) => (
           <div key={question.id} className={styles.responseItem}>
