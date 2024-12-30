@@ -15,7 +15,7 @@ export const ResponseItem = ({ question, reviewId, onQuestionUpdate }: ResponseI
       const newComment = await saveComment(reviewId, question.id, text, author);
       onQuestionUpdate({
         ...question,
-        comments: [...(question.comments || []), newComment]
+        comments: [newComment, ...(question.comments || [])]
       });
     } catch (error) {
       console.error('Error adding comment:', error);
