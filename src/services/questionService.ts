@@ -5,7 +5,11 @@ import { FirestoreQuestion, Question } from '../types';
 export const fetchQuestions = async (): Promise<Question[]> => {
   try {
     const questionsRef = collection(db, 'questions');
-    const q = query(questionsRef, orderBy('id'));
+    const q = query(
+      questionsRef,
+      where('isDefault', '==', true),
+      orderBy('id')
+    );
     const querySnapshot = await getDocs(q);
     
     return querySnapshot.docs.map(doc => {
