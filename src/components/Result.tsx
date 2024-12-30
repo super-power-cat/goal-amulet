@@ -59,7 +59,9 @@ const Result = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>2024년 회고</h1>
-      <ShareButtons url={shareUrl} title={shareTitle} />
+      <div className={styles.shareButtonsContainer}>
+        <ShareButtons url={shareUrl} title={shareTitle} />
+      </div>
       <div className={styles.responses}>
         {questions.map((question) => (
           <div key={question.id} className={styles.responseItem}>

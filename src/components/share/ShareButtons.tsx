@@ -1,10 +1,6 @@
 import { Copy, Share2 } from 'lucide-react';
 import { shareToKakao, shareToFacebook, shareToTwitter, shareToLinkedIn } from '../../utils/shareUtils';
 import styles from './ShareButtons.module.css';
-import kakaoIcon from '/kakao.svg';
-import facebookIcon from '/facebook.svg';
-import twitterIcon from '/twitter.svg';
-import linkedinIcon from '/linkedin.svg';
 
 interface ShareButtonsProps {
   url: string;
@@ -41,7 +37,7 @@ export default function ShareButtons({ url, title }: ShareButtonsProps) {
           className={`${styles.socialButton} ${styles.kakao}`}
           aria-label="카카오톡 공유"
         >
-          <img src="/public/kakao.svg" alt="카카오톡" className={styles.icon} />
+          <img src="/kakao.svg" alt="카카오톡" className={styles.icon} />
         </button>
         
         <button
