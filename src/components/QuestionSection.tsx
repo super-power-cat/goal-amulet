@@ -4,31 +4,44 @@ import AnswerInput from './AnswerInput';
 import { Answer, Question, BasicQuestion } from '../types';
 import { saveUserReview } from '../services/reviewService';
 import styles from './QuestionSection.module.css';
+import { RefreshCw } from 'lucide-react';
+import { fetchRandomQuestionByType } from '../services/questionService';
 
 interface QuestionSectionProps {
   content: string;
+  questionId: number;
+  type: string;
   initialAnswers?: Answer[];
   onAnswersChange: (answers: Answer[]) => void;
   onNext: () => void;
   showNext: boolean;
   isLast: boolean;
+  isRefresh: boolean;
   isSingleAnswer: boolean;
-  allResponses: Question[]; // Add this prop
+  allResponses: Question[];
+  onQuestionRefresh: (questionId: number, newContent: string) => void;
 }
 
 export default function QuestionSection({
   content,
+  questionId,
+  type,
   onAnswersChange,
   onNext,
   showNext,
   isLast,
+  isRefresh,
   isSingleAnswer,
-  allResponses, // Add this prop
+  allResponses,
+  onQuestionRefresh,
 }: QuestionSectionProps) {
+  console.log(isRefresh);
+  
   const navigate = useNavigate();
   const initialAnswers = [{ id: '1', text: '' }];
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddAnswer = () => {
     const newAnswers = [...answers, { id: Date.now().toString(), text: '' }];
@@ -79,9 +92,40 @@ export default function QuestionSection({
 
   const canProceed = answers.every((answer) => answer.text.trim() !== '');
 
+  const handleRefreshQuestion = async () => {
+    if (isRefresh) return;
+    
+    setIsLoading(true);
+    try {
+      const newQuestion = await fetchRandomQuestionByType(questionId, type);
+      if (newQuestion) {
+        onQuestionRefresh(questionId, newQuestion.content);
+      }
+    } catch (error) {
+      console.error('Error refreshing question:', error);
+      alert('새로운 질문을 불러오는데 실패했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <h2 className={styles.question}>{content}</h2>
+      <div className={styles.questionHeader}>
+        <h2 className={styles.question}>{content}</h2>
+        {isRefresh && (
+          <button
+            onClick={handleRefreshQuestion}
+            disabled={isLoading}
+            className={styles.refreshButton}
+          >
+            <RefreshCw 
+              size={20} 
+              className={isLoading ? styles.spinning : ''}
+            />
+          </button>
+        )}
+      </div>
       <AnswerInput
         answers={answers}
         onAnswerChange={handleAnswerChange}

@@ -33,7 +33,13 @@ export default function QuestionFlow() {
       setCurrentQuestionIndex(prev => prev + 1);
     }
   };
-  
+
+  const handleQuestionRefresh = (questionId: number, newContent: string) => {
+    setResponses(prev => prev.map(q =>
+      q.id === questionId ? { ...q, content: newContent, answers: [] } : q
+    ));
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -46,6 +52,9 @@ export default function QuestionFlow() {
             <QuestionSection
               key={question.id}
               content={question.content}
+              questionId={question.id}
+              type={question.type}
+              isRefresh={question.isRefresh}
               initialAnswers={responses.find((q) => q.id === question.id)?.answers}
               onAnswersChange={(answers) => handleAnswersChange(question.id, answers)}
               onNext={handleNextQuestion}
@@ -53,6 +62,7 @@ export default function QuestionFlow() {
               isLast={index === responses.length - 1}
               isSingleAnswer={question.isSingleAnswer}
               allResponses={responses}
+              onQuestionRefresh={handleQuestionRefresh}
             />
           ))}
         </div>

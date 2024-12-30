@@ -9,6 +9,7 @@ export interface Answer {
 export interface Question {
   id: number;
   content: string;
+  type: string;
   answers: Answer[];
   isSingleAnswer: boolean; // 하나의 응답만 받는 질문일 경우
   isRefresh: boolean; // 질문을 새로 받을 수 있는 경우
@@ -24,6 +25,7 @@ export interface BasicQuestion {
 export interface FirestoreQuestion {
   id: number;
   content: string;
+  type: string;
   isSingleAnswer: boolean;
   isRefresh: boolean;
 }

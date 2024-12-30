@@ -6,11 +6,17 @@
   margin-bottom: 1.5rem;
 }
 
+.questionHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .question {
   font-size: 1.25rem;
   font-weight: 700;
   color: #1f2937;
-  margin-bottom: 1rem;
+  margin: 0;
 }
 
 .buttonContainer {
