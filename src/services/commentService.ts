@@ -30,7 +30,6 @@ export const saveComment = async (
 };
 
 export const getComments = async (resultId: string): Promise<Comment[]> => {
-    console.log('getComments', resultId);
   try {
     const q = query(
         collection(db, 'comments'),

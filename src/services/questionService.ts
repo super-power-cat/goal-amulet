@@ -22,18 +22,16 @@ export const fetchQuestions = async (): Promise<Question[]> => {
   }
 }
 
-export const fetchRandomQuestionByType = async (currentId: number, type: string): Promise<FirestoreQuestion | null> => {
+export const fetchRandomQuestionByType = async (type: string): Promise<FirestoreQuestion | null> => {
   try {
-    const questionsRef = collection(db, 'questions');
     const q = query(
-      questionsRef, 
-      where('type', '==', type),
-      where('id', '!=', currentId)
+      collection(db, 'questions'),
+      where('type', '==', type)
     );
     
     const querySnapshot = await getDocs(q);
     const questions = querySnapshot.docs.map(doc => doc.data() as FirestoreQuestion);
-    
+
     if (questions.length === 0) return null;
     
     // 랜덤하게 하나의 질문 선택

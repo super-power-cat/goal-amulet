@@ -45,3 +45,39 @@
 .button:not(:disabled):hover {
   background-color: #1d4ed8;
 }
+.refreshContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.checkmark {
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

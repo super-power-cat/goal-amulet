@@ -42,6 +42,7 @@ export default function QuestionSection({
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [refreshSuccess, setRefreshSuccess] = useState(false);
 
   const handleAddAnswer = () => {
     const newAnswers = [...answers, { id: Date.now().toString(), text: '' }];
@@ -93,13 +94,15 @@ export default function QuestionSection({
   const canProceed = answers.every((answer) => answer.text.trim() !== '');
 
   const handleRefreshQuestion = async () => {
-    if (isRefresh) return;
+    if (isLoading) return; // 무한히 불러올 수 있음 추후 수정 필요
     
     setIsLoading(true);
+    setRefreshSuccess(false);
     try {
       const newQuestion = await fetchRandomQuestionByType(questionId, type);
       if (newQuestion) {
         onQuestionRefresh(questionId, newQuestion.content);
+        setRefreshSuccess(true);
       }
     } catch (error) {
       console.error('Error refreshing question:', error);
@@ -114,16 +117,35 @@ export default function QuestionSection({
       <div className={styles.questionHeader}>
         <h2 className={styles.question}>{content}</h2>
         {isRefresh && (
-          <button
-            onClick={handleRefreshQuestion}
-            disabled={isLoading}
-            className={styles.refreshButton}
-          >
-            <RefreshCw 
-              size={20} 
-              className={isLoading ? styles.spinning : ''}
-            />
-          </button>
+          <div className={styles.refreshContainer}>
+            <button
+              onClick={handleRefreshQuestion}
+              disabled={isLoading}
+              className={styles.refreshButton}
+            >
+              <RefreshCw 
+                size={20} 
+                className={isLoading ? styles.spinning : ''}
+              />
+            </button>
+            {refreshSuccess && (
+              <div className={styles.checkmark}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+            )}
+          </div>
         )}
       </div>
       <AnswerInput
