@@ -9,6 +9,8 @@ interface ResultHeaderProps {
 export const ResultHeader = ({ title, url }: ResultHeaderProps) => (
   <div className={styles.header}>
     <h1 className={styles.title}>{title}</h1>
-    <ShareButtons url={url} title={title} />
+    <div className={styles.shareButtonsContainer}>
+      <ShareButtons url={url} title={title} />  
+    </div>
   </div>
 );
