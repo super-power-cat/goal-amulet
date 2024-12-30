@@ -12,7 +12,8 @@ export const fetchQuestions = async (): Promise<Question[]> => {
       const data = doc.data() as FirestoreQuestion;
       return {
         ...data,
-        answers: []
+        answers: [],
+        comments: []
       };
     });
   } catch (error) {
