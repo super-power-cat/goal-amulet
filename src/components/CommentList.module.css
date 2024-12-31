@@ -99,14 +99,18 @@
 
 .buttonGroup {
   display: flex;
-  gap: 0.5rem;
+  gap: 3px;
 }
 
-.cancelButton, .submitButton {
-  padding: 0.25rem 0.75rem;
+.cancelButton,
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 0.25rem;
-  font-size: 0.75rem;
-  transition: all 0.2s;
+  min-width: 45px;
+  height: 32px;
+  font-size: 0.8rem;
 }
 
 .cancelButton {

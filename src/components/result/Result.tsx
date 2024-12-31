@@ -6,6 +6,7 @@ import { BasicQuestion, Question } from '../../types';
 import { ResultHeader } from './ResultHeader';
 import { ResponseList } from './ResponseResult';
 import styles from './Result.module.css';
+import { StartButton } from '../StartButton';
 
 const Result = () => {
   const { reviewId } = useParams();
@@ -55,6 +56,7 @@ const Result = () => {
         reviewId={reviewId || ''} 
         onQuestionsUpdate={setQuestions} 
       />
+      <StartButton />
     </div>
   );
 };
