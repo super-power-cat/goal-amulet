@@ -12,11 +12,24 @@ export default function ShareButtons({ url, title, resultId }: ShareButtonsProps
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(url);
+      window.gtag('event', 'share', {
+        method: 'copy_link',
+        content_type: 'result',
+        item_id: resultId
+      });
       alert('링크가 복사되었습니다!');
     } catch (err) {
       console.error('Failed to copy:', err);
       alert('링크 복사에 실패했습니다.');
     }
+  };
+
+  const handleSocialShare = (platform: string) => {
+    window.gtag('event', 'share_link', {
+      method: platform,
+      content_type: 'result',
+      item_id: resultId
+    });
   };
 
   return (
@@ -34,7 +47,10 @@ export default function ShareButtons({ url, title, resultId }: ShareButtonsProps
       
       <div className={styles.socialButtons}>
         <button
-          onClick={() => shareToKakao(resultId, title)}
+          onClick={() => {
+            shareToKakao(resultId, title);
+            handleSocialShare('kakao');
+          }}
           className={`${styles.socialButton} ${styles.kakao}`}
           aria-label="카카오톡 공유"
         >
@@ -42,7 +58,10 @@ export default function ShareButtons({ url, title, resultId }: ShareButtonsProps
         </button>
         
         <button
-          onClick={() => shareToFacebook(url)}
+          onClick={() => {
+            shareToFacebook(url);
+            handleSocialShare('facebook');
+          }}
           className={`${styles.socialButton} ${styles.facebook}`}
           aria-label="페이스북 공유"
         >
@@ -50,7 +69,10 @@ export default function ShareButtons({ url, title, resultId }: ShareButtonsProps
         </button>
         
         <button
-          onClick={() => shareToTwitter(url, title)}
+          onClick={() => {
+            shareToTwitter(url, title);
+            handleSocialShare('twitter');
+          }}
           className={`${styles.socialButton} ${styles.twitter}`}
           aria-label="트위터 공유"
         >
@@ -58,7 +80,10 @@ export default function ShareButtons({ url, title, resultId }: ShareButtonsProps
         </button>
         
         <button
-          onClick={() => shareToLinkedIn(url, title)}
+          onClick={() => {
+            shareToLinkedIn(url, title);
+            handleSocialShare('linkedin');
+          }}
           className={`${styles.socialButton} ${styles.linkedin}`}
           aria-label="링크드인 공유"
         >
