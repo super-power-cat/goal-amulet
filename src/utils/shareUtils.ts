@@ -1,28 +1,16 @@
 export const shareToKakao = (url: string, title: string) => {
-    if (window.Kakao) {
-      window.Kakao.Link.sendDefault({
-        objectType: 'feed',
-        content: {
-          title: title,
-          description: '2024년 회고를 확인해보세요!',
-          imageUrl: 'https://your-image-url.com/og-image.jpg',
-          link: {
-            mobileWebUrl: url,
-            webUrl: url,
-          },
-        },
-        buttons: [
-          {
-            title: '웹으로 보기',
-            link: {
-              mobileWebUrl: url,
-              webUrl: url,
-            },
-          },
-        ],
-      });
-    }
-  };
+  if (window.Kakao) {
+    const kakao = window.Kakao;
+    kakao.init(import.meta.env.VITE_KAKAO_JS_KEY);
+
+    kakao.Share.sendCustom({
+      templateId: 111,
+      templateArgs: {
+        title: title,
+        description: '설명 영역입니다.',
+      },
+    });
+  }};
   
   export const shareToFacebook = (url: string) => {
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
