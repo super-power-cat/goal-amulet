@@ -1,6 +1,7 @@
 export const shareToKakao = (url: string, title: string) => {
   if (window.Kakao) {
     const kakao = window.Kakao;
+    console.log("log가 안찍혀욤?..?")
     console.log(import.meta.env.VITE_KAKAO_JS_KEY);
     if (!kakao.isInitialized()) {
       kakao.init(import.meta.env.VITE_KAKAO_JS_KEY);
