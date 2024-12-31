@@ -49,7 +49,7 @@ const Result = () => {
 
   return (
     <div className={styles.container}>
-      <ResultHeader title={shareTitle} url={shareUrl} />
+      <ResultHeader title={shareTitle} url={shareUrl} resultId={reviewId || ''}  />
       <ResponseList 
         questions={questions} 
         reviewId={reviewId || ''} 

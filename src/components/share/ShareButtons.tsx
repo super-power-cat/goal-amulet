@@ -5,9 +5,10 @@ import styles from './ShareButtons.module.css';
 interface ShareButtonsProps {
   url: string;
   title: string;
+  resultId: string;
 }
 
-export default function ShareButtons({ url, title }: ShareButtonsProps) {
+export default function ShareButtons({ url, title, resultId }: ShareButtonsProps) {
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(url);
@@ -33,7 +34,7 @@ export default function ShareButtons({ url, title }: ShareButtonsProps) {
       
       <div className={styles.socialButtons}>
         <button
-          onClick={() => shareToKakao(url, title)}
+          onClick={() => shareToKakao(resultId, title)}
           className={`${styles.socialButton} ${styles.kakao}`}
           aria-label="카카오톡 공유"
         >

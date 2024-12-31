@@ -1,4 +1,4 @@
-export const shareToKakao = (url: string, title: string) => {
+export const shareToKakao = (resultId: string, title: string) => {
   if (window.Kakao) {
     const kakao = window.Kakao;
     console.log("log가 안찍혀욤?..?")
@@ -7,36 +7,36 @@ export const shareToKakao = (url: string, title: string) => {
       kakao.init(import.meta.env.VITE_KAKAO_JS_KEY);
     }
 
-    kakao.Link.sendDefault({
-      objectType: "feed", 
-      content: {
-        title: "제목입니다",
-        description: "설명란입니다",
-        imageUrl:
-          "https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png",
-        link: {
-          mobileWebUrl: "https://www.naver.com",
-          webUrl: "https://www.google.com",
-        },
-      },
-      buttons: [
-        {
-          title: "자세히 보러 가기",
-          link: {
-            mobileWebUrl: "https://www.naver.com",
-            webUrl: "https://www.google.com",
-          },
-        },
-      ],
-    });
-
-    // kakao.Share.sendCustom({
-    //   templateId: 115848,
-    //   templateArgs: {
-    //     title: title,
-    //     description: '설명 영역입니다.',
+    // kakao.Link.sendDefault({
+    //   objectType: "feed", 
+    //   content: {
+    //     title: "제목입니다",
+    //     description: "설명란입니다",
+    //     imageUrl:
+    //       "https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png",
+    //     link: {
+    //       mobileWebUrl: "https://www.naver.com",
+    //       webUrl: "https://www.google.com",
+    //     },
     //   },
+    //   buttons: [
+    //     {
+    //       title: "자세히 보러 가기",
+    //       link: {
+    //         mobileWebUrl: "https://www.naver.com",
+    //         webUrl: "https://www.google.com",
+    //       },
+    //     },
+    //   ],
     // });
+    console.log(resultId);
+
+    kakao.Share.sendCustom({
+      templateId: 115848,
+      templateArgs: {
+        RESULT_ID: resultId
+      },
+    });
   } else {
     console.log("카카오 공유 실패");
   }
