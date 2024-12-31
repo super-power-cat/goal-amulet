@@ -148,13 +148,14 @@ export default function QuestionSection({
           </div>
         )}
       </div>
+      <div className={styles.answerInput}>
       <AnswerInput
         answers={answers}
         onAnswerChange={handleAnswerChange}
         onAddAnswer={handleAddAnswer}
         onRemoveAnswer={handleRemoveAnswer}
         isSingleAnswer={isSingleAnswer}
-      />
+      /></div>
       {showNext && (
         <div className={styles.buttonContainer}>
           <button
