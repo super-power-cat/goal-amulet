@@ -38,7 +38,7 @@ const UploadData = () => {
 
     { id: '27', content: '24년 목표 중 달성한 것이 있어?', isDefault: false, type: "Q_5", isSingleAnswer: false, isRefresh: true },
     { id: '28', content: '24년 목표를 이루면서 배운 점이 있어?', isDefault: false, type: "Q_5", isSingleAnswer: false, isRefresh: true },
-    { id: '29', content: '내년에 새우고 싶은 목표가 뭐야?', isDefault: false, type: "Q_5", isSingleAnswer: false, isRefresh: true },
+    // { id: '29', content: '내년에 새우고 싶은 목표가 뭐야?', isDefault: false, type: "Q_5", isSingleAnswer: false, isRefresh: true },
     { id: '30', content: '목표를 이루며 기억에 남는 순간이 있어?', isDefault: false, type: "Q_5", isSingleAnswer: false, isRefresh: true },
     { id: '31', content: '24년 목표가 뭐였어?', isDefault: true, type: "Q_5", isSingleAnswer: false, isRefresh: true },
     { id: '32', content: '스스로를 칭찬해줘!', isDefault: false, type: "Q_5", isSingleAnswer: false, isRefresh: true },
