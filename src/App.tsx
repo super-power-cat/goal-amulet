@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { usePageTracking } from './utils/analytics';
 import QuestionFlow from './components/QuestionFlow';
 import Result from './components/result/Result';
 
@@ -11,6 +12,11 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
+}
+
+function Analytics() {
+  usePageTracking();
+  return null;
 }
 
 export default App;

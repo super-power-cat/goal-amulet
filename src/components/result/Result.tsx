@@ -46,7 +46,7 @@ const Result = () => {
   if (!questions.length) return <div>회고를 찾을 수 없습니다.</div>;
 
   const shareUrl = window.location.href;
-  const shareTitle = '2024년 회고';
+  const shareTitle = '2024년 돌아보기';
 
   return (
     <div className={styles.container}>
