@@ -1,7 +1,9 @@
 export const shareToKakao = (url: string, title: string) => {
   if (window.Kakao) {
     const kakao = window.Kakao;
-    kakao.init(import.meta.env.VITE_KAKAO_JS_KEY);
+    if (!kakao.isInitialized()) {
+      kakao.init(import.meta.env.VITE_KAKAO_JS_KEY);
+    }
 
     kakao.Share.sendCustom({
       templateId: 111,
@@ -10,7 +12,10 @@ export const shareToKakao = (url: string, title: string) => {
         description: '설명 영역입니다.',
       },
     });
-  }};
+  } else {
+    console.log("카카오 공유 실패");
+  }
+};
   
   export const shareToFacebook = (url: string) => {
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
