@@ -98,7 +98,7 @@ export default function QuestionSection({
     setIsLoading(true);
     setRefreshSuccess(false);
     try {
-      const newQuestion = await fetchRandomQuestionByType(type);
+      const newQuestion = await fetchRandomQuestionByType(questionId, type);
       if (newQuestion) {
         onQuestionRefresh(questionId, newQuestion.content);
         setRefreshSuccess(true);

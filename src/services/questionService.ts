@@ -36,7 +36,7 @@ export const fetchQuestions = async (): Promise<Question[]> => {
 };
 
 
-export const fetchRandomQuestionByType = async (type: string): Promise<FirestoreQuestion | null> => {
+export const fetchRandomQuestionByType = async (qId: number, type: string): Promise<FirestoreQuestion | null> => {
   try {
     const q = query(
       collection(db, 'questions'),
@@ -47,10 +47,28 @@ export const fetchRandomQuestionByType = async (type: string): Promise<Firestore
     const questions = querySnapshot.docs.map(doc => doc.data() as FirestoreQuestion);
 
     if (questions.length === 0) return null;
-    
-    // 랜덤하게 하나의 질문 선택
-    const randomIndex = Math.floor(Math.random() * questions.length);
-    return questions[randomIndex];
+
+    // 최대 3번까지 시도
+    let attempts = 0;
+    let selectedQuestion: FirestoreQuestion;
+
+    do {
+      const randomIndex = Math.floor(Math.random() * questions.length);
+      selectedQuestion = questions[randomIndex];
+      attempts++;
+
+      // 다른 질문을 찾았거나, 최대 시도 횟수에 도달한 경우 종료
+      if (selectedQuestion.id !== qId || attempts >= 3) {
+        break;
+      }
+    } while (true);
+
+    // 3번 시도 후에도 같은 질문이 선택된 경우
+    if (selectedQuestion.id === qId) {
+      return selectedQuestion;
+    }
+
+    return selectedQuestion;
   } catch (error) {
     console.error('Error fetching random question:', error);
     throw error;

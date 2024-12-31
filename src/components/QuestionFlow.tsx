@@ -48,7 +48,10 @@ export default function QuestionFlow() {
         <h1 className={styles.title}>
           한 해 돌아보기
         </h1>
-        <p className={styles.description}>오늘 함께 한 해를 돌아보는 시간을 가져요. 편안하게 회고하기 위해 반말로 진행합니다.</p>
+        <p className={styles.description}>
+          오늘 함께 <b>한 해를 돌아보는 시간</b>을 가져요. 편안하게 회고하기 위해 반말로 진행합니다.
+          <br/><b>7개의 질문</b>들을 답하면 당신만의 페이지가 완성될 거예요. 공유하여 24년을 함께 돌아봐요.
+        </p>
         <div className={styles.questionList}>
           {responses.slice(0, currentQuestionIndex + 1).map((question, index) => (
             <QuestionSection
