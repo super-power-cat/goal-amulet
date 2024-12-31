@@ -6,7 +6,7 @@ export const shareToKakao = (url: string, title: string) => {
     }
 
     kakao.Share.sendCustom({
-      templateId: 111,
+      templateId: 115848,
       templateArgs: {
         title: title,
         description: '설명 영역입니다.',
