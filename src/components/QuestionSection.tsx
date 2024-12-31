@@ -93,11 +93,19 @@ export default function QuestionSection({
   const canProceed = answers.every((answer) => answer.text.trim() !== '');
 
   const handleRefreshQuestion = async () => {
-    if (isLoading) return; // 무한히 불러올 수 있음 추후 수정 필요
+    if (isLoading) return;
     
     setIsLoading(true);
     setRefreshSuccess(false);
     try {
+      window.gtag('event', 'refresh_random_question', {
+        'event_category': 'Question Interaction',
+        'event_label': `Question ${questionId} - Type ${type}`,
+        'question_id': questionId,
+        'question_content': content,
+        'question_type': type
+      });
+
       const newQuestion = await fetchRandomQuestionByType(questionId, type);
       if (newQuestion) {
         onQuestionRefresh(questionId, newQuestion.content);
