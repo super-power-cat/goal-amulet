@@ -6,7 +6,7 @@ const UploadData = () => {
   const db = getFirestore(); // Firestore 인스턴스 가져오기
 
   const data = [
-    { id: '1', content: '이름/닉네임이 뭐야?', isDefault: true, type: "Q_1", isSingleAnswer: true, isRefresh: false },
+    { id: '1', content: '이름이 뭐야?', isDefault: true, type: "Q_1", isSingleAnswer: true, isRefresh: false },
     { id: '2', content: '올 한 해는 어땠어?', isDefault: true, type: "Q_2", isSingleAnswer: true, isRefresh: true },
     { id: '3', content: '24년 몇 월이 가장 행복했어?', isDefault: false, type: "Q_2", isSingleAnswer: false, isRefresh: true },
     { id: '4', content: '기억에 남는 하루가 있어?', isDefault: false, type: "Q_2", isSingleAnswer: false, isRefresh: true },
@@ -42,7 +42,7 @@ const UploadData = () => {
     { id: '30', content: '목표를 이루며 기억에 남는 순간이 있어?', isDefault: false, type: "Q_5", isSingleAnswer: false, isRefresh: true },
     { id: '31', content: '24년 목표가 뭐였어?', isDefault: true, type: "Q_5", isSingleAnswer: false, isRefresh: true },
     { id: '32', content: '스스로를 칭찬해줘!', isDefault: false, type: "Q_5", isSingleAnswer: false, isRefresh: true },
-    { id: '33', content: '24년의 너를 한 마디로 표현해줘!', isDefault: true, type: "Q_5", isSingleAnswer: true, isRefresh: true },
+    { id: '33', content: '24년의 너를 한 마디로 표현해줘!', isDefault: false, type: "Q_5", isSingleAnswer: true, isRefresh: true },
     { id: '34', content: '24년은 어떤 색깔이었어?', isDefault: false, type: "Q_5", isSingleAnswer: true, isRefresh: true },
     { id: '35', content: '24년을 한 문장으로 표현해줘!', isDefault: false, type: "Q_5", isSingleAnswer: true, isRefresh: true },
 
