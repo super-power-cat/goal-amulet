@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "upload.data.ts"]
+  "include": ["src", "src/utils/upload.data.ts"]
 }

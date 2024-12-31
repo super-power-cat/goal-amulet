@@ -8,11 +8,11 @@ export const fetchQuestions = async (): Promise<Question[]> => {
     const q = query(
       questionsRef,
       where('isDefault', '==', true),
-      orderBy('id')
+      // orderBy('type') // Firestore에서 먼저 정렬
     );
     const querySnapshot = await getDocs(q);
     
-    return querySnapshot.docs.map(doc => {
+    const questions = querySnapshot.docs.map(doc => {
       const data = doc.data() as FirestoreQuestion;
       return {
         ...data,
@@ -20,11 +20,21 @@ export const fetchQuestions = async (): Promise<Question[]> => {
         comments: []
       };
     });
+
+    // 코드에서 한 번 더 type으로 정렬
+    questions.sort((a, b) => {
+      if (a.type < b.type) return -1;
+      if (a.type > b.type) return 1;
+      return 0;
+    });
+
+    return questions;
   } catch (error) {
     console.error('Error fetching questions:', error);
     throw error;
   }
-}
+};
+
 
 export const fetchRandomQuestionByType = async (type: string): Promise<FirestoreQuestion | null> => {
   try {

@@ -3,6 +3,7 @@ import { useQuestions } from '../hooks/useQuestions';
 import QuestionSection from './QuestionSection';
 import { Question, Answer } from '../types';
 import styles from '../App.module.css';
+import UploadData from '../utils/upload.data';
 
 export default function QuestionFlow() {
   const { questions: fetchedQuestions, loading, error } = useQuestions();
@@ -17,6 +18,7 @@ export default function QuestionFlow() {
       })));
     }
   }, [fetchedQuestions]);
+
 
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;

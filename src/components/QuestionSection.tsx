@@ -35,7 +35,6 @@ export default function QuestionSection({
   allResponses,
   onQuestionRefresh,
 }: QuestionSectionProps) {
-  console.log(isRefresh);
   
   const navigate = useNavigate();
   const initialAnswers = [{ id: '1', text: '' }];
