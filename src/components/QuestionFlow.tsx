@@ -22,18 +22,22 @@ export default function QuestionFlow() {
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
   if (!responses.length) return <div>질문을 불러오는 중...</div>;
+  console.log('1');
 
   const handleAnswersChange = (questionId: number, answers: Answer[]) => {
+    console.log('1');
     setResponses(prev => prev.map(q =>
       q.id === questionId ? { ...q, answers } : q
     ));
   };
+  console.log('2');
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < responses.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
     }
   };
+  console.log('3');
 
   const handleQuestionRefresh = (questionId: number, newContent: string) => {
     setResponses(prev => prev.map(q =>

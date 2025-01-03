@@ -69,20 +69,19 @@ export default function QuestionSection({
     if (canProceed && !isSubmitting) {
       setIsSubmitting(true);
       try {
-        // Convert allResponses to BasicQuestion type
-        const basicQuestions: BasicQuestion[] = allResponses.map(rs => {
-          return {
-            id: rs.id,
-            content: rs.content,
-            answers: rs.answers,
-            comments: []
-          }
-        })
-        const reviewId = await saveUserReview(basicQuestions); // Save review
-        navigate(`/result/${reviewId}`);
+        const basicQuestions: BasicQuestion[] = allResponses.map(rs => ({
+          id: rs.id,
+          content: rs.content,
+          answers: rs.answers,
+          comments: []
+        }));
+        const reviewId = await saveUserReview(basicQuestions);
+        
+        // 마지막 답변을 state로 전달하며 부적 페이지로 이동
+        const lastAnswer = answers[0]?.text || '';
+        navigate('/amulet', { state: { lastAnswer } });
       } catch (error) {
         console.error('Error saving review:', error);
-        // Handle error appropriately
       } finally {
         setIsSubmitting(false);
       }

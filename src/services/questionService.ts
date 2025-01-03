@@ -3,11 +3,12 @@ import { db } from '../config/firebase';
 import { FirestoreQuestion, Question } from '../types';
 
 export const fetchQuestions = async (): Promise<Question[]> => {
+  console.log('here');
   try {
     const questionsRef = collection(db, 'questions');
     const q = query(
       questionsRef,
-      where('isDefault', '==', true),
+      // where('isDefault', '==', true),
       // orderBy('type') // Firestore에서 먼저 정렬
     );
     const querySnapshot = await getDocs(q);
@@ -27,6 +28,7 @@ export const fetchQuestions = async (): Promise<Question[]> => {
       if (a.type > b.type) return 1;
       return 0;
     });
+    console.log(questions);
 
     return questions;
   } catch (error) {
