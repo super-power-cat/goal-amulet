@@ -1,7 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 // Add ColorOption type
-export type ColorOption = 'green' | 'red' | 'blue';
+export type ColorOption = 'green' | '#FFFF9F' | 'blue';
 
 export interface Answer {
   id: string;

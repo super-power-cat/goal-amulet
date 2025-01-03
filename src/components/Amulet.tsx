@@ -12,12 +12,13 @@ interface AmuletProps {
 
 export const Amulet = ({ initialText }: AmuletProps) => {
   const navigate = useNavigate();
-  const [selectedColor, setSelectedColor] = useState<ColorOption>('green');
+  const [selectedColor, setSelectedColor] = useState<ColorOption>('#FFFF9F');
   const [text, setText] = useState(initialText);
+  const svg: string = '/test4.svg';
 
   const handleDownload = async (isWallpaper: boolean = false) => {
     try {
-      const imageUrl = await createAmuletImage(selectedColor, text, isWallpaper);
+      const imageUrl = await createAmuletImage(selectedColor, svg, text, isWallpaper);
       
       const link = document.createElement('a');
       link.download = isWallpaper ? 'amulet-wallpaper.png' : 'amulet.png';
@@ -48,8 +49,8 @@ export const Amulet = ({ initialText }: AmuletProps) => {
           onClick={() => setSelectedColor('green')}
         />
         <button
-          className={`${styles.colorButton} ${styles.red} ${selectedColor === 'red' ? styles.active : ''}`}
-          onClick={() => setSelectedColor('red')}
+          className={`${styles.colorButton} ${styles.red} ${selectedColor === '#FFFF9F' ? styles.active : ''}`}
+          onClick={() => setSelectedColor('#FFFF9F')}
         />
         <button
           className={`${styles.colorButton} ${styles.blue} ${selectedColor === 'blue' ? styles.active : ''}`}
@@ -58,14 +59,15 @@ export const Amulet = ({ initialText }: AmuletProps) => {
       </div>
 
       <div id="amulet-container" className={styles.amuletContainer} style={{ backgroundColor: selectedColor }}>
-        <img src="/green-amulet.svg" alt="Amulet" className={styles.amuletImage} />
-        <input
-          type="text"
+        <img src={svg} alt="Amulet" className={styles.amuletImage} />
+        <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           className={styles.textInput}
-          placeholder="텍스트를 입력하세요"
-          maxLength={20}
+          placeholder="목표를 입력해줘!"
+          maxLength={60}
+          rows={3}
+          style={{ resize: 'none', height: '4rem' }}
         />
       </div>
 

@@ -12,6 +12,7 @@ export const drawAmulet = async (
   width: number,
   height: number,
   color: ColorOption,
+  svg: string,
   text: string,
   fontSize: number
 ): Promise<void> => {
@@ -21,7 +22,7 @@ export const drawAmulet = async (
 
   // Draw SVG
   const img = new Image();
-  img.src = '/green-amulet.svg'; // svg 파일 파라미터로 받도록 수정 필요
+  img.src = svg; // svg 파일 파라미터로 받도록 수정 필요
   
   await new Promise<void>((resolve) => {
     img.onload = () => {
@@ -48,6 +49,7 @@ export const drawAmulet = async (
 
 export const createAmuletImage = async (
   color: ColorOption,
+  svg: string,
   text: string,
   isWallpaper: boolean = false
 ): Promise<string> => {
@@ -67,11 +69,11 @@ export const createAmuletImage = async (
     const x = (canvas.width - AMULET_WIDTH) / 2;
     const y = (canvas.height - AMULET_HEIGHT) / 2;
     
-    await drawAmulet(ctx, x, y, AMULET_WIDTH, AMULET_HEIGHT, color, text, 24);
+    await drawAmulet(ctx, x, y, AMULET_WIDTH, AMULET_HEIGHT, color, svg, text, 24);
   } else {
     canvas.width = AMULET_WIDTH;
     canvas.height = AMULET_HEIGHT;
-    await drawAmulet(ctx, 0, 0, AMULET_WIDTH, AMULET_HEIGHT, color, text, 20);
+    await drawAmulet(ctx, 0, 0, AMULET_WIDTH, AMULET_HEIGHT, color, svg,  text, 20);
   }
 
   return canvas.toDataURL('image/png');
