@@ -14,7 +14,7 @@ export const Amulet = ({ initialText }: AmuletProps) => {
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState<ColorOption>('#FFFF9F');
   const [text, setText] = useState(initialText);
-  const svg: string = '/test4.svg';
+  const svg: string = '/yellow_amulet.svg';
 
   const handleDownload = async (isWallpaper: boolean = false) => {
     try {
@@ -60,15 +60,9 @@ export const Amulet = ({ initialText }: AmuletProps) => {
 
       <div id="amulet-container" className={styles.amuletContainer} style={{ backgroundColor: selectedColor }}>
         <img src={svg} alt="Amulet" className={styles.amuletImage} />
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          className={styles.textInput}
-          placeholder="목표를 입력해줘!"
-          maxLength={60}
-          rows={3}
-          style={{ resize: 'none', height: '4rem' }}
-        />
+        <div className={styles.amuletText}>
+          {text}
+        </div>
       </div>
 
       <div className={styles.buttonGroup}>

@@ -168,3 +168,21 @@
       justify-content: center;
     }
   }
+  
+  @font-face {
+    font-family: 'amulet_content';
+    src: url('/fonts/amulet_content.ttf?v=1') format('truetype');
+  }
+  
+  .amuletText {
+    font-family: 'amulet_content', sans-serif;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+    word-break: break-word;
+    color: black;
+    font-size: 2rem;
+  }
