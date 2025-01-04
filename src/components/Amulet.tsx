@@ -14,7 +14,7 @@ export const Amulet = ({ initialText }: AmuletProps) => {
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState<ColorOption>('#FFFF9F');
   const [text, setText] = useState(initialText);
-  const svg: string = '/yellow_amulet.svg';
+  const svg: string = '/yellow_amulet_2.svg';
 
   const handleDownload = async (isWallpaper: boolean = false) => {
     try {
@@ -35,6 +35,19 @@ export const Amulet = ({ initialText }: AmuletProps) => {
     navigator.clipboard.writeText(url);
     alert('링크가 복사되었습니다!');
   };
+
+  const getTitleByColor = (color: ColorOption): string => {
+    switch (color) {
+      case 'green':
+        return '행운 부적';
+      case 'blue':
+        return '지혜 부적';
+      case '#FFFF9F':
+      default:
+        return '파워 부적';
+    }
+  };
+  console.log(getTitleByColor(selectedColor));
 
   return (
     <div className={styles.container}>
@@ -60,6 +73,9 @@ export const Amulet = ({ initialText }: AmuletProps) => {
 
       <div id="amulet-container" className={styles.amuletContainer} style={{ backgroundColor: selectedColor }}>
         <img src={svg} alt="Amulet" className={styles.amuletImage} />
+        <div className={styles.amuletTitle}>
+          {getTitleByColor(selectedColor)}
+        </div>
         <div className={styles.amuletText}>
           {text}
         </div>
