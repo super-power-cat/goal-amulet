@@ -48,16 +48,16 @@
     border-color: #000;
   }
   
-  .green {
-    background-color: #22c55e;
+  .GREEN {
+    background-color: #9fffaa;
   }
   
-  .red {
-    background-color: #ef4444;
+  .YELLOW {
+    background-color: #FFFF9F;
   }
   
-  .blue {
-    background-color: #3b82f6;
+  .RED {
+    background-color: #ffbc9f;
   }
   
   .amuletContainer {

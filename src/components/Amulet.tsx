@@ -3,8 +3,9 @@ import { Download, Share2, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { shareToKakao, shareToTwitter } from '../utils/shareUtils';
 import { createAmuletImage } from '../utils/imageUtils';
-import { ColorOption } from '../types';
+import { ColorKey, getColorInfo } from '../types';
 import styles from './Amulet.module.css';
+import { ColorPickerButton } from './ColorPickerButton';
 
 interface AmuletProps {
   initialText: string;
@@ -12,13 +13,14 @@ interface AmuletProps {
 
 export const Amulet = ({ initialText }: AmuletProps) => {
   const navigate = useNavigate();
-  const [selectedColor, setSelectedColor] = useState<ColorOption>('#FFFF9F');
+  const [selectedColor, setSelectedColor] = useState<ColorKey>('YELLOW');
   const [text, setText] = useState(initialText);
-  const svg: string = '/yellow_amulet_2.svg';
+  
+  const colorInfo = getColorInfo(selectedColor);
 
   const handleDownload = async (isWallpaper: boolean = false) => {
     try {
-      const imageUrl = await createAmuletImage(selectedColor, svg, text, isWallpaper);
+      const imageUrl = await createAmuletImage(selectedColor, `/${colorInfo.file}`, text, isWallpaper);
       
       const link = document.createElement('a');
       link.download = isWallpaper ? 'amulet-wallpaper.png' : 'amulet.png';
@@ -36,19 +38,6 @@ export const Amulet = ({ initialText }: AmuletProps) => {
     alert('링크가 복사되었습니다!');
   };
 
-  const getTitleByColor = (color: ColorOption): string => {
-    switch (color) {
-      case 'green':
-        return '행운 부적';
-      case 'blue':
-        return '지혜 부적';
-      case '#FFFF9F':
-      default:
-        return '파워 부적';
-    }
-  };
-  console.log(getTitleByColor(selectedColor));
-
   return (
     <div className={styles.container}>
       <button onClick={() => navigate('/')} className={styles.goToGoalButton}>
@@ -57,24 +46,31 @@ export const Amulet = ({ initialText }: AmuletProps) => {
       </button>
 
       <div className={styles.colorPicker}>
-        <button
-          className={`${styles.colorButton} ${styles.green} ${selectedColor === 'green' ? styles.active : ''}`}
-          onClick={() => setSelectedColor('green')}
+      <ColorPickerButton
+          color="YELLOW" // 파워 부적
+          selectedColor={selectedColor}
+          onColorSelect={setSelectedColor}
         />
-        <button
-          className={`${styles.colorButton} ${styles.red} ${selectedColor === '#FFFF9F' ? styles.active : ''}`}
-          onClick={() => setSelectedColor('#FFFF9F')}
+        <ColorPickerButton
+          color="GREEN" // 행운 부적
+          selectedColor={selectedColor}
+          onColorSelect={setSelectedColor}
         />
-        <button
-          className={`${styles.colorButton} ${styles.blue} ${selectedColor === 'blue' ? styles.active : ''}`}
-          onClick={() => setSelectedColor('blue')}
+        <ColorPickerButton
+          color="RED" // 열정 부적
+          selectedColor={selectedColor}
+          onColorSelect={setSelectedColor}
         />
       </div>
 
-      <div id="amulet-container" className={styles.amuletContainer} style={{ backgroundColor: selectedColor }}>
-        <img src={svg} alt="Amulet" className={styles.amuletImage} />
+      <div 
+        id="amulet-container" 
+        className={styles.amuletContainer} 
+        style={{ backgroundColor: colorInfo.code }}
+      >
+        <img src={`/${colorInfo.file}`} alt="Amulet" className={styles.amuletImage} />
         <div className={styles.amuletTitle}>
-          {getTitleByColor(selectedColor)}
+          {colorInfo.title}
         </div>
         <div className={styles.amuletText}>
           {text}

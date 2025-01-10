@@ -1,7 +1,36 @@
 import { Timestamp } from "firebase/firestore";
 
 // Add ColorOption type
-export type ColorOption = 'green' | '#FFFF9F' | 'blue';
+export type ColorOption = 'GREEN' | 'YELLOW' | 'RED';
+
+export type ColorInfo = {
+  file: string;
+  title: string;
+  code: string;
+};
+
+export const Colors = {
+  GREEN: {
+    file: "luck_amulet.svg",
+    title: "행운 부적",
+    code: "#9fffaa",
+  },
+  YELLOW: {
+    file: "yellow_amulet_2.svg",
+    title: "행복 부적",
+    code: "#FFFF9F",
+  },
+  RED: {
+    file: "yellow_amulet_2.svg",
+    title: "열정 부적",
+    code: "#ffbc9f",
+  },
+} as const;
+
+// Type-safe access to Colors
+export type ColorKey = keyof typeof Colors;
+
+export const getColorInfo = (color: ColorKey): ColorInfo => Colors[color];
 
 export interface Answer {
   id: string;
