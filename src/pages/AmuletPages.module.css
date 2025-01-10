@@ -1,12 +1,46 @@
 .container {
-    min-height: 100vh;
-    background-color: #f9fafb;
-  }
-  
-  .title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1f2937;
-    padding: 2rem 0;
-  }
+  display: flex; /* Flexbox 활성화 */
+  flex-direction: column; /* 수직 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 */
+  align-items: center; /* 가로 중앙 정렬 */
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  /* margin-top: 1rem; 상단 여백 */
+  margin-bottom: 2rem; /* 하단 여백 (버튼과의 간격) */
+}
+
+.goToGoalButton {
+  display: flex;
+  align-items: center; /* 버튼 내부 콘텐츠 수직 중앙 정렬 */
+  justify-content: center; /* 버튼 내부 콘텐츠 가로 중앙 정렬 */
+  gap: 0.15rem; /* 버튼 내부 텍스트와 아이콘 간격 */
+  /* padding: 0.5rem 1rem; 버튼 크기 조정 */
+  font-size: 0.875rem; /* 텍스트 크기 */
+  /* background-color: #93969a; */
+  color: gray;
+  border-radius: 0.25rem; /* 둥근 모서리 */
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  position: relative; /* 부모 요소를 기준으로 위치 조정 */
+  left: 150px; /* 오른쪽으로 10px 이동 */
+}
+
+.goToGoalButton span::selection {
+  color: blue; /* 드래그(선택) 시 텍스트 색상 */
+  /* background-color: transparent; 선택된 영역 배경 없음 */
+}
+
+.goToGoalButton:hover {
+  color: blue; /* 마우스 올릴 때 텍스트 색상 */
+  /* background-color: lightgray; 마우스 올릴 때 배경색 */
+}

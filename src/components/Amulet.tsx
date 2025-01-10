@@ -40,10 +40,7 @@ export const Amulet = ({ initialText }: AmuletProps) => {
 
   return (
     <div className={styles.container}>
-      <button onClick={() => navigate('/')} className={styles.goToGoalButton}>
-        <span>목표 정하러 가기</span>
-        <ArrowRight size={20} />
-      </button>
+      
 
       <div className={styles.colorPicker}>
       <ColorPickerButton
