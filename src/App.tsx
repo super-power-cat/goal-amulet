@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { usePageTracking } from './utils/analytics';
 import QuestionFlow from './components/QuestionFlow';
+import Result from './components/result/Result';
 import { AmuletPage } from './pages/AmuletPages';
+import { SharedAmuletPage } from './pages/ShareAmuletPages';
 
 function App() {
   return (
@@ -9,7 +11,9 @@ function App() {
       <Analytics />
       <Routes>
         <Route path="/" element={<QuestionFlow />} />
+        <Route path="/result/:reviewId" element={<Result />} />
         <Route path="/amulet" element={<AmuletPage />} />
+        <Route path="/amulet/:amuletId" element={<AmuletPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,31 +1,48 @@
 import { useEffect, useState } from 'react';
-import { Download, Share2, ArrowRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { getAmulet } from '../services/amuletService';
+import { AmuletContainer } from '../components/AmuletContainer';
+import { Download, Share2 } from 'lucide-react';
 import { shareToKakao, shareToTwitter } from '../utils/shareUtils';
 import { createAmuletImage } from '../utils/imageUtils';
 import { ColorKey, getColorInfo } from '../types';
-import styles from './Amulet.module.css';
-import { ColorPickerButton } from './ColorPickerButton';
-import { AmuletContainer } from './AmuletContainer';
+import styles from './AmuletPages.module.css';
 
-interface AmuletProps {
-  initialText: string;
-}
+export const SharedAmuletPage = () => {
+  const { amuletId } = useParams<{ amuletId: string }>();
+  const [color, setColor] = useState<ColorKey>('POWER');
+  const [text, setText] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-export const Amulet = ({ initialText }: AmuletProps) => {
-  const navigate = useNavigate();
-  const [selectedColor, setSelectedColor] = useState<ColorKey>('POWER');
-  const [text, setText] = useState(initialText);
-  const colorInfo = getColorInfo(selectedColor);
   useEffect(() => {
-    setText(initialText); // initialText가 변경될 때 text를 업데이트
-  }, [initialText]); // initialText를 의존성으로 추가
+    const loadAmulet = async () => {
+      if (!amuletId) return;
+      
+      try {
+        const amuletData = await getAmulet(amuletId);
+        if (amuletData) {
+          setColor(amuletData.color);
+          setText(amuletData.text);
+        } else {
+          setError('부적을 찾을 수 없습니다.');
+        }
+      } catch (err) {
+        setError('부적을 불러오는데 실패했습니다.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAmulet();
+  }, [amuletId]);
 
   const handleDownload = async (isWallpaper: boolean = false) => {
     try {
+      const colorInfo = getColorInfo(color);
       const imageUrl = await createAmuletImage(
-        selectedColor, 
-        colorInfo.file, 
+        color,
+        colorInfo.file,
         colorInfo.title,
         text,
         isWallpaper
@@ -44,33 +61,18 @@ export const Amulet = ({ initialText }: AmuletProps) => {
     const url = window.location.href;
     const title = '나만의 부적';
     navigator.clipboard.writeText(url);
-    alert('링크가 복사되었어요, 내 목표를 공유해봐요! \n⚠️ 해당 페이지를 나가면 부적을 수정할 수 없으니 주의해주세요. ⚠️');
+    alert('링크가 복사되었습니다!');
   };
+
+  if (loading) return <div>로딩 중...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className={styles.container}>
+      <h1 className={styles.title}>나만의 부적</h1>
       
-
-      <div className={styles.colorPicker}>
-      <ColorPickerButton
-          color="POWER" // 파워 부적
-          selectedColor={selectedColor}
-          onColorSelect={setSelectedColor}
-        />
-        <ColorPickerButton
-          color="LUCK" // 행운 부적
-          selectedColor={selectedColor}
-          onColorSelect={setSelectedColor}
-        />
-        <ColorPickerButton
-          color="FIRE" // 열정 부적
-          selectedColor={selectedColor}
-          onColorSelect={setSelectedColor}
-        />
-      </div>
-
       <AmuletContainer 
-        selectedColor={selectedColor}
+        selectedColor={color}
         text={text}
       />
 

@@ -6,6 +6,7 @@ import { saveUserReview } from '../services/reviewService';
 import styles from './QuestionSection.module.css';
 import { RefreshCw } from 'lucide-react';
 import { fetchRandomQuestionByType } from '../services/questionService';
+import { saveAmulet } from '../services/amuletService';
 
 interface QuestionSectionProps {
   content: string;
@@ -69,17 +70,21 @@ export default function QuestionSection({
     if (canProceed && !isSubmitting) {
       setIsSubmitting(true);
       try {
-        const basicQuestions: BasicQuestion[] = allResponses.map(rs => ({
+        const basicQuestions = allResponses.map(rs => ({
           id: rs.id,
           content: rs.content,
           answers: rs.answers,
           comments: []
         }));
-        const reviewId = await saveUserReview(basicQuestions);
         
-        // 마지막 답변을 state로 전달하며 부적 페이지로 이동
-        const lastAnswer = answers[0]?.text || '';
-        navigate('/amulet', { state: { lastAnswer } });
+        const reviewId = await saveUserReview(basicQuestions);
+        console.log(answers);
+        
+        // 마지막 답변으로 부적 생성
+        const lastAnswer = answers[0]?.text || '여기를 클릭해 목표를 입력해주세요';
+        const amuletId = await saveAmulet('POWER', lastAnswer);
+        
+        navigate(`/amulet/${amuletId}`);
       } catch (error) {
         console.error('Error saving review:', error);
       } finally {
