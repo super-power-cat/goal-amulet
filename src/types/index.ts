@@ -1,7 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 // Add ColorOption type
-export type ColorOption = 'GREEN' | 'YELLOW' | 'RED';
+export type ColorOption = 'LUCK' | 'POWER' | 'FIRE';
 
 export type ColorInfo = {
   file: string;
@@ -10,17 +10,17 @@ export type ColorInfo = {
 };
 
 export const Colors = {
-  GREEN: {
+  LUCK: {
     file: "luck_amulet.svg",
     title: "행운 부적",
     code: "#9fffaa",
   },
-  YELLOW: {
+  POWER: {
     file: "yellow_amulet_2.svg",
     title: "파워 부적",
     code: "#FFFF9F",
   },
-  RED: {
+  FIRE: {
     file: "yellow_amulet_2.svg",
     title: "열정 부적",
     code: "#ffbc9f",

@@ -14,9 +14,8 @@ interface AmuletProps {
 
 export const Amulet = ({ initialText }: AmuletProps) => {
   const navigate = useNavigate();
-  const [selectedColor, setSelectedColor] = useState<ColorKey>('YELLOW');
+  const [selectedColor, setSelectedColor] = useState<ColorKey>('POWER');
   const [text, setText] = useState(initialText);
-  
   const colorInfo = getColorInfo(selectedColor);
 
   const handleDownload = async (isWallpaper: boolean = false) => {
@@ -51,17 +50,17 @@ export const Amulet = ({ initialText }: AmuletProps) => {
 
       <div className={styles.colorPicker}>
       <ColorPickerButton
-          color="YELLOW" // 파워 부적
+          color="POWER" // 파워 부적
           selectedColor={selectedColor}
           onColorSelect={setSelectedColor}
         />
         <ColorPickerButton
-          color="GREEN" // 행운 부적
+          color="LUCK" // 행운 부적
           selectedColor={selectedColor}
           onColorSelect={setSelectedColor}
         />
         <ColorPickerButton
-          color="RED" // 열정 부적
+          color="FIRE" // 열정 부적
           selectedColor={selectedColor}
           onColorSelect={setSelectedColor}
         />
