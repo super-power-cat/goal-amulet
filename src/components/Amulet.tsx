@@ -18,7 +18,7 @@ export const Amulet = ({ initialText, initailColor }: AmuletProps) => {
   // const navigate = useNavigate();
   const { amuletId } = useParams<{ amuletId: string }>();
   const [selectedColor, setSelectedColor] = useState<ColorKey>(initailColor || 'POWER');
-  const [text, setText] = useState(initialText);
+  const [text, setText] = useState(initialText );
   useEffect(() => {
     setText(initialText); // initialText가 변경될 때 text를 업데이트
   }, [initialText]); // initialText를 의존성으로 추가
@@ -57,10 +57,8 @@ export const Amulet = ({ initialText, initailColor }: AmuletProps) => {
 
   const handleColorSelect = async (color: ColorKey) => {
     setSelectedColor(color);
-    console.log(amuletId);
     if (amuletId) {
       try {
-        console.log("업데이트 호출 + "+ color)
         await updateAmuletColor(amuletId, color);
       } catch (error) {
         console.error('Error updating color:', error);
@@ -105,6 +103,7 @@ export const Amulet = ({ initialText, initailColor }: AmuletProps) => {
       <AmuletContainer 
         selectedColor={selectedColor}
         text={text}
+        onTextChange={(newText) => handleTextChange({ target: { value: newText } } as React.ChangeEvent<HTMLTextAreaElement>)}
       />
 
       <div className={styles.buttonGroup}>

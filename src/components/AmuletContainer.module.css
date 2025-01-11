@@ -41,6 +41,11 @@
     word-break: break-word;
     color: black;
     font-size: 2rem;
+    background: transparent;
+    border: none;
+    resize: none;
+    outline: none;
+    overflow-y: none;
   }
   
   .amuletTitle {
@@ -54,4 +59,5 @@
     word-break: break-word;
     font-size: 2.5rem;
     font-weight: bold;
+    
   }

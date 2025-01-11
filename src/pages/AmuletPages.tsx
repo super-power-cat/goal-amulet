@@ -27,6 +27,7 @@ export const AmuletPage = () => {
         if (amuletData) {
           setColor(amuletData.color);
           setText(amuletData.text);
+          console.log('1 ' + amuletData.text);
         } else {
           setError('부적을 찾을 수 없습니다.'); // 오류 나면.. 
         }
@@ -39,6 +40,8 @@ export const AmuletPage = () => {
 
     loadAmulet();
   }, [amuletId]);
+
+  console.log('2 ' + text);
 
   return (
     <div className={styles.container}>
