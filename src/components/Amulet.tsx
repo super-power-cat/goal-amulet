@@ -21,7 +21,13 @@ export const Amulet = ({ initialText }: AmuletProps) => {
 
   const handleDownload = async (isWallpaper: boolean = false) => {
     try {
-      const imageUrl = await createAmuletImage(selectedColor, `/${colorInfo.file}`, text, isWallpaper);
+      const imageUrl = await createAmuletImage(
+        selectedColor, 
+        colorInfo.file, 
+        colorInfo.title,
+        text,
+        isWallpaper
+      );
       
       const link = document.createElement('a');
       link.download = isWallpaper ? 'amulet-wallpaper.png' : 'amulet.png';
