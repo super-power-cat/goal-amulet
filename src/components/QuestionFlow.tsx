@@ -22,7 +22,6 @@ export default function QuestionFlow() {
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
   if (!responses.length) return <div>질문을 불러오는 중...</div>;
-  console.log('1');
 
   const handleAnswersChange = (questionId: number, answers: Answer[]) => {
     console.log('1');
@@ -30,14 +29,12 @@ export default function QuestionFlow() {
       q.id === questionId ? { ...q, answers } : q
     ));
   };
-  console.log('2');
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < responses.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
     }
   };
-  console.log('3');
 
   const handleQuestionRefresh = (questionId: number, newContent: string) => {
     setResponses(prev => prev.map(q =>
@@ -49,11 +46,10 @@ export default function QuestionFlow() {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <h1 className={styles.title}>
-          한 해 돌아보기
+          ✨ 올해 목표 정하기 ✨
         </h1>
         <p className={styles.description}>
-          오늘 함께 <b>한 해를 돌아보는 시간</b>을 가져요. 편안하게 회고하기 위해 반말로 진행합니다.
-          <br/><b>6개의 질문</b>들을 답하면 당신만의 페이지가 완성될 거예요. 공유하여 24년을 함께 돌아봐요.
+          차근차근 올해 목표를 정해봐요. 만약 이미 정했다면 부적 만들기로 바로 넘어가도 좋아요.
         </p>
         <div className={styles.questionList}>
           {responses.slice(0, currentQuestionIndex + 1).map((question, index) => (
