@@ -87,24 +87,38 @@ export const createAmuletImage = async (
   if (!ctx) throw new Error('Canvas context not supported');
   const colorInfo = getColorInfo(color);
 
+  // 고해상도 캔버스 크기 설정
+  const scaleFactor = 2; // 두 배로 해상도를 높임
+  const actualWidth = isWallpaper ? WALLPAPER_WIDTH * scaleFactor : AMULET_WIDTH * scaleFactor;
+  const actualHeight = isWallpaper ? WALLPAPER_HEIGHT * scaleFactor : AMULET_HEIGHT * scaleFactor;
+
+  canvas.width = actualWidth;
+  canvas.height = actualHeight;
+
+  // 화면에 표시할 크기
   if (isWallpaper) {
-    canvas.width = WALLPAPER_WIDTH;
-    canvas.height = WALLPAPER_HEIGHT;
+    canvas.style.width = `${WALLPAPER_WIDTH}px`;
+    canvas.style.height = `${WALLPAPER_HEIGHT}px`;
+  } else {
+    canvas.style.width = `${AMULET_WIDTH}px`;
+    canvas.style.height = `${AMULET_HEIGHT}px`;
+  }
 
-    // Fill the background with white
+  // 배경 화면
+  if (isWallpaper) {
     ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, actualWidth, actualHeight);
 
-    const amuletWidth = canvas.width * 0.8;
+    const amuletWidth = actualWidth * 0.8; // 고해상도 기반 비율
     const amuletHeight = (amuletWidth / AMULET_WIDTH) * AMULET_HEIGHT;
 
-    const x = (canvas.width - amuletWidth) / 2;
-    const y = (canvas.height - amuletHeight) / 2;
+    const x = (actualWidth - amuletWidth) / 2;
+    const y = (actualHeight - amuletHeight) / 2;
 
-    await drawAmulet(ctx, x, y, amuletWidth, amuletHeight, colorInfo.code, svg, title, text);
+    ctx.scale(scaleFactor, scaleFactor); // 스케일 적용
+    await drawAmulet(ctx, x / scaleFactor, y / scaleFactor, amuletWidth / scaleFactor, amuletHeight / scaleFactor, colorInfo.code, svg, title, text);
   } else {
-    canvas.width = AMULET_WIDTH;
-    canvas.height = AMULET_HEIGHT;
+    ctx.scale(scaleFactor, scaleFactor); // 스케일 적용
     await drawAmulet(ctx, 0, 0, AMULET_WIDTH, AMULET_HEIGHT, colorInfo.code, svg, title, text);
   }
 
