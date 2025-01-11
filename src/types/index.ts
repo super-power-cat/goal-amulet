@@ -35,7 +35,6 @@ export const getColorInfo = (color: ColorKey): ColorInfo => Colors[color];
 export interface Answer {
   id: string;
   text: string;
-
 }
 
 export interface Question {

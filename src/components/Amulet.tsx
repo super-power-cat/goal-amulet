@@ -1,26 +1,34 @@
 import { useEffect, useState } from 'react';
-import { Download, Share2, ArrowRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Download, Share2 } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { shareToKakao, shareToTwitter } from '../utils/shareUtils';
 import { createAmuletImage } from '../utils/imageUtils';
-import { ColorKey, getColorInfo } from '../types';
+import { ColorKey, Colors, getColorInfo } from '../types';
 import styles from './Amulet.module.css';
 import { ColorPickerButton } from './ColorPickerButton';
 import { AmuletContainer } from './AmuletContainer';
+import { updateAmuletColor, updateAmuletText } from '../services/amuletService';
 
 interface AmuletProps {
   initialText: string;
+  initailColor: ColorKey;
 }
 
-export const Amulet = ({ initialText }: AmuletProps) => {
-  const navigate = useNavigate();
-  const [selectedColor, setSelectedColor] = useState<ColorKey>('POWER');
+export const Amulet = ({ initialText, initailColor }: AmuletProps) => {
+  // const navigate = useNavigate();
+  const { amuletId } = useParams<{ amuletId: string }>();
+  const [selectedColor, setSelectedColor] = useState<ColorKey>(initailColor || 'POWER');
   const [text, setText] = useState(initialText);
-  const colorInfo = getColorInfo(selectedColor);
   useEffect(() => {
     setText(initialText); // initialText가 변경될 때 text를 업데이트
   }, [initialText]); // initialText를 의존성으로 추가
 
+  useEffect(() => {
+    setSelectedColor(initailColor);
+  }, [initailColor]); 
+
+  const colorInfo = getColorInfo(initailColor);
+  
   const handleDownload = async (isWallpaper: boolean = false) => {
     try {
       const imageUrl = await createAmuletImage(
@@ -47,6 +55,31 @@ export const Amulet = ({ initialText }: AmuletProps) => {
     alert('링크가 복사되었어요, 내 목표를 공유해봐요! \n⚠️ 해당 페이지를 나가면 부적을 수정할 수 없으니 주의해주세요. ⚠️');
   };
 
+  const handleColorSelect = async (color: ColorKey) => {
+    setSelectedColor(color);
+    console.log(amuletId);
+    if (amuletId) {
+      try {
+        console.log("업데이트 호출 + "+ color)
+        await updateAmuletColor(amuletId, color);
+      } catch (error) {
+        console.error('Error updating color:', error);
+      }
+    }
+  };
+
+  const handleTextChange = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = e.target.value;
+    setText(newText);
+    if (amuletId) {
+      try {
+        await updateAmuletText(amuletId, newText);
+      } catch (error) {
+        console.error('Error updating text:', error);
+      }
+    }
+  };
+
   return (
     <div className={styles.container}>
       
@@ -55,17 +88,17 @@ export const Amulet = ({ initialText }: AmuletProps) => {
       <ColorPickerButton
           color="POWER" // 파워 부적
           selectedColor={selectedColor}
-          onColorSelect={setSelectedColor}
+          onColorSelect={handleColorSelect}
         />
         <ColorPickerButton
           color="LUCK" // 행운 부적
           selectedColor={selectedColor}
-          onColorSelect={setSelectedColor}
+          onColorSelect={handleColorSelect}
         />
         <ColorPickerButton
           color="FIRE" // 열정 부적
           selectedColor={selectedColor}
-          onColorSelect={setSelectedColor}
+          onColorSelect={handleColorSelect}
         />
       </div>
 

@@ -27,7 +27,6 @@ export const AmuletPage = () => {
         if (amuletData) {
           setColor(amuletData.color);
           setText(amuletData.text);
-          console.log('text입니당..: '  + text)
         } else {
           setError('부적을 찾을 수 없습니다.'); // 오류 나면.. 
         }
@@ -48,7 +47,7 @@ export const AmuletPage = () => {
         {/* <ArrowRight size={20} /> */}
       </button>
       <h1 className={styles.title}>✨ 종은의 목표 부적 ✨</h1>
-      <Amulet initialText={text} />
+      <Amulet initialText={text} initailColor = {color} />
     </div>
   );
 };

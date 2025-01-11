@@ -68,22 +68,19 @@
   }
   
   .textInput {
-    position: absolute;
-    bottom: 60px;
-    width: 80%;
-    padding: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: inherit;
     text-align: center;
-    z-index: 10;
+    resize: none;
+    outline: none;
+    font-family: inherit;
   }
   
-  .textInput:focus {
-    outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  .textInput::placeholder {
+    color: rgba(0, 0, 0, 0.5);
   }
   
   .buttonGroup {

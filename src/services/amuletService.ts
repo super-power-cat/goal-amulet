@@ -35,3 +35,13 @@ export const getAmulet = async (amuletId: string): Promise<AmuletData | null> =>
   }
   return null;
 };
+
+export const updateAmuletColor = async (amuletId: string, color: ColorKey): Promise<void> => {
+  const docRef = doc(db, 'amulets', amuletId);
+  await setDoc(docRef, { color: color }, { merge: true });
+};
+
+export const updateAmuletText = async (amuletId: string, text: string): Promise<void> => {
+  const docRef = doc(db, 'amulets', amuletId);
+  await setDoc(docRef, { text }, { merge: true });
+};
