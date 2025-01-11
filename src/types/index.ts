@@ -17,7 +17,7 @@ export const Colors = {
   },
   YELLOW: {
     file: "yellow_amulet_2.svg",
-    title: "행복 부적",
+    title: "파워 부적",
     code: "#FFFF9F",
   },
   RED: {

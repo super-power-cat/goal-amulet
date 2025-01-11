@@ -1,0 +1,57 @@
+.amuletContainer {
+    width: 360px;
+    height: 480px;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* 이미지 wrapper로 크기 제어 */
+  .imageWrapper {
+    width: 360px;
+    height: 320px;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* 이미지가 wrapper 크기를 넘지 않도록 설정 */
+  .amuletImage {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  .amuletText {
+    font-family: 'amulet_content2', sans-serif;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+    word-break: break-word;
+    color: black;
+    font-size: 2rem;
+  }
+  
+  .amuletTitle {
+    top: 10%;
+    font-family: 'amulet_content4', sans-serif;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+    word-break: break-word;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }

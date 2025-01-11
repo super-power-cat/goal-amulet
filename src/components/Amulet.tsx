@@ -6,6 +6,7 @@ import { createAmuletImage } from '../utils/imageUtils';
 import { ColorKey, getColorInfo } from '../types';
 import styles from './Amulet.module.css';
 import { ColorPickerButton } from './ColorPickerButton';
+import { AmuletContainer } from './AmuletContainer';
 
 interface AmuletProps {
   initialText: string;
@@ -60,19 +61,10 @@ export const Amulet = ({ initialText }: AmuletProps) => {
         />
       </div>
 
-      <div 
-        id="amulet-container" 
-        className={styles.amuletContainer} 
-        style={{ backgroundColor: colorInfo.code }}
-      >
-        <img src={`/${colorInfo.file}`} alt="Amulet" className={styles.amuletImage} />
-        <div className={styles.amuletTitle}>
-          {colorInfo.title}
-        </div>
-        <div className={styles.amuletText}>
-          {text}
-        </div>
-      </div>
+      <AmuletContainer 
+        selectedColor={selectedColor}
+        text={text}
+      />
 
       <div className={styles.buttonGroup}>
         <button onClick={() => handleDownload(false)} className={styles.downloadButton}>
