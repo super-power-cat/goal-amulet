@@ -42,7 +42,7 @@ export const Amulet = ({ initialText }: AmuletProps) => {
     const url = window.location.href;
     const title = '나만의 부적';
     navigator.clipboard.writeText(url);
-    alert('링크가 복사되었습니다!');
+    alert('링크가 복사되었어요, 내 목표를 공유해봐요! \n⚠️ 해당 페이지를 나가면 부적을 수정할 수 없으니 주의해주세요. ⚠️');
   };
 
   return (
