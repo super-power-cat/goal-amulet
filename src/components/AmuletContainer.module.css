@@ -16,7 +16,7 @@
     width: 360px;
     height: 320px;
     position: absolute;
-    top: 30px;
+    top: 20px;
     left: 0;
     display: flex;
     justify-content: center;
@@ -30,17 +30,18 @@
     object-fit: contain;
   }
   
+   /* 바로 위 이미지 아래에 위치할 순 없는지 물어보기. */
   .amuletText {
     font-family: 'amulet_content2', sans-serif;
-    position: absolute;
-    top: 75%;
+    position: absolute; 
+    top: 83%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     width: 80%;
     word-break: break-word;
     color: black;
-    font-size: 2rem;
+    font-size: 1.8rem;
     background: transparent;
     border: none;
     resize: none;
@@ -49,7 +50,7 @@
   }
   
   .amuletTitle {
-    top: 10%;
+    top: 40px;
     font-family: 'amulet_content4', sans-serif;
     position: absolute;
     left: 50%;
@@ -60,4 +61,20 @@
     font-size: 2.5rem;
     font-weight: bold;
     
+  }
+  
+  .warningMessage {
+    position: absolute;
+    top: 97%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ff6b6b;
+    font-size: 0.8rem;
+    opacity: 0;
+    font-family: 'amulet_content4', sans-serif;
+    transition: opacity 0.3s;
+  }
+  
+  .warningMessage.visible {
+    opacity: 1;
   }
