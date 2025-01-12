@@ -15,6 +15,8 @@ export const drawAmulet = async (
   svg: string,
   title: string,
   text: string,
+  textSize: number,
+  textTop: number
 ): Promise<void> => {
   // Calculate scale for font size adjustment
   const scale = width / AMULET_WIDTH;
@@ -41,9 +43,10 @@ export const drawAmulet = async (
 
   // Draw SVG
   const img = new Image();
-  img.src = svg;
+  img.src = "/"+svg;
 
   await new Promise<void>((resolve) => {
+
     img.onload = () => {
       const imageWrapperHeight = height * 0.667; // 320px / 480px
       const imageWrapperTop = height * 0.0625; // 30px / 480px
@@ -64,13 +67,24 @@ export const drawAmulet = async (
       ctx.fillText(title, x + width / 2, y + height * 0.1);
 
       // Draw text
-      ctx.font = `${2 * scale}rem amulet_content2`;
+      ctx.font = `${textSize * scale}rem amulet_content2`;
       ctx.fillStyle = 'black';
       ctx.textAlign = 'center';
-      ctx.fillText(text, x + width / 2, y + height * 0.75);
+      
+      // 텍스트를 줄바꿈하여 그리기
+      const lines = text.split('\n');
+      const lineHeight = textSize * scale * 16; // 줄 간격 설정
+      
+      lines.forEach((line, index) => {
+        const yPos = y + height * textTop + (index - 1) * lineHeight; // 기준점에서 위아래로 배치
+        ctx.fillText(line, x + width / 2, yPos);
+      });
 
       ctx.restore();
       resolve();
+    };
+    img.onerror = (err) => {
+      console.error('Error loading SVG image:', err);
     };
   });
 };
@@ -80,6 +94,8 @@ export const createAmuletImage = async (
   svg: string,
   title: string,
   text: string,
+  textSize: number,
+  textTop: number,
   isWallpaper: boolean = false
 ): Promise<string> => {
   const canvas = document.createElement('canvas');
@@ -116,10 +132,10 @@ export const createAmuletImage = async (
     const y = (actualHeight - amuletHeight) / 2;
 
     ctx.scale(scaleFactor, scaleFactor); // 스케일 적용
-    await drawAmulet(ctx, x / scaleFactor, y / scaleFactor, amuletWidth / scaleFactor, amuletHeight / scaleFactor, colorInfo.code, svg, title, text);
+    await drawAmulet(ctx, x / scaleFactor, y / scaleFactor, amuletWidth / scaleFactor, amuletHeight / scaleFactor, colorInfo.code, svg, title, text, textSize, textTop);
   } else {
     ctx.scale(scaleFactor, scaleFactor); // 스케일 적용
-    await drawAmulet(ctx, 0, 0, AMULET_WIDTH, AMULET_HEIGHT, colorInfo.code, svg, title, text);
+    await drawAmulet(ctx, 0, 0, AMULET_WIDTH, AMULET_HEIGHT, colorInfo.code, svg, title, text, textSize, textTop);
   }
 
   return canvas.toDataURL('image/png');

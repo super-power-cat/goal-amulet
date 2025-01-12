@@ -19,7 +19,7 @@ export const Amulet = ({ initialText, initailColor }: AmuletProps) => {
   const { amuletId } = useParams<{ amuletId: string }>();
   const [selectedColor, setSelectedColor] = useState<ColorKey>(initailColor || 'POWER');
   const [text, setText] = useState(initialText || "이곳에 목표를 입력해주세요!");
-  
+
   useEffect(() => {
     setText(initialText); // initialText가 변경될 때 text를 업데이트
   }, [initialText]); // initialText를 의존성으로 추가
@@ -32,11 +32,20 @@ export const Amulet = ({ initialText, initailColor }: AmuletProps) => {
   
   const handleDownload = async (isWallpaper: boolean = false) => {
     try {
+      let textSize = 2.5;
+      let textTop = 0.9;
+      if (text.length > 17) {
+        textSize = 1.8;
+        textTop = 0.83;
+      }
+      // text 크기... 위치... 추가 필요할듯
       const imageUrl = await createAmuletImage(
         selectedColor, 
         colorInfo.file, 
         colorInfo.title,
         text,
+        textSize,
+        textTop,
         isWallpaper
       );
       

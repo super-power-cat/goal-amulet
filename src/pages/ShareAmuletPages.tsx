@@ -44,7 +44,7 @@ export const SharedAmuletPage = () => {
         color,
         colorInfo.file,
         colorInfo.title,
-        text,
+        text,2,0.83,
         isWallpaper
       );
       

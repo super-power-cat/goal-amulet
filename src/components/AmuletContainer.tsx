@@ -52,7 +52,7 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
         {colorInfo.title}
       </div>
       <textarea 
-        className={`${styles.amuletText} ${text.length <= 18 ? styles.largeFont : styles.smallFont}`} 
+        className={`${styles.amuletText} ${text.length <= 17 ? styles.largeFont : styles.smallFont}`} 
         onChange={handleTextChange} 
         rows={3} 
         maxLength={100} 
