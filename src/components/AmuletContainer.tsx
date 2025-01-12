@@ -51,14 +51,18 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
       <div className={styles.amuletTitle}>
         {colorInfo.title}
       </div>
-      <textarea className={styles.amuletText} onChange={handleTextChange} 
-                rows={3} maxLength={100} value={text}>
-      </textarea>
-      {showWarning && (
+      <textarea 
+        className={`${styles.amuletText} ${text.length <= 18 ? styles.largeFont : styles.smallFont}`} 
+        onChange={handleTextChange} 
+        rows={3} 
+        maxLength={100} 
+        value={text}>
+        </textarea>
+        {showWarning && (
         <div className={`${styles.warningMessage} ${styles.visible}`}>
-          최대 3줄까지만 입력할 수 있습니다 ⚠️
+            최대 3줄까지만 입력할 수 있습니다 ⚠️
         </div>
-      )}
+        )}
       
       {/* <textarea 
         value={text}

@@ -34,19 +34,30 @@
   .amuletText {
     font-family: 'amulet_content2', sans-serif;
     position: absolute; 
-    top: 83%;
+    
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     width: 80%;
     word-break: break-word;
     color: black;
-    font-size: 1.8rem;
+    /* font-size: 1.8rem; */
     background: transparent;
     border: none;
     resize: none;
     outline: none;
     overflow-y: none;
+  }
+
+
+  .amuletText.largeFont {
+    top: 87%;
+    font-size: 2.5rem;
+  }
+  
+  .amuletText.smallFont {
+    top: 83%;
+    font-size: 1.8rem;
   }
   
   .amuletTitle {
