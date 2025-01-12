@@ -5,6 +5,48 @@ const AMULET_HEIGHT = 480;
 const WALLPAPER_WIDTH = 1080;
 const WALLPAPER_HEIGHT = 1920;
 
+const wrapText = (
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  maxWidth: number,
+  fontSize: number
+): string[] => {
+  // 먼저 \n으로 분리된 줄들을 처리
+  const paragraphs = text.split('\n');
+  const lines: string[] = [];
+
+  paragraphs.forEach(paragraph => {
+    // 빈 문단이면 빈 줄 추가
+    if (paragraph.length === 0) {
+      lines.push('');
+      return;
+    }
+
+    let currentLine = '';
+    const characters = paragraph.split('');
+
+    for (let i = 0; i < characters.length; i++) {
+      const char = characters[i];
+      const testLine = currentLine + char;
+      const metrics = ctx.measureText(testLine);
+      
+      if (metrics.width > maxWidth && currentLine !== '') {
+        lines.push(currentLine);
+        currentLine = char;
+      } else {
+        currentLine = testLine;
+      }
+    }
+    
+    // 마지막 줄 추가
+    if (currentLine.length > 0) {
+      lines.push(currentLine);
+    }
+  });
+
+  return lines;
+};
+
 export const drawAmulet = async (
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -66,16 +108,19 @@ export const drawAmulet = async (
       ctx.textAlign = 'center';
       ctx.fillText(title, x + width / 2, y + height * 0.1);
 
-      // Draw text
-      ctx.font = `${textSize * scale}rem amulet_content2`;
+      // Draw text with auto-wrapping
+      const fontSize = textSize * scale;
+      ctx.font = `${fontSize}rem amulet_content2`;
       ctx.fillStyle = 'black';
       ctx.textAlign = 'center';
       
-      // 텍스트를 줄바꿈하여 그리기
-      const lines = text.split('\n');
-      const lineHeight = textSize * scale * 16; // 줄 간격 설정
+      const maxWidth = width * 0.8; // 텍스트 영역의 80% 너비 사용
+      const wrappedLines = wrapText(ctx, text, maxWidth, fontSize);
       
-      lines.forEach((line, index) => {
+      // 줄 간격 설정 (CSS의 line-height: 1.2와 동일하게)
+      const lineHeight = fontSize * 16 * 1.4;
+      
+      wrappedLines.forEach((line, index) => {
         const yPos = y + height * textTop + (index - 1) * lineHeight; // 기준점에서 위아래로 배치
         ctx.fillText(line, x + width / 2, yPos);
       });

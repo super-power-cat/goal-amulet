@@ -15,23 +15,31 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
 
   // 이럴 경우 쭉 입력했을때 줄바꿈 되는 걸 방어 못함
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const lines = e.target.value.split('\n');
+    const textarea = e.target;
+    const text = textarea.value;
+    if (text.length < (textarea.defaultValue || '').length) {
+        onTextChange?.(text);
+        setShowWarning(false);
+        return;
+      }
+      
+    // 실제 화면에 표시되는 줄 수 계산
+    const lineHeight = parseInt(window.getComputedStyle(textarea).lineHeight)+2;
+    const actualLines = Math.ceil(textarea.scrollHeight / lineHeight);
     
-    if (lines.length > 3 || !onTextChange) {
+    if (actualLines > 3 || !onTextChange) {
       e.preventDefault();
       setShowWarning(true);
-      // 3줄까지만 허용
       
-      // 경고 메시지 3초 후 사라지게 설정
       setTimeout(() => {
         setShowWarning(false);
       }, 3000);
       return;
-    } else {    
-        const truncatedText = lines.slice(0, 3).join('\n');
-        onTextChange(truncatedText);
-        setShowWarning(false);
     }
+    
+    console.log(text);
+    onTextChange(text);
+    setShowWarning(false);
   };
   
 
@@ -52,7 +60,7 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
         {colorInfo.title}
       </div>
       <textarea 
-        className={`${styles.amuletText} ${text.length <= 17 ? styles.largeFont : styles.smallFont}`} 
+        className={`${styles.amuletText} ${text.length <= 16 ? styles.largeFont : styles.smallFont}`} 
         onChange={handleTextChange} 
         rows={3} 
         maxLength={100} 

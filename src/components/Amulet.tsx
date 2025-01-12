@@ -27,16 +27,15 @@ export const Amulet = ({ initialText, initailColor }: AmuletProps) => {
   useEffect(() => {
     setSelectedColor(initailColor);
   }, [initailColor]); 
-
-  const colorInfo = getColorInfo(initailColor);
   
   const handleDownload = async (isWallpaper: boolean = false) => {
+    const colorInfo = getColorInfo(selectedColor);
     try {
       let textSize = 2.5;
       let textTop = 0.9;
-      if (text.length > 17) {
+      if (text.length > 16) {
         textSize = 1.8;
-        textTop = 0.83;
+        textTop = 0.86;
       }
       // text 크기... 위치... 추가 필요할듯
       const imageUrl = await createAmuletImage(
