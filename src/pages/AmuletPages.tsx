@@ -43,7 +43,6 @@ export const AmuletPage = () => {
     loadAmulet();
   }, [amuletId]);
 
-  console.log(name);
 
   return (
     <div className={styles.container}>

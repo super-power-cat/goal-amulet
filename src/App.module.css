@@ -25,7 +25,41 @@
 
 .description {
   color: #666;
-  padding: 1rem 0;
+  padding-top: 1rem;
   text-align: center;
   margin-bottom: 1rem;
 } 
+
+.goToAmuletButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  font-size: 0.875rem;
+  color: gray;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  padding: 5px 10px;
+  background: transparent;
+  border: none;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+
+.goToAmuletButton span::selection {
+  color: yellowgreen; /* 드래그(선택) 시 텍스트 색상 */
+  /* background-color: transparent; 선택된 영역 배경 없음 */
+}
+
+.goToAmuletButton:hover {
+  color: yellowgreen;
+  background-image: url('/decorative-10389_256.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

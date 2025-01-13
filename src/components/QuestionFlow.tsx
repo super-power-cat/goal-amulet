@@ -3,12 +3,15 @@ import { useQuestions } from '../hooks/useQuestions';
 import QuestionSection from './QuestionSection';
 import { Question, Answer, NewQuestion } from '../types';
 import styles from '../App.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function QuestionFlow() {
+  const navigate = useNavigate();
   const { questions: fetchedQuestions, loading, error } = useQuestions();
   const [responses, setResponses] = useState<NewQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [filteredQuestions, setFilteredQuestions] = useState<NewQuestion[]>([]);
+  const next_icon = ">>";
 
   useEffect(() => {
     if (fetchedQuestions) {
@@ -70,6 +73,10 @@ export default function QuestionFlow() {
         <p className={styles.description}>
           차근차근 올해 목표를 정해봐요. 만약 이미 정했다면 부적 만들기로 바로 넘어가도 좋아요.
         </p>
+        <button onClick={() => navigate('/amulet')} className={styles.goToAmuletButton}>
+        <span>바로 부적 만들러 가기 {next_icon}</span>
+        {/* <ArrowRight size={20} /> */}
+      </button>
         <div className={styles.questionList}>
           {filteredQuestions.slice(0, currentQuestionIndex + 1).map((question, index) => (
             <QuestionSection
