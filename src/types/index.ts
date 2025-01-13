@@ -37,6 +37,15 @@ export interface Answer {
   text: string;
 }
 
+export interface NewQuestion {
+  id: number;
+  content: string;
+  tip: string;
+  type: string;
+  answers: Answer[];
+  limitAnswer: number; // 질문을 새로 받을 수 있는 경우
+}
+
 export interface Question {
   id: number;
   content: string;

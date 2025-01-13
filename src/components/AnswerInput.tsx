@@ -6,7 +6,7 @@ interface AnswerInputProps {
   onAnswerChange: (id: string, text: string) => void;
   onAddAnswer: () => void;
   onRemoveAnswer: (id: string) => void;
-  isSingleAnswer: boolean;
+  limitAnswer: number;
 }
 
 export default function AnswerInput({
@@ -14,7 +14,7 @@ export default function AnswerInput({
   onAnswerChange,
   onAddAnswer,
   onRemoveAnswer,
-  isSingleAnswer,
+  limitAnswer,
 }: AnswerInputProps) {
   return (
     <div className="space-y-3">
@@ -39,7 +39,7 @@ export default function AnswerInput({
         </div>
       ))}
       
-      {!isSingleAnswer && (
+      {answers.length < limitAnswer && (
         <button
           type="button"
           onClick={onAddAnswer}

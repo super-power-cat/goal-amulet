@@ -37,7 +37,6 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
       return;
     }
     
-    console.log(text);
     onTextChange(text);
     setShowWarning(false);
   };

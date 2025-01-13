@@ -1,9 +1,56 @@
 import { collection, getDocs, query, orderBy, where } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { FirestoreQuestion, Question } from '../types';
+import { FirestoreQuestion, NewQuestion, Question } from '../types';
 
-export const fetchQuestions = async (): Promise<Question[]> => {
-  console.log('here');
+export const fetchQuestions= async (): Promise<NewQuestion[]> => {
+  const question: NewQuestion[] = [
+    {
+    id: 1,
+    content: '이름이 어떻게 되세요?',
+    type: 'YN',
+    answers: [],
+    limitAnswer: 1,
+    tip: '별명을 적어주셔도 좋아요. '
+  },
+  {
+    id: 2,
+    content: '25년 목표 정하셨나요?',
+    type: 'QUESTION',
+    answers: [],
+    limitAnswer: 1,
+    tip: '적어주셨다면 네를, 아니라면 아니오를 눌러주세요.'
+  },
+  {
+    id: 4,
+    content: '25년 목표를 최대 세 가지 알려주세요!',
+    type: 'GOAL-1',
+    answers: [],
+    limitAnswer: 3,
+    tip: '간단한 목표여도 좋아요. 무엇을 이루고 싶나요? 부적을 만들고도 목표를 수정할 수 있으니 편하게 적어주세요.'
+  },
+  {
+    id: 3,
+    content: '좋아요, 저랑 함께 정해봐요! \n 24년 가장 성장했던 부분이 뭐였나요?',
+    type: 'QUESTION',
+    answers: [],
+    limitAnswer: 1,
+    tip: '성장했던 부분을 알려주세요.'
+  },
+  {
+    id: 5,
+    content: '위의 답변을 토대로 한 번 생각해봐요. 25년, 무엇을 이루고 싶나요?',
+    type: 'GOAL-2',
+    answers: [],
+    limitAnswer: 3, 
+    tip: '최대 세 가지를 입력할 수 있어요. 부적을 만들고도 목표를 수정할 수 있으니 편하게 적어주세요.'
+  },  
+];
+
+  return question;
+  
+};
+
+export const fetchQuestionsByFirebase = async (): Promise<Question[]> => {
   try {
     const questionsRef = collection(db, 'questions');
     const q = query(
@@ -28,7 +75,6 @@ export const fetchQuestions = async (): Promise<Question[]> => {
       if (a.type > b.type) return 1;
       return 0;
     });
-    console.log(questions);
 
     return questions;
   } catch (error) {

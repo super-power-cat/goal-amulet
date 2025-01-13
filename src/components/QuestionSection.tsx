@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnswerInput from './AnswerInput';
-import { Answer, Question, BasicQuestion } from '../types';
+import { Answer, Question, BasicQuestion, NewQuestion } from '../types';
 import { saveUserReview } from '../services/reviewService';
 import styles from './QuestionSection.module.css';
 import { RefreshCw } from 'lucide-react';
@@ -17,9 +17,8 @@ interface QuestionSectionProps {
   onNext: () => void;
   showNext: boolean;
   isLast: boolean;
-  isRefresh: boolean;
-  isSingleAnswer: boolean;
-  allResponses: Question[];
+  limitAnswer: number;
+  allResponses: NewQuestion[];
   onQuestionRefresh: (questionId: number, newContent: string) => void;
 }
 
@@ -31,8 +30,7 @@ export default function QuestionSection({
   onNext,
   showNext,
   isLast,
-  isRefresh,
-  isSingleAnswer,
+  limitAnswer,
   allResponses,
   onQuestionRefresh,
 }: QuestionSectionProps) {
@@ -127,37 +125,6 @@ export default function QuestionSection({
     <div className={styles.container}>
       <div className={styles.questionHeader}>
         <h2 className={styles.question}>{content}</h2>
-        {isRefresh && (
-          <div className={styles.refreshContainer}>
-            <button
-              onClick={handleRefreshQuestion}
-              disabled={isLoading}
-              className={styles.refreshButton}
-            >
-              <RefreshCw 
-                size={20} 
-                className={isLoading ? styles.spinning : ''}
-              />
-            </button>
-            {refreshSuccess && (
-              <div className={styles.checkmark}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              </div>
-            )}
-          </div>
-        )}
       </div>
       <div className={styles.answerInput}>
       <AnswerInput
@@ -165,7 +132,7 @@ export default function QuestionSection({
         onAnswerChange={handleAnswerChange}
         onAddAnswer={handleAddAnswer}
         onRemoveAnswer={handleRemoveAnswer}
-        isSingleAnswer={isSingleAnswer}
+        limitAnswer={limitAnswer}
       /></div>
       {showNext && (
         <div className={styles.buttonContainer}>

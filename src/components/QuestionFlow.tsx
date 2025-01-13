@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useQuestions } from '../hooks/useQuestions';
 import QuestionSection from './QuestionSection';
-import { Question, Answer } from '../types';
+import { Question, Answer, NewQuestion } from '../types';
 import styles from '../App.module.css';
 
 export default function QuestionFlow() {
   const { questions: fetchedQuestions, loading, error } = useQuestions();
-  const [responses, setResponses] = useState<Question[]>([]);
+  const [responses, setResponses] = useState<NewQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
@@ -58,13 +58,12 @@ export default function QuestionFlow() {
               content={question.content}
               questionId={question.id}
               type={question.type}
-              isRefresh={question.isRefresh}
               initialAnswers={responses.find((q) => q.id === question.id)?.answers}
               onAnswersChange={(answers) => handleAnswersChange(question.id, answers)}
               onNext={handleNextQuestion}
               showNext={index === currentQuestionIndex && currentQuestionIndex < responses.length - 1}
               isLast={index === responses.length - 1}
-              isSingleAnswer={question.isSingleAnswer}
+              limitAnswer={question.limitAnswer}
               allResponses={responses}
               onQuestionRefresh={handleQuestionRefresh}
             />
