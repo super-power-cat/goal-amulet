@@ -7,7 +7,7 @@ export const fetchQuestions= async (): Promise<NewQuestion[]> => {
     {
     id: 1,
     content: '이름이 어떻게 되세요?',
-    type: 'YN',
+    type: 'QUESTION',
     answers: [],
     limitAnswer: 1,
     tip: '별명을 적어주셔도 좋아요. '
@@ -15,7 +15,7 @@ export const fetchQuestions= async (): Promise<NewQuestion[]> => {
   {
     id: 2,
     content: '25년 목표 정하셨나요?',
-    type: 'QUESTION',
+    type: 'YN',
     answers: [],
     limitAnswer: 1,
     tip: '적어주셨다면 네를, 아니라면 아니오를 눌러주세요.'

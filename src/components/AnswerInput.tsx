@@ -7,6 +7,7 @@ interface AnswerInputProps {
   onAddAnswer: () => void;
   onRemoveAnswer: (id: string) => void;
   limitAnswer: number;
+  type?: string;
 }
 
 export default function AnswerInput({

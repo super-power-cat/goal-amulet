@@ -8,6 +8,7 @@ export default function QuestionFlow() {
   const { questions: fetchedQuestions, loading, error } = useQuestions();
   const [responses, setResponses] = useState<NewQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [filteredQuestions, setFilteredQuestions] = useState<NewQuestion[]>([]);
 
   useEffect(() => {
     if (fetchedQuestions) {
@@ -15,23 +16,41 @@ export default function QuestionFlow() {
         ...q,
         answers: []
       })));
+      setFilteredQuestions(fetchedQuestions);
     }
   }, [fetchedQuestions]);
-
 
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
   if (!responses.length) return <div>질문을 불러오는 중...</div>;
 
   const handleAnswersChange = (questionId: number, answers: Answer[]) => {
-    console.log('1');
     setResponses(prev => prev.map(q =>
       q.id === questionId ? { ...q, answers } : q
     ));
+
+    // YN 질문에 대한 답변 처리
+    const currentQuestion = responses.find(q => q.id === questionId);
+    if (currentQuestion?.type === 'YN') {
+      const answer = answers[0]?.text;
+      if (answer === 'YES') {
+        // GOAL-1 타입의 질문만 보여주기
+        const goal1Questions = fetchedQuestions.filter(q => 
+          q.type === 'GOAL-1' || q.id <= questionId
+        );
+        setFilteredQuestions(goal1Questions);
+      } else if (answer === 'NO') {
+        // GOAL-1 타입을 제외한 나머지 질문 보여주기
+        const nonGoal1Questions = fetchedQuestions.filter(q => 
+          q.type !== 'GOAL-1' || q.id <= questionId
+        );
+        setFilteredQuestions(nonGoal1Questions);
+      }
+    }
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < responses.length - 1) {
+    if (currentQuestionIndex < filteredQuestions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
     }
   };
@@ -52,7 +71,7 @@ export default function QuestionFlow() {
           차근차근 올해 목표를 정해봐요. 만약 이미 정했다면 부적 만들기로 바로 넘어가도 좋아요.
         </p>
         <div className={styles.questionList}>
-          {responses.slice(0, currentQuestionIndex + 1).map((question, index) => (
+          {filteredQuestions.slice(0, currentQuestionIndex + 1).map((question, index) => (
             <QuestionSection
               key={question.id}
               content={question.content}
@@ -61,8 +80,8 @@ export default function QuestionFlow() {
               initialAnswers={responses.find((q) => q.id === question.id)?.answers}
               onAnswersChange={(answers) => handleAnswersChange(question.id, answers)}
               onNext={handleNextQuestion}
-              showNext={index === currentQuestionIndex && currentQuestionIndex < responses.length - 1}
-              isLast={index === responses.length - 1}
+              showNext={index === currentQuestionIndex && currentQuestionIndex < filteredQuestions.length - 1}
+              isLast={index === filteredQuestions.length - 1}
               limitAnswer={question.limitAnswer}
               allResponses={responses}
               onQuestionRefresh={handleQuestionRefresh}
