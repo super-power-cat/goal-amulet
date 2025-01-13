@@ -5,17 +5,19 @@ import { generateUniqueId } from '../utils/idGenerator';
 
 interface AmuletData {
   id: string;
+  name: string;
   color: ColorKey;
   text: string;
   createdAt: Date;
   isShared: boolean;
 }
 
-export const saveAmulet = async (color: ColorKey, text: string): Promise<string> => {
+export const saveAmulet = async (color: ColorKey, text: string, name: string): Promise<string> => {
   const amuletId = generateUniqueId();
   
   const amuletData: AmuletData = {
     id: amuletId,
+    name: name,
     color,
     text,
     createdAt: new Date(),

@@ -40,6 +40,7 @@ export default function QuestionSection({
   const navigate = useNavigate();
   const initialAnswers = [{ id: '1', text: '' }];
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
+  const [name, setName] = useState<string>('나만');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [refreshSuccess, setRefreshSuccess] = useState(false);
@@ -59,7 +60,7 @@ export default function QuestionSection({
   };
 
   // 안되잖아~~!
-  const handleAnswerChange = (id: string, text: string) => {
+  const handleAnswerChange = (id: string, text: string, type: string) => {
     const currentAnswer = answers.find(answer => answer.id === id);
     const isChangingChoice = currentAnswer?.text && currentAnswer.text !== text;
 
@@ -67,7 +68,13 @@ export default function QuestionSection({
       answer.id === id ? { ...answer, text } : answer
     );
     
-    // YN 타입에서 다른 선택지를 골랐을 경우
+    if(type === "NAME") {
+      setName(text);
+      setAnswers(newAnswers);
+      onAnswersChange(newAnswers);
+      return;
+    }
+    // YN 타입에서 다른 선택지를 골랐을 경우 수정 필ㄹ요
     if (type === "YN" && isChangingChoice) {
       // 현재 질문의 답변만 업데이트하고 다음 질문으로 넘어가기 전에 이후 질문들 초기화
       setAnswers(newAnswers);
@@ -104,7 +111,6 @@ export default function QuestionSection({
         
         const reviewId = await saveUserReview(basicQuestions);
         
-        // 마지막 답변으로 부적 생성
         let formattedAnswers = '이곳을 클릭해 목표를 입력해주세요';
         if(answers.length > 1) {  
           formattedAnswers = answers
@@ -114,8 +120,12 @@ export default function QuestionSection({
           formattedAnswers = answers[0]?.text || '이곳을 클릭해 목표를 입력해주세요';
         }
 
+        // answers에서 NAME 타입의 답변을 찾아서 name으로 사용
+        const nameAnswer = allResponses.find(response => response.type === "NAME")?.answers[0]?.text;
+        const finalName = nameAnswer || name || '나만';
+        
         const lastAnswer = formattedAnswers || '이곳을 클릭해 목표를 입력해주세요';
-        const amuletId = await saveAmulet('POWER', lastAnswer);
+        const amuletId = await saveAmulet('POWER', lastAnswer, finalName);
         
         navigate(`/amulet/${amuletId}`);
       } catch (error) {

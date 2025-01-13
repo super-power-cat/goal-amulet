@@ -17,6 +17,7 @@ export const AmuletPage = () => {
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [name, setName] = useState<string>('나만');
 
   useEffect(() => {
     const loadAmulet = async () => {
@@ -27,9 +28,10 @@ export const AmuletPage = () => {
         if (amuletData) {
           setColor(amuletData.color);
           setText(amuletData.text);
-          console.log('1 ' + amuletData.text);
+          setName(amuletData.name);
         } else {
-          setError('부적을 찾을 수 없습니다.'); // 오류 나면.. 
+          setColor('POWER');
+          setText('이곳에 목표를 입력해주세요!');
         }
       } catch (err) {
         setError('부적을 불러오는데 실패했습니다.');
@@ -41,13 +43,15 @@ export const AmuletPage = () => {
     loadAmulet();
   }, [amuletId]);
 
+  console.log(name);
+
   return (
     <div className={styles.container}>
       <button onClick={() => navigate('/')} className={styles.goToGoalButton}>
         <span>목표 정하러 가기 {next_icon}</span>
         {/* <ArrowRight size={20} /> */}
       </button>
-      <h1 className={styles.title}>✨ 종은의 목표 부적 ✨</h1>
+      <h1 className={styles.title}>✨ {name}의 목표 부적 ✨</h1>
       <Amulet initialText={text} initailColor = {color} />
     </div>
   );

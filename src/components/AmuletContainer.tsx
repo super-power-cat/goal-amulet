@@ -13,7 +13,6 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
   const [showWarning, setShowWarning] = useState(false);
 
 
-  // 이럴 경우 쭉 입력했을때 줄바꿈 되는 걸 방어 못함
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = e.target;
     const text = textarea.value;

@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 interface AnswerInputProps {
   answers: Answer[];
-  onAnswerChange: (id: string, text: string) => void;
+  onAnswerChange: (id: string, text: string, type: string) => void;
   onAddAnswer: () => void;
   onRemoveAnswer: (id: string) => void;
   limitAnswer: number;
@@ -24,7 +24,7 @@ const AnswerInputComponent = ({
 }: {
   type: string;
   answers: { id: string; text: string }[];
-  onAnswerChange: (id: string, value: string) => void;
+  onAnswerChange: (id: string, value: string, type: string) => void;
   onAddAnswer: () => void;
   onRemoveAnswer: (id: string) => void;
   limitAnswer: number;
@@ -38,7 +38,7 @@ const AnswerInputComponent = ({
     // 백스페이스 동작은 항상 허용
     const currentAnswer = answers.find((answer) => answer.id === id);
     if (totalLength <= maxCharLimit || value.length < (currentAnswer?.text.length ?? 0)) {
-      onAnswerChange(id, value);
+      onAnswerChange(id, value, type);
     }
   };
   

@@ -3,19 +3,20 @@ import React, { useState } from 'react';
 interface YesNoAnswerProps {
   answerId: string;
   selectedValue: string;
-  onAnswerChange: (id: string, text: string) => void;
+  onAnswerChange: (id: string, text: string, type: string) => void;
   onNext: () => void;
 }
 
 export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, onNext }: YesNoAnswerProps) {
   const [isProcessing, setIsProcessing] = useState(false);
+  const type = "YN";
 
-  const handleSelection = (value: string) => {
+  const handleSelection = (value: string, type: string) => {
     // 이미 선택된 값이거나 처리 중일 때는 무시
     if (selectedValue === value || isProcessing) return;
     
     // setIsProcessing(true);
-    onAnswerChange(answerId, value);
+    onAnswerChange(answerId, value, type);
     onNext();
     
     // 다음 질문으로 전환 후 처리 상태 초기화
@@ -26,7 +27,7 @@ export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, o
     <div className="flex gap-2">
       <button
         type="button"
-        onClick={() => handleSelection("YES")}
+        onClick={() => handleSelection("YES", type)}
         disabled={isProcessing}
         className={`px-4 py-2 rounded-lg ${
           selectedValue === "YES" 
@@ -38,7 +39,7 @@ export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, o
       </button>
       <button
         type="button"
-        onClick={() => handleSelection("NO")}
+        onClick={() => handleSelection("NO", type)}
         disabled={isProcessing}
         className={`px-4 py-2 rounded-lg ${
           selectedValue === "NO" 
