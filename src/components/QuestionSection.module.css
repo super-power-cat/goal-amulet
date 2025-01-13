@@ -16,6 +16,14 @@
   gap: 8px;
 }
 
+.tip {
+  /* margin-top: 0.5rem; */
+  margin-bottom: 1rem;
+  /* margin-left: 0.1rem; */
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
 .question {
   font-size: 1.25rem;
   font-weight: 700;

@@ -75,6 +75,7 @@ export default function QuestionFlow() {
             <QuestionSection
               key={question.id}
               content={question.content}
+              tip={question.tip}
               questionId={question.id}
               type={question.type}
               initialAnswers={responses.find((q) => q.id === question.id)?.answers}

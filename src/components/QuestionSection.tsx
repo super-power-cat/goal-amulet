@@ -10,6 +10,7 @@ import { saveAmulet } from '../services/amuletService';
 
 interface QuestionSectionProps {
   content: string;
+  tip: string;
   questionId: number;
   type: string;
   initialAnswers?: Answer[];
@@ -24,6 +25,7 @@ interface QuestionSectionProps {
 
 export default function QuestionSection({
   content,
+  tip,
   questionId,
   type,
   onAnswersChange,
@@ -125,6 +127,9 @@ export default function QuestionSection({
     <div className={styles.container}>
       <div className={styles.questionHeader}>
         <h2 className={styles.question}>{content}</h2>
+      </div>
+      <div className={styles.tip}>
+        {tip}
       </div>
       <div className={styles.answerInput}>
       <AnswerInput
