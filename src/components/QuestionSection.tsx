@@ -58,10 +58,35 @@ export default function QuestionSection({
     }
   };
 
+  // 안되잖아~~!
   const handleAnswerChange = (id: string, text: string) => {
+    const currentAnswer = answers.find(answer => answer.id === id);
+    const isChangingChoice = currentAnswer?.text && currentAnswer.text !== text;
+
     const newAnswers = answers.map((answer) =>
       answer.id === id ? { ...answer, text } : answer
     );
+    
+    // YN 타입에서 다른 선택지를 골랐을 경우
+    if (type === "YN" && isChangingChoice) {
+      // 현재 질문의 답변만 업데이트하고 다음 질문으로 넘어가기 전에 이후 질문들 초기화
+      setAnswers(newAnswers);
+      onAnswersChange(newAnswers);
+      
+      // 이후 질문들 초기화
+      allResponses.forEach((response, index) => {
+        if (index > questionId) {
+          onQuestionRefresh(response.id, '');
+        }
+      });
+
+      // 초기화 후 다음 질문으로 이동
+      setTimeout(() => {
+        onNext();
+      }, 0);
+      return;
+    }
+
     setAnswers(newAnswers);
     onAnswersChange(newAnswers);
   };
@@ -132,14 +157,17 @@ export default function QuestionSection({
         {tip}
       </div>
       <div className={styles.answerInput}>
-      <AnswerInput
-        answers={answers}
-        onAnswerChange={handleAnswerChange}
-        onAddAnswer={handleAddAnswer}
-        onRemoveAnswer={handleRemoveAnswer}
-        limitAnswer={limitAnswer}
-      /></div>
-      {showNext && (
+        <AnswerInput
+          answers={answers}
+          onAnswerChange={handleAnswerChange}
+          onAddAnswer={handleAddAnswer}
+          onRemoveAnswer={handleRemoveAnswer}
+          limitAnswer={limitAnswer}
+          type={type}
+          onNext={onNext}
+        />
+      </div>
+      {showNext && type !== "YN" && (
         <div className={styles.buttonContainer}>
           <button
             onClick={onNext}
