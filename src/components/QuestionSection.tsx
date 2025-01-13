@@ -103,10 +103,18 @@ export default function QuestionSection({
         }));
         
         const reviewId = await saveUserReview(basicQuestions);
-        console.log(answers);
         
         // 마지막 답변으로 부적 생성
-        const lastAnswer = answers[0]?.text || '여기를 클릭해 목표를 입력해주세요';
+        let formattedAnswers = '이곳을 클릭해 목표를 입력해주세요';
+        if(answers.length > 1) {  
+          formattedAnswers = answers
+            .map((answer, index) => answers.length > 1 ? `${index + 1}. ${answer.text}` : answer)
+            .join('\n');
+        } else {
+          formattedAnswers = answers[0]?.text || '이곳을 클릭해 목표를 입력해주세요';
+        }
+
+        const lastAnswer = formattedAnswers || '이곳을 클릭해 목표를 입력해주세요';
         const amuletId = await saveAmulet('POWER', lastAnswer);
         
         navigate(`/amulet/${amuletId}`);

@@ -41,8 +41,6 @@ export const AmuletPage = () => {
     loadAmulet();
   }, [amuletId]);
 
-  console.log('2 ' + text);
-
   return (
     <div className={styles.container}>
       <button onClick={() => navigate('/')} className={styles.goToGoalButton}>
