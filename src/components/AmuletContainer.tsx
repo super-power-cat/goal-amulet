@@ -1,6 +1,6 @@
 import { ColorKey, getColorInfo } from '../types';
 import styles from './AmuletContainer.module.css';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface AmuletContainerProps {
   selectedColor: ColorKey;
@@ -11,65 +11,72 @@ interface AmuletContainerProps {
 export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletContainerProps) => {
   const colorInfo = getColorInfo(selectedColor);
   const [showWarning, setShowWarning] = useState(false);
+  const [containerHeight, setContainerHeight] = useState(480); // 기본 높이
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
+  useEffect(() => {
+    if (textAreaRef.current) {
+        // 텍스트 높이 자동 조절
+        textAreaRef.current.style.height = 'auto';
+        textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+        
+        // 컨테이너 높이 조절
+        const textHeight = textAreaRef.current.scrollHeight;
+        const minHeight = 480;
+        const additionalHeight = textHeight > 130 ? textHeight - 130 : 0;
+        setContainerHeight(minHeight + additionalHeight);
+    }
+}, [text]); // text가 변경될 때마다 실행
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = e.target;
-    const text = textarea.value;
-    if (text.length < (textarea.defaultValue || '').length) {
-        onTextChange?.(text);
-        setShowWarning(false);
-        return;
-      }
-      
-    // 실제 화면에 표시되는 줄 수 계산
-    const lineHeight = parseInt(window.getComputedStyle(textarea).lineHeight)+2;
-    const actualLines = Math.ceil(textarea.scrollHeight / lineHeight);
+    const newText = textarea.value;
     
-    if (actualLines > 3 || !onTextChange) {
-      e.preventDefault();
-      setShowWarning(true);
-      
-      setTimeout(() => {
-        setShowWarning(false);
-      }, 3000);
-      return;
+    if (!onTextChange) return;
+
+    if (textAreaRef.current) {
+        textAreaRef.current.style.height = 'auto';
+        textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
     }
     
-    onTextChange(text);
+    onTextChange(newText);
     setShowWarning(false);
   };
   
+  
+  console.log(text);
 
   return (
-    <div 
-      id="amulet-container" 
-      className={styles.amuletContainer} 
-      style={{ backgroundColor: colorInfo.code }}
-    >
-      <div className={styles.imageWrapper}>
-        <img 
-          src={`/${colorInfo.file}`} 
-          alt="Amulet" 
-          className={styles.amuletImage} 
-        />
-      </div>
-      <div className={styles.amuletTitle}>
-        {colorInfo.title}
-      </div>
-      <textarea 
-        className={`${styles.amuletText} ${text.length <= 16 ? styles.largeFont : styles.smallFont}`} 
-        onChange={handleTextChange} 
-        rows={3} 
-        maxLength={100} 
-        value={text}>
-        </textarea>
+        <div
+            id="amulet-container"
+            className={styles.amuletContainer}
+            style={{ backgroundColor: colorInfo.code, height: `${containerHeight}px` }}
+        >
+            <div className={styles.imageWrapper}>
+                <img
+                    src={`/${colorInfo.file}`}
+                    alt="Amulet"
+                    className={styles.amuletImage}
+                />
+            </div>
+            <div className={styles.amuletTitle}>
+                {colorInfo.title}
+            </div>
+            <textarea
+                ref={textAreaRef}
+                className={`${styles.amuletText} ${text.length <= 16 ? styles.largeFont : styles.smallFont}`} 
+                onChange={handleTextChange}
+                rows={1}
+                maxLength={100}
+                value={text}
+            />
         {showWarning && (
         <div className={`${styles.warningMessage} ${styles.visible}`}>
             최대 3줄까지만 입력할 수 있습니다 ⚠️
         </div>
         )}
-      
+    
+
       {/* <textarea 
         value={text}
         onChange={handleTextChange}
