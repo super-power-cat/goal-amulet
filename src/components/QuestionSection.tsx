@@ -109,7 +109,7 @@ export default function QuestionSection({
           comments: []
         }));
         
-        const reviewId = await saveUserReview(basicQuestions);
+        await saveUserReview(basicQuestions);
         
         let formattedAnswers = '이곳을 클릭해 목표를 입력해주세요';
         if(answers.length > 1) {  
