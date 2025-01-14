@@ -30,7 +30,7 @@ const AnswerInputComponent = ({
   limitAnswer: number;
   onNext?: () => void;
 }) => {
-  const maxCharLimit = 33;
+  const maxCharLimit = 44;
 
   const handleInputChange = (id: string, value: string) => {
     const totalLength = answers.reduce((acc, curr) => acc + (curr.id === id ? value.length : curr.text.length), 0);
@@ -101,7 +101,7 @@ const AnswerInputComponent = ({
         {/* 글자수 초과 메시지 */}
         {totalCharacters >= maxCharLimit && (
           <div className="text-red-500 text-sm">
-            최대 33글자만 입력할 수 있습니다. 부적이 작아서 미안해요.
+            최대 {maxCharLimit}글자만 입력할 수 있습니다. 부적이 작아서 미안해요.
           </div>
         )}
       </>
