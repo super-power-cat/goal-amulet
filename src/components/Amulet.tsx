@@ -32,10 +32,10 @@ export const Amulet = ({ initialText, initailColor }: AmuletProps) => {
     const colorInfo = getColorInfo(selectedColor);
     try {
       let textSize = 2.5;
-      let textTop = 0.9;
+      let textTop = 0.92;
       if (text.length > 16) {
         textSize = 1.8;
-        textTop = 0.86;
+        textTop = 0.74;
       }
       // text 크기... 위치... 추가 필요할듯
       const imageUrl = await createAmuletImage(
