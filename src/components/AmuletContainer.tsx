@@ -11,22 +11,31 @@ interface AmuletContainerProps {
 export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletContainerProps) => {
   const colorInfo = getColorInfo(selectedColor);
   const [showWarning, setShowWarning] = useState(false);
-  const [containerHeight, setContainerHeight] = useState(480); // 기본 높이
+  const [containerHeight, setContainerHeight] = useState(480);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const MAX_CONTAINER_HEIGHT = 570; // 최대 높이 설정
 
   useEffect(() => {
     if (textAreaRef.current) {
-        // 텍스트 높이 자동 조절
-        textAreaRef.current.style.height = 'auto';
-        textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-        
-        // 컨테이너 높이 조절
-        const textHeight = textAreaRef.current.scrollHeight;
-        const minHeight = 480;
-        const additionalHeight = textHeight > 130 ? textHeight - 130 : 0;
-        setContainerHeight(minHeight + additionalHeight);
+      // 텍스트 높이 자동 조절
+      textAreaRef.current.style.height = 'auto';
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+      
+      // 컨테이너 높이 조절
+      const textHeight = textAreaRef.current.scrollHeight;
+      const minHeight = 480;
+      const additionalHeight = textHeight > 130 ? textHeight - 130 : 0;
+      const newContainerHeight = minHeight + additionalHeight;
+      
+      // 최대 높이 체크
+      if (newContainerHeight > MAX_CONTAINER_HEIGHT) {
+        setShowWarning(true);
+      } else {
+        setContainerHeight(newContainerHeight);
+        setShowWarning(false);
+      }
     }
-}, [text]); // text가 변경될 때마다 실행
+  }, [text]);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = e.target;
@@ -34,69 +43,53 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
     
     if (!onTextChange) return;
 
-    if (textAreaRef.current) {
+    // 현재 컨테이너 높이 계산
+    const potentialHeight = 480 + (textarea.scrollHeight > 130 ? textarea.scrollHeight - 130 : 0);
+    
+    // 백스페이스/삭제 키 입력 시 항상 허용
+    const isDeleting = newText.length < text.length;
+    
+    if (potentialHeight <= MAX_CONTAINER_HEIGHT || isDeleting) {
+      if (textAreaRef.current) {
         textAreaRef.current.style.height = 'auto';
         textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+      }
+      onTextChange(newText);
+      setShowWarning(false);
+    } else {
+      setShowWarning(true);
     }
-    
-    onTextChange(newText);
-    setShowWarning(false);
   };
-  
-  
-  console.log(text);
 
   return (
-        <div
-            id="amulet-container"
-            className={styles.amuletContainer}
-            style={{ backgroundColor: colorInfo.code, height: `${containerHeight}px` }}
-        >
-            <div className={styles.imageWrapper}>
-                <img
-                    src={`/${colorInfo.file}`}
-                    alt="Amulet"
-                    className={styles.amuletImage}
-                />
-            </div>
-            <div className={styles.amuletTitle}>
-                {colorInfo.title}
-            </div>
-            <textarea
-                ref={textAreaRef}
-                className={`${styles.amuletText} ${text.length <= 16 ? styles.largeFont : styles.smallFont}`} 
-                onChange={handleTextChange}
-                rows={1}
-                maxLength={100}
-                value={text}
-            />
-        {showWarning && (
-        <div className={`${styles.warningMessage} ${styles.visible}`}>
-            최대 3줄까지만 입력할 수 있습니다 ⚠️
-        </div>
-        )}
-    
-
-      {/* <textarea 
-        value={text}
+    <div
+      id="amulet-container"
+      className={styles.amuletContainer}
+      style={{ backgroundColor: colorInfo.code, height: `${containerHeight}px` }}
+    >
+      <div className={styles.imageWrapper}>
+        <img
+          src={`/${colorInfo.file}`}
+          alt="Amulet"
+          className={styles.amuletImage}
+        />
+      </div>
+      <div className={styles.amuletTitle}>
+        {colorInfo.title}
+      </div>
+      <textarea
+        ref={textAreaRef}
+        className={`${styles.amuletText} ${text.length <= 16 ? styles.largeFont : styles.smallFont}`} 
         onChange={handleTextChange}
-        className={styles.amuletText}
-        rows={3}
-        maxLength={100}
-        // placeholder="이곳에 목표를 입력해주세요!"
-        // className={styles.amuletText}
-        style={{
-          background: 'transparent',
-          border: 'none',
-          resize: 'none',
-          outline: 'none',
-          textAlign: 'center',
-          width: '100%',
-          fontFamily: 'inherit',
-          fontSize: 'inherit',
-          color: 'inherit'
-        }}
-      /> */}
+        rows={1}
+        // maxLength={100}
+        value={text}
+      />
+      {showWarning && (
+        <div className={`${styles.warningMessage} ${styles.visible}`}>
+          영차... 부적을 더 늘릴 수 없어요 ⚠️
+        </div>
+      )}
     </div>
   );
 }; 

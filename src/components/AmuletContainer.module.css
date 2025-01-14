@@ -1,6 +1,7 @@
 .amuletContainer {
     width: 360px;
     min-height: 480px; /* 최소 높이 설정 */
+    max-height: 610px;
     position: relative;
     border-radius: 20px;
     overflow: hidden;
@@ -42,7 +43,6 @@
     border: none;
     resize: none;
     outline: none;
-    margin-top: 40px;
     white-space: pre-wrap; /* 줄바꿈 유지 */
     word-break: break-word; /* 긴 단어 줄바꿈 */
     overflow: hidden; /* 스크롤바 제거 */
@@ -74,7 +74,7 @@
   
   .warningMessage {
     position: absolute;
-    top: 97%;
+    top: 98%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #ff6b6b;
