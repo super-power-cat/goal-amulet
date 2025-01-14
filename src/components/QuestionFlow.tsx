@@ -23,7 +23,16 @@ export default function QuestionFlow() {
     }
   }, [fetchedQuestions]);
 
-  if (loading) return <div>로딩 중...</div>;
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.loadingContent}>
+          <div className={styles.loadingSpinner}>✨</div>
+          <p>목표를 정할 준비를 하고 있어요</p>
+        </div>
+      </div>
+    );
+  }
   if (error) return <div>{error}</div>;
   if (!responses.length) return <div>질문을 불러오는 중...</div>;
 
