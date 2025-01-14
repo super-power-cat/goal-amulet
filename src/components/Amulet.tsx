@@ -60,7 +60,7 @@ export const Amulet = ({ initialText, initailColor }: AmuletProps) => {
   const handleShare = () => {
     const url = window.location.href;
     const title = '나만의 부적';
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(url + '\n\n25년 목표를 귀여운 나만의 부적으로 만들어보세요!\n친구의 목표가 궁금하다면 링크를 클릭해 친구의 목표 부적을 확인해보세요!');
     alert('링크가 복사되었어요, 내 목표를 공유해봐요! \n⚠️ 해당 페이지를 나가면 부적을 수정할 수 없으니 주의해주세요. ⚠️');
   };
 
