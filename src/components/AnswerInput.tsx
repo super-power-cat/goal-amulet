@@ -11,9 +11,11 @@ interface AnswerInputProps {
   limitAnswer: number;
   type?: string;
   onNext?: () => void;
+  setCurrentQuestionIndex: (index: number) => void;
 }// Update based on your actual icons
 
 const AnswerInputComponent = ({
+  questionIndex,
   type,
   answers,
   onAnswerChange,
@@ -21,7 +23,9 @@ const AnswerInputComponent = ({
   onRemoveAnswer,
   limitAnswer,
   onNext,
+  setCurrentQuestionIndex,
 }: {
+  questionIndex: number;
   type: string;
   answers: { id: string; text: string }[];
   onAnswerChange: (id: string, value: string, type: string) => void;
@@ -29,6 +33,7 @@ const AnswerInputComponent = ({
   onRemoveAnswer: (id: string) => void;
   limitAnswer: number;
   onNext?: () => void;
+  setCurrentQuestionIndex: (index: number) => void;
 }) => {
   const maxCharLimit = 44;
 
@@ -52,9 +57,11 @@ const AnswerInputComponent = ({
           {type === "YN" ? (
             <YesNoAnswer
               answerId={answer.id}
+              questionIndex={questionIndex}
               selectedValue={answer.text}
               onAnswerChange={onAnswerChange}
               onNext={onNext || (() => {})}
+              setCurrentQuestionIndex={setCurrentQuestionIndex}
             />
           ) : (
             <>

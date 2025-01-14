@@ -5,9 +5,11 @@ interface YesNoAnswerProps {
   selectedValue: string;
   onAnswerChange: (id: string, text: string, type: string) => void;
   onNext: () => void;
+  questionIndex: number;
+  setCurrentQuestionIndex: (index: number) => void;
 }
 
-export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, onNext }: YesNoAnswerProps) {
+export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, onNext, questionIndex, setCurrentQuestionIndex }: YesNoAnswerProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const type = "YN";
 
@@ -17,7 +19,7 @@ export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, o
     
     // setIsProcessing(true);
     onAnswerChange(answerId, value, type);
-    onNext();
+    setCurrentQuestionIndex(questionIndex + 1);
     
     // 다음 질문으로 전환 후 처리 상태 초기화
     // setIsProcessing(false)

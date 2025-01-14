@@ -9,6 +9,7 @@ import { fetchRandomQuestionByType } from '../services/questionService';
 import { saveAmulet } from '../services/amuletService';
 
 interface QuestionSectionProps {
+  index: number;
   content: string;
   tip: string;
   questionId: number;
@@ -21,9 +22,11 @@ interface QuestionSectionProps {
   limitAnswer: number;
   allResponses: NewQuestion[];
   onQuestionRefresh: (questionId: number, newContent: string) => void;
+  setCurrentQuestionIndex: (index: number) => void;
 }
 
 export default function QuestionSection({
+  index,
   content,
   tip,
   questionId,
@@ -35,6 +38,7 @@ export default function QuestionSection({
   limitAnswer,
   allResponses,
   onQuestionRefresh,
+  setCurrentQuestionIndex,
 }: QuestionSectionProps) {
   
   const navigate = useNavigate();
@@ -59,7 +63,6 @@ export default function QuestionSection({
     }
   };
 
-  // 안되잖아~~!
   const handleAnswerChange = (id: string, text: string, type: string) => {
     const currentAnswer = answers.find(answer => answer.id === id);
     const isChangingChoice = currentAnswer?.text && currentAnswer.text !== text;
@@ -79,21 +82,22 @@ export default function QuestionSection({
       // 현재 질문의 답변만 업데이트하고 다음 질문으로 넘어가기 전에 이후 질문들 초기화
       setAnswers(newAnswers);
       onAnswersChange(newAnswers);
+      console.log("here");
       
       // 이후 질문들 초기화
-      allResponses.forEach((response, index) => {
-        if (index > questionId) {
-          onQuestionRefresh(response.id, '');
-        }
-      });
+      // allResponses.forEach((response, index) => {
+      //   if (index > questionId) {
+      //     onQuestionRefresh(response.id, '');
+      //   }
+      // });
 
       // 초기화 후 다음 질문으로 이동
-      setTimeout(() => {
-        onNext();
-      }, 0);
+      // setTimeout(() => {
+      //   onNext();
+      // }, 0);
       return;
-    }
-
+    } 
+    console.log("here2");
     setAnswers(newAnswers);
     onAnswersChange(newAnswers);
   };
@@ -176,6 +180,7 @@ export default function QuestionSection({
       </div>
       <div className={styles.answerInput}>
         <AnswerInput
+          questionIndex={index}
           answers={answers}
           onAnswerChange={handleAnswerChange}
           onAddAnswer={handleAddAnswer}
@@ -183,6 +188,7 @@ export default function QuestionSection({
           limitAnswer={limitAnswer}
           type={type}
           onNext={onNext}
+          setCurrentQuestionIndex={setCurrentQuestionIndex}
         />
       </div>
       {showNext && type !== "YN" && (

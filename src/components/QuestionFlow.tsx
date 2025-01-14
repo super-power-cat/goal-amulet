@@ -67,6 +67,11 @@ export default function QuestionFlow() {
     }
   };
 
+  const setQuestionIndex = (index: number) => {
+    if(index > filteredQuestions.length - 1) return;
+    setCurrentQuestionIndex(index);
+  };
+
   const handleQuestionRefresh = (questionId: number, newContent: string) => {
     setResponses(prev => prev.map(q =>
       q.id === questionId ? { ...q, content: newContent, answers: [] } : q
@@ -89,6 +94,7 @@ export default function QuestionFlow() {
         <div className={styles.questionList}>
           {filteredQuestions.slice(0, currentQuestionIndex + 1).map((question, index) => (
             <QuestionSection
+              index={index}
               key={question.id}
               content={question.content}
               tip={question.tip}
@@ -102,6 +108,7 @@ export default function QuestionFlow() {
               limitAnswer={question.limitAnswer}
               allResponses={responses}
               onQuestionRefresh={handleQuestionRefresh}
+              setCurrentQuestionIndex={setQuestionIndex}
             />
           ))}
         </div>
