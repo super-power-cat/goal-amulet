@@ -26,10 +26,11 @@ export const AmuletPage = () => {
       try {
         const amuletData = await getAmulet(amuletId);
         if (amuletData) {
-          setColor(amuletData.color);
-          setText(amuletData.text);
-          setName(amuletData.name);
+          setColor(amuletData.color || 'POWER');
+          setText(amuletData.text || '이곳에 목표를 입력해주세요!');
+          setName(amuletData.name || '나만');
         } else {
+          setName('나만');
           setColor('POWER');
           setText('이곳에 목표를 입력해주세요!');
         }

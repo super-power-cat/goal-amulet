@@ -33,7 +33,7 @@ export default function QuestionFlow() {
       </div>
     );
   }
-  if (error) return <div>{error}</div>;
+  if (error) return <div>{error} \n 에러가 발생했어요 instagram으로 알려주시면 빠르게 해결해드릴게요</div>;
   if (!responses.length) return <div>질문을 불러오는 중...</div>;
 
   const handleAnswersChange = (questionId: number, answers: Answer[]) => {
