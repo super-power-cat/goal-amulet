@@ -5,6 +5,7 @@ import Result from './components/result/Result';
 import { AmuletPage } from './pages/AmuletPages';
 import { AmuletRedirectPage } from './pages/AmuletRedirectPages';
 import { NotFound } from './components/NotFound';
+import { Footer } from './components/Footer';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/amulet/:amuletId" element={<AmuletPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

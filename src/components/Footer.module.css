@@ -1,0 +1,57 @@
+.footer {
+    width: 100%;
+    padding: 1rem;
+    background-color: transparent;
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 2rem;
+    left: 0;
+  }
+  
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex; /* flex를 사용하여 요소 배치 */
+    align-items: center; /* 수평 가운데 정렬 */
+    justify-content: center; /* 세로 가운데 정렬 */
+    gap: 2rem; /* feedbackLink와 socialLinks 사이 거리 */
+  }
+
+  .superpowercat {
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+  
+  .feedbackLink {
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .wall {
+    color: #6b7280;
+  }
+  
+  .feedbackLink:hover {
+    color: #2563eb;
+    transform: translateY(-1px);
+  }
+  
+  .socialLinks {
+    display: flex;
+    gap: 1rem; /* 아이콘 간격 */
+  }
+  
+  .iconLink {
+    color: #6b7280;
+    transition: all 0.2s;
+  }
+  
+  .iconLink:hover {
+    color: #2563eb;
+    transform: translateY(-1px);
+  }
+  
