@@ -90,13 +90,11 @@ export const drawAmulet = async (
   await new Promise<void>((resolve) => {
 
     img.onload = () => {
-      const imageWrapperWidth = 360;
-      const imageWrapperHeight = 320;
       const imageWrapperTop = height * 0.05; // 이미지 높이 조정
 
       const aspectRatio = img.width / img.height;
-      const drawWidth = Math.min(width, imageWrapperHeight * aspectRatio);
-      const drawHeight = Math.min(imageWrapperHeight, drawWidth / aspectRatio);
+      const drawWidth = Math.min(width, height * aspectRatio);
+      const drawHeight = Math.min(height, drawWidth / aspectRatio);
 
       const xOffset = x + (width - drawWidth) / 2;
       const yOffset = y + imageWrapperTop;
@@ -121,10 +119,11 @@ export const drawAmulet = async (
       // 줄 간격 설정 (CSS의 line-height: 1.2와 동일하게)
       const lineHeight = fontSize * 16 * 1.4;
       
-      wrappedLines.forEach((line, index) => {
-        const yPos = y + height * textTop + (index - 1) * lineHeight; // 기준점에서 위아래로 배치
-        ctx.fillText(line, x + width / 2, yPos);
-      });
+    wrappedLines.forEach((line, index) => {
+      // textTop 값을 0.75에서 0.7로 조정하여 텍스트를 위로 이동
+      const yPos = y + height * (textTop) + (index - 1) * lineHeight;
+      ctx.fillText(line, x + width / 2, yPos);
+    });
 
       ctx.restore();
       resolve();
@@ -149,10 +148,15 @@ export const createAmuletImage = async (
   if (!ctx) throw new Error('Canvas context not supported');
   const colorInfo = getColorInfo(color);
 
+  // 실제 amulet 컨테이너의 높이를 가져옴
+  const amuletContainer = document.getElementById('amulet-container');
+
+  const actualAmuletHeight = amuletContainer ? amuletContainer.offsetHeight : AMULET_HEIGHT;
+
   // 고해상도 캔버스 크기 설정
-  const scaleFactor = 2; // 두 배로 해상도를 높임
+  const scaleFactor = 2;
   const actualWidth = isWallpaper ? WALLPAPER_WIDTH * scaleFactor : AMULET_WIDTH * scaleFactor;
-  const actualHeight = isWallpaper ? WALLPAPER_HEIGHT * scaleFactor : AMULET_HEIGHT * scaleFactor;
+  const actualHeight = isWallpaper ? WALLPAPER_HEIGHT * scaleFactor : actualAmuletHeight * scaleFactor;
 
   canvas.width = actualWidth;
   canvas.height = actualHeight;
@@ -177,11 +181,11 @@ export const createAmuletImage = async (
     const x = (actualWidth - amuletWidth) / 2;
     const y = (actualHeight - amuletHeight) / 2;
 
-    ctx.scale(scaleFactor, scaleFactor); // 스케일 적용
+    ctx.scale(scaleFactor, scaleFactor);
     await drawAmulet(ctx, x / scaleFactor, y / scaleFactor, amuletWidth / scaleFactor, amuletHeight / scaleFactor, colorInfo.code, svg, title, text, textSize, textTop);
   } else {
-    ctx.scale(scaleFactor, scaleFactor); // 스케일 적용
-    await drawAmulet(ctx, 0, 0, AMULET_WIDTH, AMULET_HEIGHT, colorInfo.code, svg, title, text, textSize, textTop);
+    ctx.scale(scaleFactor, scaleFactor);
+    await drawAmulet(ctx, 0, 0, AMULET_WIDTH, actualAmuletHeight, colorInfo.code, svg, title, text, textSize, textTop);
   }
 
   return canvas.toDataURL('image/png');
