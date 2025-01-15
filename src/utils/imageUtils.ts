@@ -1,9 +1,13 @@
 import { ColorOption, getColorInfo } from '../types';
 
+// 부적 크기
 const AMULET_WIDTH = 360;
 const AMULET_HEIGHT = 480;
 const WALLPAPER_WIDTH = 1080;
 const WALLPAPER_HEIGHT = 1920;
+// 부적 이미지 크기
+const imageWrapperWidth = 360;
+const imageWrapperHeight = 320;
 
 const wrapText = (
   ctx: CanvasRenderingContext2D,
@@ -53,6 +57,8 @@ export const drawAmulet = async (
   y: number,
   width: number,
   height: number,
+  imageWidth: number,
+  imageHeight: number,
   colorCode: string,
   svg: string,
   title: string,
@@ -93,8 +99,8 @@ export const drawAmulet = async (
       const imageWrapperTop = height * 0.05; // 이미지 높이 조정
 
       const aspectRatio = img.width / img.height;
-      const drawWidth = Math.min(width, height * aspectRatio);
-      const drawHeight = Math.min(height, drawWidth / aspectRatio);
+      const drawWidth = Math.min(imageWidth, imageHeight * aspectRatio);
+      const drawHeight = Math.min(imageHeight, drawWidth / aspectRatio);
 
       const xOffset = x + (width - drawWidth) / 2;
       const yOffset = y + imageWrapperTop;
@@ -150,7 +156,6 @@ export const createAmuletImage = async (
 
   // 실제 amulet 컨테이너의 높이를 가져옴
   const amuletContainer = document.getElementById('amulet-container');
-
   const actualAmuletHeight = amuletContainer ? amuletContainer.offsetHeight : AMULET_HEIGHT;
 
   // 고해상도 캔버스 크기 설정
@@ -165,27 +170,50 @@ export const createAmuletImage = async (
   if (isWallpaper) {
     canvas.style.width = `${WALLPAPER_WIDTH}px`;
     canvas.style.height = `${WALLPAPER_HEIGHT}px`;
-  } else {
-    canvas.style.width = `${AMULET_WIDTH}px`;
-    canvas.style.height = `${AMULET_HEIGHT}px`;
-  }
 
-  // 배경 화면
-  if (isWallpaper) {
+    // 배경화면용 부적 크기 계산 (원본 비율 유지)
+    const amuletScale = 2; // 크기를 2배로 키움
+    const amuletWidth = AMULET_WIDTH * amuletScale;
+    const amuletHeight = actualAmuletHeight * amuletScale;
+
+    const x = (actualWidth - amuletWidth * scaleFactor) / 2;
+    const y = (actualHeight - amuletHeight * scaleFactor) / 1.5; // 2로하면 정가운데 위치하게됨
+
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, actualWidth, actualHeight);
-
-    const amuletWidth = actualWidth * 0.8; // 고해상도 기반 비율
-    const amuletHeight = (amuletWidth / AMULET_WIDTH) * AMULET_HEIGHT;
-
-    const x = (actualWidth - amuletWidth) / 2;
-    const y = (actualHeight - amuletHeight) / 2;
-
     ctx.scale(scaleFactor, scaleFactor);
-    await drawAmulet(ctx, x / scaleFactor, y / scaleFactor, amuletWidth / scaleFactor, amuletHeight / scaleFactor, colorInfo.code, svg, title, text, textSize, textTop);
+    await drawAmulet(
+      ctx, 
+      x / scaleFactor, 
+      y / scaleFactor, 
+      amuletWidth, 
+      amuletHeight, 
+      imageWrapperWidth * amuletScale, 
+      imageWrapperHeight * amuletScale, 
+      colorInfo.code, 
+      svg, 
+      title, 
+      text, 
+      textSize, 
+      textTop
+    );
   } else {
     ctx.scale(scaleFactor, scaleFactor);
-    await drawAmulet(ctx, 0, 0, AMULET_WIDTH, actualAmuletHeight, colorInfo.code, svg, title, text, textSize, textTop);
+    await drawAmulet(
+      ctx, 
+      0, 
+      0, 
+      AMULET_WIDTH, 
+      actualAmuletHeight, 
+      imageWrapperWidth, 
+      imageWrapperHeight, 
+      colorInfo.code, 
+      svg, 
+      title, 
+      text, 
+      textSize, 
+      textTop
+    );
   }
 
   return canvas.toDataURL('image/png');
