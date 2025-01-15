@@ -4,6 +4,7 @@ import QuestionFlow from './components/QuestionFlow';
 import Result from './components/result/Result';
 import { AmuletPage } from './pages/AmuletPages';
 import { AmuletRedirectPage } from './pages/AmuletRedirectPages';
+import { NotFound } from './components/NotFound';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/result/:reviewId" element={<Result />} />
         <Route path="/amulet" element={<AmuletRedirectPage />} />
         <Route path="/amulet/:amuletId" element={<AmuletPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
