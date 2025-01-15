@@ -1,10 +1,10 @@
 .container {
   display: flex; /* Flexbox 활성화 */
   flex-direction: column; /* 수직 정렬 */
-  justify-content: center; /* 세로 중앙 정렬 */
+  /* justify-content: center; 세로 중앙 정렬 */
   align-items: center; /* 가로 중앙 정렬 */
   min-height: 100vh;
-  background-color: #f9fafb;
+  background-color:rgb(250, 246, 238)
 }
 
 .title {
@@ -32,7 +32,7 @@
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   position: relative; /* 부모 요소를 기준으로 위치 조정 */
-  left: 150px; /* 오른쪽으로 10px 이동 */
+  /* left: 150px; 오른쪽으로 10px 이동 */
   padding: 5px 10px;
   background: transparent;
   border: none;
