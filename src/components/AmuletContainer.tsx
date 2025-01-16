@@ -17,26 +17,34 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
 
   const adjustHeight = () => {
     if (textAreaRef.current) {
-      textAreaRef.current.style.height = 'auto';
-      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-      
-      const textHeight = textAreaRef.current.scrollHeight;
-      const minHeight = 480;
-      const additionalHeight = textHeight > 130 ? textHeight - 130 : 0;
-      const newContainerHeight = minHeight + additionalHeight;
-      
-      if (newContainerHeight > MAX_CONTAINER_HEIGHT) {
-        setShowWarning(true);
-      } else {
-        setContainerHeight(newContainerHeight);
-        setShowWarning(false);
-      }
+      requestAnimationFrame(() => {
+        if (textAreaRef.current) {
+          textAreaRef.current.style.height = 'auto';
+          textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+          
+          const textHeight = textAreaRef.current.scrollHeight;
+          const minHeight = 480;
+          const additionalHeight = textHeight > 130 ? textHeight - 130 : 0;
+          const newContainerHeight = minHeight + additionalHeight;
+          
+          if (newContainerHeight > MAX_CONTAINER_HEIGHT) {
+            setShowWarning(true);
+          } else {
+            setContainerHeight(newContainerHeight);
+            setShowWarning(false);
+          }
+        }
+      });
     }
   };
 
-  // 컴포넌트 마운트 시 높이 조절
+  // 컴포넌트 마운트 시 높이 조절 - setTimeout 추가
   useEffect(() => {
-    adjustHeight();
+    const timer = setTimeout(() => {
+      adjustHeight();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   // text 변경 시 높이 조절
