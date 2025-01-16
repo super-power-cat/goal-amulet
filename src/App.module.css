@@ -1,5 +1,4 @@
 .container {
-  /* min-height: 100vh; */
   background-color: white;
 }
 
@@ -7,6 +6,8 @@
 
 .wrapper {
   max-width: 56rem;
+
+  min-height: 90vh;
   margin: 0 auto;
   padding: 3rem 1rem;
 }
@@ -100,5 +101,5 @@
 }
 
 .questionFlowFooter {
-  position: fixed;
+  /* position: fixed; */
 }
