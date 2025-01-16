@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnswerInput from './AnswerInput';
 import { Answer, Question, BasicQuestion, NewQuestion } from '../types';
@@ -82,7 +82,6 @@ export default function QuestionSection({
       // 현재 질문의 답변만 업데이트하고 다음 질문으로 넘어가기 전에 이후 질문들 초기화
       setAnswers(newAnswers);
       onAnswersChange(newAnswers);
-      console.log("here");
       
       // 이후 질문들 초기화
       // allResponses.forEach((response, index) => {

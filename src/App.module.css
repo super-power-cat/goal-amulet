@@ -1,7 +1,9 @@
 .container {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background-color: white;
 }
+
+
 
 .wrapper {
   max-width: 56rem;
@@ -95,4 +97,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.questionFlowFooter {
+  position: fixed;
 }

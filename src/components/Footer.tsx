@@ -1,14 +1,18 @@
 import { Twitter, Github, Instagram } from 'lucide-react';
 import styles from './Footer.module.css';
 
-export const Footer = () => {
+interface Props {
+    className?: string;
+}
+
+export const Footer = ({className}: Props) => {
   const FEEDBACK_URL = "https://forms.gle/oQjbsCwfwCkEcMX96";
   const TWITTER_URL = "https://x.com/power_super_cat?s=21";
   const GITHUB_URL = "https://github.com/super-power-cat";
   const INSTAGRAM_URL = "https://www.instagram.com/super.power.cat";
 
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} ${className}`}>
       <div className={styles.content}>
       <a 
           target="_blank"

@@ -18,7 +18,7 @@ function App() {
         <Route path="/amulet/:amuletId" element={<AmuletPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

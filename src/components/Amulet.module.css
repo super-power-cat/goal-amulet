@@ -114,6 +114,7 @@
     gap: 0.75rem;
     flex-wrap: wrap;
     justify-content: center;
+    margin-bottom: 3rem;
   }
   
   .shareButton {

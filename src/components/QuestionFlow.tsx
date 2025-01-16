@@ -4,6 +4,7 @@ import QuestionSection from './QuestionSection';
 import { Question, Answer, NewQuestion } from '../types';
 import styles from '../App.module.css';
 import { useNavigate } from 'react-router-dom';
+import {Footer} from './Footer';
 
 export default function QuestionFlow() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function QuestionFlow() {
   const [filteredQuestions, setFilteredQuestions] = useState<NewQuestion[]>([]);
   const next_icon = ">>";
 
+ 
   useEffect(() => {
     if (fetchedQuestions) {
       setResponses(fetchedQuestions.map(q => ({
@@ -60,11 +62,28 @@ export default function QuestionFlow() {
       }
     }
   };
+  const scrollToBottom = () => {
+    const html = document.documentElement;
+    const body = document.body;
+    const scrollHeight = Math.max(
+      body.scrollHeight, html.scrollHeight,
+      body.offsetHeight, html.offsetHeight,
+      body.clientHeight, html.clientHeight
+    );
+    console.log(scrollHeight);
+    window.scrollTo({
+      top: scrollHeight+300,
+      behavior: 'smooth'
+    });
+  };
 
   const handleNextQuestion = () => {
+    // 질문 추가된 후를 안 더하는 거 아닐까?! 질문을 추가하는 시점을 알아야한다.
+    scrollToBottom();
     if (currentQuestionIndex < filteredQuestions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
     }
+    scrollToBottom();
   };
 
   const setQuestionIndex = (index: number) => {
@@ -76,6 +95,7 @@ export default function QuestionFlow() {
     setResponses(prev => prev.map(q =>
       q.id === questionId ? { ...q, content: newContent, answers: [] } : q
     ));
+    scrollToBottom();
   };
 
   return (
@@ -113,6 +133,8 @@ export default function QuestionFlow() {
           ))}
         </div>
       </div>
+    <Footer className={styles.questionFlowFooter} />
     </div>
+  
   );
 }

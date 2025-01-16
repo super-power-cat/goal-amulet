@@ -10,6 +10,11 @@
   overflow: hidden;
 }
 
+.questionFlowFooter {
+  position: fixed;
+  /* bottom: 0; */
+}
+
 .container::before {
   content: "✨";
   position: absolute;

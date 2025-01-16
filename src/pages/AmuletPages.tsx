@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import styles from './AmuletPages.module.css';
 import { getAmulet } from '../services/amuletService';
 import { ColorKey } from '../types';
+import { Footer } from '../components/Footer';
 
 export const AmuletPage = () => {
   const navigate = useNavigate();
@@ -46,13 +47,15 @@ export const AmuletPage = () => {
 
 
   return (
-    <div className={styles.container}>
-      <button onClick={() => navigate('/')} className={styles.goToGoalButton}>
-        <span>목표 정하러 가기 {next_icon}</span>
-        {/* <ArrowRight size={20} /> */}
-      </button>
-      <h1 className={styles.title}>✨ {name}의 목표 부적 ✨</h1>
-      <Amulet initialText={text} initailColor = {color} />
+    <div className={styles.background}>
+      <div className={styles.container}>
+        <button onClick={() => navigate('/')} className={styles.goToGoalButton}>
+          <span>목표 정하러 가기 {next_icon}</span>
+        </button>
+        <h1 className={styles.title}>✨ {name}의 목표 부적 ✨</h1>
+        <Amulet initialText={text} initailColor = {color} />
+      </div>
+      <Footer />
     </div>
   );
 };

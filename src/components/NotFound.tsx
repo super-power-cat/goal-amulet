@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './NotFound.module.css';
+import { Footer } from './Footer';
 
 export const NotFound = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export const NotFound = () => {
           <span>목표 정하러 가기 {next_icon}</span>
         </button>
       </div>
+      <Footer className={styles.questionFlowFooter} />
     </div>
   );
 }; 

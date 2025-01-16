@@ -3,8 +3,12 @@
   flex-direction: column; /* 수직 정렬 */
   /* justify-content: center; 세로 중앙 정렬 */
   align-items: center; /* 가로 중앙 정렬 */
+  /* min-height: 100vh; */
+}
+
+.background {
+  background-color:rgb(250, 246, 238);
   min-height: 100vh;
-  background-color:rgb(250, 246, 238)
 }
 
 .title {
