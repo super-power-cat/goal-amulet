@@ -161,8 +161,14 @@ export const createAmuletImage = async (
   const actualWidth = isWallpaper ? WALLPAPER_WIDTH * scaleFactor : AMULET_WIDTH * scaleFactor;
   const actualHeight = isWallpaper ? WALLPAPER_HEIGHT * scaleFactor : actualAmuletHeight * scaleFactor;
 
-  canvas.width = actualWidth;
-  canvas.height = actualHeight;
+  const dpi = window.devicePixelRatio || 1;
+  ctx.scale(dpi, dpi);
+  canvas.width = actualWidth * dpi;
+  canvas.height = actualHeight * dpi;
+
+  // canvas.width = actualWidth;
+  // canvas.height = actualHeight;
+
 
   // 화면에 표시할 크기
   if (isWallpaper) {
