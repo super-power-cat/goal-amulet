@@ -86,3 +86,56 @@
   .warningMessage.visible {
     opacity: 1;
   }
+
+  .tooltipContainer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+  }
+
+  .tooltipIcon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: #bababa;
+    transition: color 0.2s;
+  }
+
+  .tooltipIcon:hover {
+    color: #646b76;
+  }
+
+  .tooltip {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    background-color: #82afeec6;
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    width: max-content;
+    max-width: 250px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+  }
+
+  .tooltipVisible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 툴팁 화살표 */
+  .tooltip::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    background-color: #82afeec6;
+    transform: rotate(45deg);
+  }

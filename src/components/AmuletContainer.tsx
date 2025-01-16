@@ -1,6 +1,7 @@
 import { ColorKey, getColorInfo } from '../types';
 import styles from './AmuletContainer.module.css';
 import { useState, useEffect, useRef } from 'react';
+import { Info } from 'lucide-react';
 
 interface AmuletContainerProps {
   selectedColor: ColorKey;
@@ -15,6 +16,7 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange, isEditable 
   const [containerHeight, setContainerHeight] = useState(480);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const MAX_CONTAINER_HEIGHT = 570;
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const adjustHeight = () => {
     if (textAreaRef.current) {
@@ -88,6 +90,20 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange, isEditable 
       className={styles.amuletContainer}
       style={{ backgroundColor: colorInfo.code, height: `${containerHeight}px` }}
     >
+      {isEditable && (
+        <div className={styles.tooltipContainer}>
+          <Info
+            className={styles.tooltipIcon}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+            onClick={() => setShowTooltip(!showTooltip)}
+          />
+          <div className={`${styles.tooltip} ${showTooltip ? styles.tooltipVisible : ''}`}>
+            해당 페이지를 나갈 시 부적을 수정할 수 없으니 주의해주세요.
+          </div>
+        </div>
+      )}
+      
       <div className={styles.imageWrapper}>
         <img
           src={`/${colorInfo.file}`}
