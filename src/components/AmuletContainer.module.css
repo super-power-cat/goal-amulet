@@ -110,7 +110,7 @@
     position: absolute;
     top: calc(100% + 5px);
     right: 0;
-    background-color: #82afeec6;
+    background-color: #82afeefa;
     color: white;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
@@ -136,6 +136,6 @@
     right: 10px;
     width: 8px;
     height: 8px;
-    background-color: #82afeec6;
+    background-color: #82afee;
     transform: rotate(45deg);
   }
