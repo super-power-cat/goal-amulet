@@ -112,7 +112,7 @@ export const drawAmulet = async (
 
       ctx.drawImage(img, xOffset, yOffset, drawWidth, drawHeight);
 
-      ctx.font = `bold ${2.5 * scale}rem amulet_content4`;
+      ctx.font = `bold ${2.5*16 * scale}px amulet_content4`;
       ctx.fillStyle = 'black';
       ctx.textAlign = 'center';
       ctx.fillText(title, x + width / 2, y + height * 0.1);
@@ -130,7 +130,6 @@ export const drawAmulet = async (
       const lineHeight = fontSize * 1.4; // 줄 간격 설정
       const textStartY = yOffset + drawHeight + textPlusPx; // SVG 아래 25px부터 시작
 
-      console.log(wrappedLines);
       wrappedLines.forEach((line, index) => {
         const yPos = textStartY + index * lineHeight;
         ctx.fillText(line, x + width / 2, yPos);
