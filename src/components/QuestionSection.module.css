@@ -50,12 +50,15 @@
 }
 
 .button:not(:disabled) {
-  background-color: #2563eb;
+
+  background-color: #876bf4;
   color: white;
 }
 
 .button:not(:disabled):hover {
-  background-color: #1d4ed8;
+
+  background-color: #4d29df;
+  color: white;
 }
 .refreshContainer {
   display: flex;

@@ -2,6 +2,7 @@ import { PlusCircle, X } from 'lucide-react';
 import { Answer } from '../types';
 import YesNoAnswer from '../components/YesNoAnswer';
 import { useState } from 'react';
+import styles from './AnswerInput.module.css';
 
 interface AnswerInputProps {
   answers: Answer[];
@@ -69,7 +70,7 @@ const AnswerInputComponent = ({
                 type="text"
                 value={answer.text}
                 onChange={(e) => handleInputChange(answer.id, e.target.value)}
-                className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className={styles.answerInput}
                 placeholder="답변을 입력하세요..."
               />
               {answers.length > 1 && (
@@ -89,7 +90,7 @@ const AnswerInputComponent = ({
     {!type?.includes("YN") && limitAnswer != 1 && (
       <>
         {/* 글자수 제한 표시 */}
-        <div className="text-gray-500 text-sm">
+        <div className={styles.characterCount}>
           {totalCharacters}/{maxCharLimit}
         </div>
 
@@ -98,7 +99,7 @@ const AnswerInputComponent = ({
           <button
             type="button"
             onClick={onAddAnswer}
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-700 mt-2"
+            className={styles.addAnswerButton}
           >
             <PlusCircle size={20} />
             <span>답변 추가</span>
@@ -107,7 +108,7 @@ const AnswerInputComponent = ({
 
         {/* 글자수 초과 메시지 */}
         {totalCharacters >= maxCharLimit && (
-          <div className="text-red-500 text-sm">
+          <div className={styles.errorMessage}>
             최대 {maxCharLimit}글자만 입력할 수 있습니다. 부적이 작아서 미안해요.
           </div>
         )}

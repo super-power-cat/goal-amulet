@@ -1,0 +1,37 @@
+.buttonContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.unselected {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+.unselected:hover:not(:disabled) {
+  background-color: #d0c7f6;
+  color: #4b5563;
+  transform: translateY(-1px);
+}
+
+.selected {
+  background-color: #876bf4;
+  color: white;
+}
+
+.selected:hover:not(:disabled) {
+  background-color: #876bf4;
+  transform: translateY(-1px);
+} 

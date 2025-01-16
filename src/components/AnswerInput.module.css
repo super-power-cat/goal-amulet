@@ -1,0 +1,33 @@
+.answerInput {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.answerInput:focus {
+  outline: none;
+  border: 2px solid #876bf4;
+  box-shadow: 0 0 0 2px rgba(135, 107, 244, 0.2);
+}
+
+.characterCount {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.addAnswerButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #876bf4;
+}
+
+.addAnswerButton:hover {
+  color: #7559e8;
+}
+
+.errorMessage {
+  color: #ef4444;
+  font-size: 0.875rem;
+} 

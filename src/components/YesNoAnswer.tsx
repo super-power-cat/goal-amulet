@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './YesNoAnswer.module.css';
 
 interface YesNoAnswerProps {
   answerId: string;
@@ -14,28 +15,20 @@ export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, o
   const type = "YN";
 
   const handleSelection = (value: string, type: string) => {
-    // 이미 선택된 값이거나 처리 중일 때는 무시
     if (selectedValue === value || isProcessing) return;
-    
-    // setIsProcessing(true);
     onAnswerChange(answerId, value, type);
     setCurrentQuestionIndex(questionIndex + 1);
-    
-    // 다음 질문으로 전환 후 처리 상태 초기화
-    // setIsProcessing(false)
   };
 
   return (
-    <div className="flex gap-2">
+    <div className={styles.buttonContainer}>
       <button
         type="button"
         onClick={() => handleSelection("YES", type)}
         disabled={isProcessing}
-        className={`px-4 py-2 rounded-lg ${
-          selectedValue === "YES" 
-            ? "bg-blue-500 text-white" 
-            : "bg-gray-200 text-gray-700"
-        } ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`${styles.button} ${
+          selectedValue === "YES" ? styles.selected : styles.unselected
+        }`}
       >
         네, 정했어요
       </button>
@@ -43,11 +36,9 @@ export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, o
         type="button"
         onClick={() => handleSelection("NO", type)}
         disabled={isProcessing}
-        className={`px-4 py-2 rounded-lg ${
-          selectedValue === "NO" 
-            ? "bg-blue-500 text-white" 
-            : "bg-gray-200 text-gray-700"
-        } ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`${styles.button} ${
+          selectedValue === "NO" ? styles.selected : styles.unselected
+        }`}
       >
         함께 정하고 싶어요
       </button>

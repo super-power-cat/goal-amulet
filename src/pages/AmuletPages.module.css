@@ -43,12 +43,12 @@
 }
 
 .goToGoalButton span::selection {
-  color: blue; /* 드래그(선택) 시 텍스트 색상 */
+  color: #4d29df; /* 드래그(선택) 시 텍스트 색상 */
   /* background-color: transparent; 선택된 영역 배경 없음 */
 }
 
 .goToGoalButton:hover {
-  color: blue;
+  color: #4d29df;
   background-image: url('/decorative-10389_256.gif');
   background-size: cover;
   background-position: center;
