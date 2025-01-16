@@ -19,7 +19,7 @@
   font-weight: 700;
   color: #1f2937;
   /* margin-top: 1rem; 상단 여백 */
-  /* margin-bottom: 0.5rem; 하단 여백 (버튼과의 간격) */
+  margin-bottom: 1rem; /* 하단 여백 (버튼과의 간격) */
 }
 
 .goToGoalButton {

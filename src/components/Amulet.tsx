@@ -13,9 +13,10 @@ interface AmuletProps {
   initialText: string;
   initailColor: ColorKey;
   isLoading: boolean;
+  isEditable: boolean;
 }
 
-export const Amulet = ({ initialText, initailColor, isLoading }: AmuletProps) => {
+export const Amulet = ({ initialText, initailColor, isLoading, isEditable }: AmuletProps) => {
   const { amuletId } = useParams<{ amuletId: string }>();
   const [selectedColor, setSelectedColor] = useState<ColorKey>(initailColor || 'POWER');
   const [text, setText] = useState(initialText || "이곳에 목표를 입력해주세요!");
@@ -98,28 +99,31 @@ export const Amulet = ({ initialText, initailColor, isLoading }: AmuletProps) =>
         </div>
       ) : (
         <>
-          <div className={styles.colorPicker}>
-            <ColorPickerButton
-              color="POWER" // 파워 부적
-              selectedColor={selectedColor}
-              onColorSelect={handleColorSelect}
-            />
-            <ColorPickerButton
-              color="LUCK" // 행운 부적
-              selectedColor={selectedColor}
-              onColorSelect={handleColorSelect}
-            />
-            <ColorPickerButton
-              color="FIRE" // 열정 부적
-              selectedColor={selectedColor}
-              onColorSelect={handleColorSelect}
-            />
-          </div>
+          {isEditable && (
+            <div className={styles.colorPicker}>
+              <ColorPickerButton
+                color="POWER"
+                selectedColor={selectedColor}
+                onColorSelect={handleColorSelect}
+              />
+              <ColorPickerButton
+                color="LUCK"
+                selectedColor={selectedColor}
+                onColorSelect={handleColorSelect}
+              />
+              <ColorPickerButton
+                color="FIRE"
+                selectedColor={selectedColor}
+                onColorSelect={handleColorSelect}
+              />
+            </div>
+          )}
 
           <AmuletContainer 
             selectedColor={selectedColor}
             text={text}
-            onTextChange={(newText) => handleTextChange({ target: { value: newText } } as React.ChangeEvent<HTMLTextAreaElement>)}
+            onTextChange={isEditable ? (newText) => handleTextChange({ target: { value: newText } } as React.ChangeEvent<HTMLTextAreaElement>) : undefined}
+            isEditable={isEditable}
           />
 
           <div className={styles.buttonGroup}>

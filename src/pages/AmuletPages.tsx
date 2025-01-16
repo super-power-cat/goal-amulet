@@ -19,6 +19,7 @@ export const AmuletPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState<string>('나만');
+  const [isEditable, setIsEditable] = useState(true);
 
   useEffect(() => {
     const loadAmulet = async () => {
@@ -30,6 +31,14 @@ export const AmuletPage = () => {
           setColor(amuletData.color || 'POWER');
           setText(amuletData.text || '이곳에 목표를 입력해주세요!');
           setName(amuletData.name || '나만');
+          const visitedAmulets = localStorage.getItem('visitedAmulets') || '[]';
+          const visited = JSON.parse(visitedAmulets).includes(amuletId);
+          setIsEditable(!visited);
+          
+          if (!visited) {
+            const newVisited = [...JSON.parse(visitedAmulets), amuletId];
+            localStorage.setItem('visitedAmulets', JSON.stringify(newVisited));
+          }
         } else {
           setName('나만');
           setColor('POWER');
@@ -57,6 +66,7 @@ export const AmuletPage = () => {
           initialText={text} 
           initailColor={color} 
           isLoading={loading}
+          isEditable={isEditable}
         />
       </div>
       <Footer />

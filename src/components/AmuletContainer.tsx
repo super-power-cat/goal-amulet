@@ -6,9 +6,10 @@ interface AmuletContainerProps {
   selectedColor: ColorKey;
   text: string;
   onTextChange?: (text: string) => void;
+  isEditable?: boolean;
 }
 
-export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletContainerProps) => {
+export const AmuletContainer = ({ selectedColor, text, onTextChange, isEditable = true }: AmuletContainerProps) => {
   const colorInfo = getColorInfo(selectedColor);
   const [showWarning, setShowWarning] = useState(false);
   const [containerHeight, setContainerHeight] = useState(480);
@@ -102,8 +103,8 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
         className={`${styles.amuletText} ${text.length <= 16 ? styles.largeFont : styles.smallFont}`} 
         onChange={handleTextChange}
         rows={1}
-        // maxLength={100}
         value={text}
+        readOnly={!isEditable}
       />
       {showWarning && (
         <div className={`${styles.warningMessage} ${styles.visible}`}>
