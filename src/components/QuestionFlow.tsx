@@ -13,7 +13,6 @@ export default function QuestionFlow() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [filteredQuestions, setFilteredQuestions] = useState<NewQuestion[]>([]);
   const next_icon = ">>";
-
  
   useEffect(() => {
     if (fetchedQuestions) {
@@ -62,28 +61,22 @@ export default function QuestionFlow() {
       }
     }
   };
+
   const scrollToBottom = () => {
-    const html = document.documentElement;
-    const body = document.body;
-    const scrollHeight = Math.max(
-      body.scrollHeight, html.scrollHeight,
-      body.offsetHeight, html.offsetHeight,
-      body.clientHeight, html.clientHeight
-    );
-    console.log(scrollHeight);
     window.scrollTo({
-      top: scrollHeight+300,
-      behavior: 'smooth'
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth', // 스크롤 애니메이션 효과
     });
   };
 
   const handleNextQuestion = () => {
-    // 질문 추가된 후를 안 더하는 거 아닐까?! 질문을 추가하는 시점을 알아야한다.
-    scrollToBottom();
     if (currentQuestionIndex < filteredQuestions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
     }
-    scrollToBottom();
+    setTimeout(() => {
+      scrollToBottom();
+    }, 100);
+    console.log(filteredQuestions);
   };
 
   const setQuestionIndex = (index: number) => {
