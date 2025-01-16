@@ -15,11 +15,14 @@ const wrapText = (
   maxWidth: number,
   fontSize: number
 ): string[] => {
-  // 먼저 \n으로 분리된 줄들을 처리
+  // ctx.font를 fontSize에 맞게 설정
+  ctx.font = `${fontSize}px amulet_content2`;
+
+  // 먼저 \n으로 분리된 문단들을 처리
   const paragraphs = text.split('\n');
   const lines: string[] = [];
 
-  paragraphs.forEach(paragraph => {
+  paragraphs.forEach((paragraph) => {
     // 빈 문단이면 빈 줄 추가
     if (paragraph.length === 0) {
       lines.push('');
@@ -33,7 +36,8 @@ const wrapText = (
       const char = characters[i];
       const testLine = currentLine + char;
       const metrics = ctx.measureText(testLine);
-      
+
+      // 줄 너비가 maxWidth를 초과하면 줄바꿈
       if (metrics.width > maxWidth && currentLine !== '') {
         lines.push(currentLine);
         currentLine = char;
@@ -41,7 +45,7 @@ const wrapText = (
         currentLine = testLine;
       }
     }
-    
+
     // 마지막 줄 추가
     if (currentLine.length > 0) {
       lines.push(currentLine);
@@ -50,6 +54,8 @@ const wrapText = (
 
   return lines;
 };
+
+
 export const drawAmulet = async (
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -68,6 +74,7 @@ export const drawAmulet = async (
   // Calculate scale for font size adjustment
   const scale = width / AMULET_WIDTH;
 
+  console.log(textSize);
   // Apply border-radius
   const borderRadius = 20 * scale; // Scale border-radius as well
   ctx.save();
@@ -112,7 +119,7 @@ export const drawAmulet = async (
 
       // Draw text below SVG
       const fontSize = textSize * scale;
-      ctx.font = `${fontSize}rem amulet_content2`;
+      ctx.font = `${fontSize}px amulet_content2`;
       ctx.fillStyle = 'black';
       ctx.textAlign = 'center';
 
@@ -120,14 +127,14 @@ export const drawAmulet = async (
       const wrappedLines = wrapText(ctx, text, maxWidth, fontSize);
 
       // Calculate Y position for text below SVG
-      const lineHeight = fontSize * 16 * 1.4; // 줄 간격 설정
+      const lineHeight = fontSize * 1.4; // 줄 간격 설정
       const textStartY = yOffset + drawHeight + textPlusPx; // SVG 아래 25px부터 시작
 
+      console.log(wrappedLines);
       wrappedLines.forEach((line, index) => {
         const yPos = textStartY + index * lineHeight;
         ctx.fillText(line, x + width / 2, yPos);
       });
-
       ctx.restore();
       resolve();
     };
@@ -161,13 +168,9 @@ export const createAmuletImage = async (
   const actualWidth = isWallpaper ? WALLPAPER_WIDTH * scaleFactor : AMULET_WIDTH * scaleFactor;
   const actualHeight = isWallpaper ? WALLPAPER_HEIGHT * scaleFactor : actualAmuletHeight * scaleFactor;
 
-  const dpi = window.devicePixelRatio || 1;
-  ctx.scale(dpi, dpi);
-  canvas.width = actualWidth * dpi;
-  canvas.height = actualHeight * dpi;
 
-  // canvas.width = actualWidth;
-  // canvas.height = actualHeight;
+  canvas.width = actualWidth;
+  canvas.height = actualHeight;
 
 
   // 화면에 표시할 크기
@@ -198,7 +201,7 @@ export const createAmuletImage = async (
       svg, 
       title, 
       text, 
-      textSize, 
+      textSize*16, 
       50
       // textTop
     );
@@ -216,7 +219,7 @@ export const createAmuletImage = async (
       svg, 
       title, 
       text, 
-      textSize, 
+      textSize*16, 
       // textTop
       30
     );
