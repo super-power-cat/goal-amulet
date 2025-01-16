@@ -13,21 +13,18 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
   const [showWarning, setShowWarning] = useState(false);
   const [containerHeight, setContainerHeight] = useState(480);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const MAX_CONTAINER_HEIGHT = 570; // 최대 높이 설정
+  const MAX_CONTAINER_HEIGHT = 570;
 
-  useEffect(() => {
+  const adjustHeight = () => {
     if (textAreaRef.current) {
-      // 텍스트 높이 자동 조절
       textAreaRef.current.style.height = 'auto';
       textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
       
-      // 컨테이너 높이 조절
       const textHeight = textAreaRef.current.scrollHeight;
       const minHeight = 480;
       const additionalHeight = textHeight > 130 ? textHeight - 130 : 0;
       const newContainerHeight = minHeight + additionalHeight;
       
-      // 최대 높이 체크
       if (newContainerHeight > MAX_CONTAINER_HEIGHT) {
         setShowWarning(true);
       } else {
@@ -35,7 +32,27 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
         setShowWarning(false);
       }
     }
+  };
+
+  // 컴포넌트 마운트 시 높이 조절
+  useEffect(() => {
+    adjustHeight();
+  }, []);
+
+  // text 변경 시 높이 조절
+  useEffect(() => {
+    adjustHeight();
   }, [text]);
+
+  // 윈도우 리사이즈 시 높이 재조절
+  useEffect(() => {
+    const handleResize = () => {
+      adjustHeight();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = e.target;
@@ -43,17 +60,12 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange }: AmuletCon
     
     if (!onTextChange) return;
 
-    // 현재 컨테이너 높이 계산
     const potentialHeight = 480 + (textarea.scrollHeight > 130 ? textarea.scrollHeight - 130 : 0);
     
-    // 백스페이스/삭제 키 입력 시 항상 허용
     const isDeleting = newText.length < text.length;
     
     if (potentialHeight <= MAX_CONTAINER_HEIGHT || isDeleting) {
-      if (textAreaRef.current) {
-        textAreaRef.current.style.height = 'auto';
-        textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-      }
+      adjustHeight();
       onTextChange(newText);
       setShowWarning(false);
     } else {
