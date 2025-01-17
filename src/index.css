@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 폰트 미리 로드 */
+@font-face {
+  font-family: 'amulet_content';
+  src: url('/fonts/amulet_content.ttf?v=1') format('truetype');
+  font-display: swap;  /* 폰트 로딩 중 시스템 폰트 사용 */
+}
+
+@font-face {
+  font-family: 'amulet_content2';
+  src: url('/fonts/HakgyoansimKkokkomaR.ttf?v=1') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'amulet_content3';
+  src: url('/fonts/KyoboHandwriting2019.otf?v=1') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'amulet_content4';
+  src: url('/fonts/YoonChildfundkoreaDaeHan.otf?v=1') format('truetype');
+  font-display: swap;
+}
+
+/* 폰트 프리로드를 위한 더미 요소 */
+.font-preloader {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  font-family: 'amulet_content2', 'amulet_content4';
+}

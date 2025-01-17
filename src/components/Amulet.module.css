@@ -179,7 +179,7 @@
     }
   }
   
-  @font-face {
+  /* @font-face {
     font-family: 'amulet_content';
     src: url('/fonts/amulet_content.ttf?v=1') format('truetype');
   }
@@ -189,14 +189,14 @@
     src: url('/fonts/HakgyoansimKkokkomaR.ttf?v=1') format('truetype');
   }
   /* 두껍고 사인팬 느낌? */
-  @font-face {
+  /*@font-face {
     font-family: 'amulet_content3';
     src: url('/fonts/KyoboHandwriting2019.otf?v=1') format('truetype');
   }
   @font-face {
     font-family: 'amulet_content4';
     src: url('/fonts/YoonChildfundkoreaDaeHan.otf?v=1') format('truetype');
-  }
+  } */
   
   .amuletText {
     font-family: 'amulet_content2', sans-serif;
@@ -223,42 +223,4 @@
     font-size: 2.5rem;
     font-weight: bold;
     /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
-  }
-
-  .loadingContainer {
-    width: 360px;
-    height: 480px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1.5rem 0;
-  }
-
-  .loadingAmulet {
-    background-color: #f3f4f6;
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: pulse 1.5s infinite;
-  }
-
-  .loadingAmulet span {
-    font-size: 1.25rem;
-    color: #6b7280;
-    font-weight: 500;
-  }
-
-  @keyframes pulse {
-    0% {
-      opacity: 0.6;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.6;
-    }
   }

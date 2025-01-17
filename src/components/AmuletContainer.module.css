@@ -34,7 +34,7 @@
   
    /* 바로 위 이미지 아래에 위치할 순 없는지 물어보기. */
   .amuletText {
-    font-family: 'amulet_content2', sans-serif;
+    font-family: 'amulet_content2', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     position: relative;
     width: 80%;
     text-align: center;
@@ -60,7 +60,7 @@
   
   .amuletTitle {
     top: 40px;
-    font-family: 'amulet_content4', sans-serif;
+    font-family: 'amulet_content4', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
