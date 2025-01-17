@@ -28,7 +28,7 @@ export const Footer = ({className}: Props) => {
           rel="noopener noreferrer"
           className={styles.feedbackLink}
         >
-          이곳으로 의견을 주세요!
+          👉 이곳으로 의견을 주세요! 👈
         </a>
         <a className={styles.wall}>|</a>
         <div className={styles.socialLinks}>

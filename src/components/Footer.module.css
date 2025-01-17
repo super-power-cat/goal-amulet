@@ -58,7 +58,7 @@
   /* 모바일 화면을 위한 미디어 쿼리 */
   @media (max-width: 510px) {
     .footer {
-      padding-bottom: 0rem;
+      padding-bottom: 1rem;
     }
 
     .content {
