@@ -1,8 +1,6 @@
-export const shareToKakao = (resultId: string, title: string) => {
+export const shareToKakao = (amuletId: string, title: string) => {
   if (window.Kakao) {
     const kakao = window.Kakao;
-    console.log("log가 안찍혀욤?..?")
-    console.log(import.meta.env.VITE_KAKAO_JS_KEY);
     if (!kakao.isInitialized()) {
       kakao.init(import.meta.env.VITE_KAKAO_JS_KEY);
     }
@@ -29,12 +27,11 @@ export const shareToKakao = (resultId: string, title: string) => {
     //     },
     //   ],
     // });
-    console.log(resultId);
 
     kakao.Share.sendCustom({
-      templateId: 115848,
+      templateId: 116463,
       templateArgs: {
-        RESULT_ID: resultId
+        AMULET_ID: amuletId
       },
     });
   } else {
