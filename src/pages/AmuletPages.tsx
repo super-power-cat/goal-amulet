@@ -63,6 +63,7 @@ export const AmuletPage = () => {
         </button>
         <h1 className={styles.title}>✨ {name}의 목표 부적 ✨</h1>
         <Amulet 
+          title={name + '의 목표 부적'}
           initialText={text} 
           initailColor={color} 
           isLoading={loading}

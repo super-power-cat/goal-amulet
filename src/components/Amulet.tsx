@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Download, Share2 } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { shareToKakao, shareToTwitter } from '../utils/shareUtils';
 import { createAmuletImage } from '../utils/imageUtils';
-import { ColorKey, Colors, getColorInfo } from '../types';
+import { ColorKey, getColorInfo } from '../types';
 import styles from './Amulet.module.css';
 import { ColorPickerButton } from './ColorPickerButton';
 import { AmuletContainer } from './AmuletContainer';
 import { updateAmuletColor, updateAmuletText } from '../services/amuletService';
 
 interface AmuletProps {
+  title: string;
   initialText: string;
   initailColor: ColorKey;
   isLoading: boolean;
   isEditable: boolean;
 }
 
-export const Amulet = ({ initialText, initailColor, isLoading, isEditable }: AmuletProps) => {
+export const Amulet = ({ title, initialText, initailColor, isLoading, isEditable }: AmuletProps) => {
   const { amuletId } = useParams<{ amuletId: string }>();
   const [selectedColor, setSelectedColor] = useState<ColorKey>(initailColor || 'POWER');
   const [text, setText] = useState(initialText || "이곳에 목표를 입력해주세요!");
@@ -61,7 +62,6 @@ export const Amulet = ({ initialText, initailColor, isLoading, isEditable }: Amu
 
   const handleShare = () => {
     const url = window.location.href;
-    const title = '나만의 부적';
     navigator.clipboard.writeText(url + '\n\n25년 목표를 귀여운 나만의 부적으로 만들어보세요!\n친구의 목표가 궁금하다면 링크를 클릭해 친구의 목표 부적을 확인해보세요!');
     alert('링크가 복사되었어요, 내 목표를 공유해봐요! \n⚠️ 해당 페이지를 나가면 부적을 수정할 수 없으니 주의해주세요. ⚠️');
   };
@@ -88,6 +88,8 @@ export const Amulet = ({ initialText, initailColor, isLoading, isEditable }: Amu
       }
     }
   };
+
+  const shareTitle = `✨ ${title} ✨ \n\n이루고 싶은 목표가 있어? 목표 부적을 만들고 함께 목표를 달성해보자!\n배경화면으로 설정하고 항상 확인해볼 수도 있어!`;
 
   return (
     <div className={styles.container}>
@@ -142,11 +144,11 @@ export const Amulet = ({ initialText, initailColor, isLoading, isEditable }: Amu
               <Share2 size={20} />
               <span>링크 공유</span>
             </button>
-            <button onClick={() => shareToKakao(window.location.href, '나만의 부적')} className={styles.shareButton}>
+            <button onClick={() => shareToKakao(window.location.href, shareTitle)} className={styles.shareButton}>
               <img src="/kakao.svg" alt="카카오톡" className={styles.shareIcon} />
               <span>카카오톡 공유</span>
             </button>
-            <button onClick={() => shareToTwitter(window.location.href, '나만의 부적')} className={styles.shareButton}>
+            <button onClick={() => shareToTwitter(window.location.href, shareTitle)} className={styles.shareButton}>
               <img src="/twitter.svg" alt="트위터" className={styles.shareIcon} />
               <span>트위터 공유</span>
             </button>
