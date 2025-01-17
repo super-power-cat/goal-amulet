@@ -21,7 +21,7 @@ export const Colors = {
     code: "#FFFF9F",
   },
   FIRE: {
-    file: "yellow_amulet_2.svg",
+    file: "red_amulet.svg",
     title: "열정 부적",
     code: "#ffbc9f",
   },
