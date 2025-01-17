@@ -10,6 +10,7 @@ import { Footer } from './components/Footer';
 function App() {
   return (
     <BrowserRouter>
+      <div className="font-preloader" aria-hidden="true">.</div>
       <Analytics />
       <Routes>
         <Route path="/" element={<QuestionFlow />} />
