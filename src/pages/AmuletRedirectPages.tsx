@@ -13,7 +13,7 @@ export const AmuletRedirectPage = () => {
         const defaultAnswer = '이곳에 목표를 입력해주세요!';
         const defaultName = '나만';
         const amuletId = await saveAmulet('POWER', defaultAnswer, defaultName);
-        navigate(`/amulet/${amuletId}`);
+        navigate(`/amulet/${amuletId}`, { state: { referrer: window.location.pathname } });
       } catch (error) {
         console.error('Error creating amulet:', error);
         setIsLoading(false);

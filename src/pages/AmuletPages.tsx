@@ -28,12 +28,12 @@ export const AmuletPage = () => {
       try {
         const amuletData = await getAmulet(amuletId);
         if (amuletData) {
+          console.log(amuletData.color + "color");
           setColor(amuletData.color || 'POWER');
           setText(amuletData.text || '이곳에 목표를 입력해주세요!');
           setName(amuletData.name || '나만');
           
-          // 이전 페이지 경로 확인
-          const referrer = document.referrer;
+          const referrer = location.state?.referrer || 'unknown';
           const isFromRedirect = referrer.includes('/amulet') && !referrer.includes('/amulet/');
           const isFromQuestionFlow = referrer.includes('/');
           

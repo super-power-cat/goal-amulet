@@ -129,7 +129,7 @@ export default function QuestionSection({
         const lastAnswer = formattedAnswers || '이곳을 클릭해 목표를 입력해주세요';
         const amuletId = await saveAmulet('POWER', lastAnswer, finalName);
         
-        navigate(`/amulet/${amuletId}`);
+        navigate(`/amulet/${amuletId}`, { state: { referrer: window.location.pathname } });
       } catch (error) {
         console.error('Error saving review:', error);
       } finally {
