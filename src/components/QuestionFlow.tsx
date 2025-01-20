@@ -95,10 +95,13 @@ export default function QuestionFlow() {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <h1 className={styles.title}>
-          ✨ 올해 목표 정하기 ✨
+          ✨ 목표 정하기 ✨
         </h1>
         <p className={styles.description}>
-          차근차근 올해 목표를 정해봐요. 만약 이미 정했다면 부적 만들기로 바로 넘어가도 좋아요.
+          질문에 답을 생각하다보면 목표를 쉽게 정할 수 있을 거예요. 💭<br/>
+          한 해의 목표를 세워도 좋고 짧은 기간동안의 목표를 세워도 좋아요. 중요한 것은 목표를 세운다는 것이에요. <br/><br/>
+          
+          세운 목표를 지속적으로 확인하는 것이 목표 달성에 중요한 영향을 미칩니다. 목표 부적을 배경화면으로 설정해보는 게 어떨까요?
         </p>
         <button onClick={() => navigate('/amulet')} className={styles.goToAmuletButton}>
         <span>바로 부적 만들러 가기 {next_icon}</span>

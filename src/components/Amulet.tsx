@@ -144,7 +144,7 @@ export const Amulet = ({ title, initialText, initailColor, isLoading, isEditable
               <Share2 size={20} />
               <span>링크 공유</span>
             </button>
-            <button onClick={() => shareToKakao(window.location.href, shareTitle)} className={styles.shareButton}>
+            <button onClick={() => shareToKakao(amuletId || '', shareTitle)} className={styles.shareButton}>
               <img src="/kakao.svg" alt="카카오톡" className={styles.shareIcon} />
               <span>카카오톡 공유</span>
             </button>
