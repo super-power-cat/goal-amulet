@@ -19,7 +19,7 @@ export const AmuletPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState<string>('나만');
-  const [isEditable, setIsEditable] = useState(true);
+  const [isEditable, setIsEditable] = useState(false);
 
   useEffect(() => {
     const loadAmulet = async () => {
@@ -31,11 +31,22 @@ export const AmuletPage = () => {
           setColor(amuletData.color || 'POWER');
           setText(amuletData.text || '이곳에 목표를 입력해주세요!');
           setName(amuletData.name || '나만');
+          
+          // 이전 페이지 경로 확인
+          const referrer = document.referrer;
+          const isFromRedirect = referrer.includes('/amulet') && !referrer.includes('/amulet/');
+          const isFromQuestionFlow = referrer.includes('/');
+          
+          // localStorage에서 방문 기록 확인
           const visitedAmulets = localStorage.getItem('visitedAmulets') || '[]';
           const visited = JSON.parse(visitedAmulets).includes(amuletId);
-          setIsEditable(!visited);
+
+          // isEditable 조건 설정
+          const shouldBeEditable = (isFromRedirect || isFromQuestionFlow) && !visited;
+          setIsEditable(shouldBeEditable);
           
-          if (!visited) {
+          // 방문 기록 저장
+          if (shouldBeEditable) {
             const newVisited = [...JSON.parse(visitedAmulets), amuletId];
             localStorage.setItem('visitedAmulets', JSON.stringify(newVisited));
           }

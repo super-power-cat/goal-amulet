@@ -96,7 +96,6 @@ export default function QuestionSection({
       // }, 0);
       return;
     } 
-    console.log("here2");
     setAnswers(newAnswers);
     onAnswersChange(newAnswers);
   };
