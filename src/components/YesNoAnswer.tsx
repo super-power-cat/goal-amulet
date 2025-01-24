@@ -30,7 +30,7 @@ export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, o
           selectedValue === "YES" ? styles.selected : styles.unselected
         }`}
       >
-        네, 정했어요
+        네
       </button>
       <button
         type="button"
@@ -40,7 +40,7 @@ export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, o
           selectedValue === "NO" ? styles.selected : styles.unselected
         }`}
       >
-        아니요, 함께 정하고 싶어요
+        아니요
       </button>
     </div>
   );
