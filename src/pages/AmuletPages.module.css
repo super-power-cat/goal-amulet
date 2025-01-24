@@ -29,18 +29,18 @@
   justify-content: center; /* 버튼 내부 콘텐츠 가로 중앙 정렬 */
   gap: 0.15rem; /* 버튼 내부 텍스트와 아이콘 간격 */
   /* padding: 0.5rem 1rem; 버튼 크기 조정 */
-  font-size: 0.875rem; /* 텍스트 크기 */
+  font-size: 1.3rem; /* 텍스트 크기 */
   /* background-color: #93969a; */
-  color: gray;
+  color: rgba(67, 61, 244, 0.709);
+  font-family: 'amulet_content3';
   border-radius: 0.25rem; /* 둥근 모서리 */
   font-weight: 600;
   transition: all 0.2s;
   cursor: pointer;
   margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
   position: relative; /* 부모 요소를 기준으로 위치 조정 */
   /* left: 150px; 오른쪽으로 10px 이동 */
-  padding: 5px 10px;
+  padding: 0px 10px;
   background: transparent;
   border: none;
 }

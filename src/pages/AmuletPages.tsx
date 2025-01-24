@@ -70,7 +70,7 @@ export const AmuletPage = () => {
     <div className={styles.background}>
       <div className={styles.container}>
         <button onClick={() => navigate('/')} className={styles.goToGoalButton}>
-          <span>목표 정하러 가기 {next_icon}</span>
+          <span>🔥 나도 하러 가기 {next_icon}</span>
         </button>
         <h1 className={styles.title}>✨ {name}의 목표 부적 ✨</h1>
         <Amulet 
