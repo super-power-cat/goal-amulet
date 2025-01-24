@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>고뮬렛</title>
+    <link>https://goal-amulet.netlify.app/</link>
+    <description>목표를 정하고 목표 부적을 만들어 친구들에게 공유해보세요.</description>
+    <item>
+      <title>목표 부적 만들기 페이지</title>
+      <link>https://goal-amulet.netlify.app/amulet</link>
+      <description>나만의 목표 부적을 만들 수 있습니다. 귀여운 캐릭터들로 목표 부적을 꾸며보세요.</description>
+    ;   <pubDate>발행시간</pubDate>
+    ;   <guid>http://www.example.com/article-1.html</guid>
+    </item>
+    <item>
+      <title>목표 정하기</title>
+      <link>>https://goal-amulet.netlify.app/</link>
+      <description>함께 목표를 정할 수 있습니다. 다양한 질문들로 내가 달성하고 싶은 게 무엇인지 알아봐요.</description>
+    ;   <pubDate>발행시간</pubDate>
+    ;   <guid>http://www.example.com/article-2.html</guid>
+    </item>
+  </channel>
+</rss>
