@@ -34,7 +34,7 @@
   margin-bottom: 1rem;
   line-height: 1.6;
   font-family: 'amulet_content3';
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 } 
 
 .goToAmuletButton {
@@ -59,7 +59,7 @@
 
 .goToAmuletButtonText {
   color: rgba(67, 61, 244, 0.709);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-family: 'amulet_content3';
 }
 
