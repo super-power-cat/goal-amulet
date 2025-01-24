@@ -17,6 +17,7 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange, isEditable 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const MAX_CONTAINER_HEIGHT = 570;
   const [showTooltip, setShowTooltip] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
 
   const adjustHeight = () => {
     if (textAreaRef.current) {
@@ -84,6 +85,14 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange, isEditable 
     }
   };
 
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
+
+  useEffect(() => {
+    setImageLoading(true);
+  }, [selectedColor]);
+
   return (
     <div
       id="amulet-container"
@@ -108,7 +117,8 @@ export const AmuletContainer = ({ selectedColor, text, onTextChange, isEditable 
         <img
           src={`/${colorInfo.file}`}
           alt="Amulet"
-          className={styles.amuletImage}
+          className={`${styles.amuletImage} ${imageLoading ? styles.loading : ''}`}
+          onLoad={handleImageLoad}
         />
       </div>
       <div className={styles.amuletTitle}>

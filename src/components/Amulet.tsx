@@ -17,6 +17,14 @@ interface AmuletProps {
   isEditable: boolean;
 }
 
+const preloadImages = () => {
+  const svgFiles = ['power_amulet.svg', 'luck_amulet.svg', 'fire_amulet.svg'];
+  svgFiles.forEach(file => {
+    const img = new Image();
+    img.src = `/${file}`;
+  });
+};
+
 export const Amulet = ({ title, initialText, initailColor, isLoading, isEditable }: AmuletProps) => {
   const { amuletId } = useParams<{ amuletId: string }>();
   const [selectedColor, setSelectedColor] = useState<ColorKey>(initailColor || 'POWER');
@@ -28,8 +36,12 @@ export const Amulet = ({ title, initialText, initailColor, isLoading, isEditable
 
   useEffect(() => {
     setSelectedColor(initailColor);
-  }, [initailColor]); 
-  
+  }, [initailColor]);
+
+  useEffect(() => {
+    preloadImages();
+  }, []);
+
   const handleDownload = async (isWallpaper: boolean = false) => {
     const colorInfo = getColorInfo(selectedColor);
     try {
