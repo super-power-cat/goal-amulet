@@ -37,13 +37,13 @@ const AnswerInputComponent = ({
   setCurrentQuestionIndex: (index: number) => void;
 }) => {
   const maxCharLimit = 44;
+  const isGoalType = type?.includes("GOAL");
 
   const handleInputChange = (id: string, value: string) => {
     const totalLength = answers.reduce((acc, curr) => acc + (curr.id === id ? value.length : curr.text.length), 0);
   
-    // 백스페이스 동작은 항상 허용
-    const currentAnswer = answers.find((answer) => answer.id === id);
-    if (totalLength <= maxCharLimit || value.length < (currentAnswer?.text.length ?? 0)) {
+    // GOAL 타입일 때만 글자수 제한 적용
+    if (!isGoalType || totalLength <= maxCharLimit || value.length < (answers.find(answer => answer.id === id)?.text.length ?? 0)) {
       onAnswerChange(id, value, type);
     }
   };
@@ -89,13 +89,15 @@ const AnswerInputComponent = ({
 
     {!type?.includes("YN") && limitAnswer != 1 && (
       <>
-        {/* 글자수 제한 표시 */}
-        <div className={styles.characterCount}>
-          {totalCharacters}/{maxCharLimit}
-        </div>
+        {/* GOAL 타입일 때만 글자수 제한 표시 */}
+        {isGoalType && (
+          <div className={styles.characterCount}>
+            {totalCharacters}/{maxCharLimit}
+          </div>
+        )}
 
         {/* 답변 추가 버튼 */}
-        {answers.length < limitAnswer && totalCharacters < maxCharLimit && (
+        {answers.length < limitAnswer && (!isGoalType || totalCharacters < maxCharLimit) && (
           <button
             type="button"
             onClick={onAddAnswer}
@@ -107,7 +109,7 @@ const AnswerInputComponent = ({
         )}
 
         {/* 글자수 초과 메시지 */}
-        {totalCharacters >= maxCharLimit && (
+        {isGoalType && totalCharacters >= maxCharLimit && (
           <div className={styles.errorMessage}>
             최대 {maxCharLimit}글자만 입력할 수 있습니다. 부적이 작아서 미안해요.
           </div>
