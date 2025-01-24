@@ -102,7 +102,15 @@ export default function QuestionFlow() {
           세운 목표를 계속 확인하면 목표 달성률이 높아진다는 사실 아시나요? 🍀<br/>
           내 목표 부적을 배경화면으로 설정하고 매일 확인해봐요. ✨
         </p>
-        <button onClick={() => navigate('/amulet')} className={styles.goToAmuletButton}>
+        <button 
+        onClick={() => {
+          // GA 이벤트 기록
+          window.gtag?.('event', 'click_make_amulet', {
+            'event_category': 'go_button_amulet',
+            'event_label': '[질문 페이지] 바로 부적 만들러 가기 버튼 클릭'
+          });
+          navigate('/');
+        }} className={styles.goToAmuletButton}>
         <span className={styles.goToAmuletButtonText}>바로 부적 만들러 가기 {next_icon}</span>
         {/* <ArrowRight size={20} /> */}
       </button>

@@ -141,26 +141,56 @@ export const Amulet = ({ title, initialText, initailColor, isLoading, isEditable
           />
 
           <div className={styles.buttonGroup}>
-            <button onClick={() => handleDownload(false)} className={styles.downloadButton}>
+            <button onClick={() => {
+              window.gtag?.('event', 'click_download_amulet', {
+                'event_category': 'download',
+                'event_label': '부적 저장하기'
+              });
+              handleDownload(false);
+            }} className={styles.downloadButton}>
               <Download size={20} />
               <span>부적 저장하기</span>
             </button>
-            <button onClick={() => handleDownload(true)} className={styles.downloadButton}>
+            <button onClick={() => {
+              window.gtag?.('event', 'click_download_wallpaper', {
+                'event_category': 'download',
+                'event_label': '배경화면용 저장하기'
+              });
+              handleDownload(true);
+            }} className={styles.downloadButton}>
               <Download size={20} />
               <span>배경화면용 저장하기</span>
             </button>
           </div>
 
           <div className={styles.shareButtons}>
-            <button onClick={handleShare} className={styles.shareButton}>
+            <button onClick={() => {
+              window.gtag?.('event', 'click_share_link', {
+                'event_category': 'share',
+                'event_label': '링크 공유'
+              });
+              handleShare();
+            }} className={styles.shareButton}>
               <Share2 size={20} />
               <span>링크 공유</span>
             </button>
-            <button onClick={() => shareToKakao(amuletId || '', shareTitle)} className={styles.shareButton}>
+            <button onClick={() => {
+              window.gtag?.('event', 'click_share_kakao', {
+                'event_category': 'share', 
+                'event_label': '카카오톡 공유'
+              });
+              shareToKakao(amuletId || '', shareTitle);
+            }} className={styles.shareButton}>
               <img src="/kakao.svg" alt="카카오톡" className={styles.shareIcon} />
               <span>카카오톡 공유</span>
             </button>
-            <button onClick={() => shareToTwitter(window.location.href, shareTitle)} className={styles.shareButton}>
+            <button onClick={() => {
+              window.gtag?.('event', 'click_share_twitter', {
+                'event_category': 'share',
+                'event_label': '트위터 공유'
+              });
+              shareToTwitter(window.location.href, shareTitle);
+            }} className={styles.shareButton}>
               <img src="/twitter.svg" alt="트위터" className={styles.shareIcon} />
               <span>트위터 공유</span>
             </button>

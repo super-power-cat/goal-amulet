@@ -27,6 +27,12 @@ export const Footer = ({className}: Props) => {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.feedbackLink}
+          onClick={() => {
+            window.gtag?.('event', 'click_feedback', {
+              'event_category': 'footer',
+              'event_label': '피드백 링크 클릭'
+            });
+          }}
         >
           👉 이곳으로 의견을 주세요! 👈
         </a>
@@ -37,6 +43,12 @@ export const Footer = ({className}: Props) => {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.iconLink}
+            onClick={() => {
+              window.gtag?.('event', 'click_github', {
+                'event_category': 'footer',
+                'event_label': 'Github 링크 클릭'
+              });
+            }}
           >
             <Github size={20} />
           </a>
@@ -45,6 +57,12 @@ export const Footer = ({className}: Props) => {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.iconLink}
+            onClick={() => {
+              window.gtag?.('event', 'click_instagram', {
+                'event_category': 'footer', 
+                'event_label': 'Instagram 링크 클릭'
+              });
+            }}
           >
             <Instagram size={20} />
           </a>
@@ -53,6 +71,12 @@ export const Footer = ({className}: Props) => {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.iconLink}
+            onClick={() => {
+              window.gtag?.('event', 'click_twitter', {
+                'event_category': 'footer',
+                'event_label': 'Twitter 링크 클릭'
+              });
+            }}
           >
             <Twitter size={20} />
           </a>

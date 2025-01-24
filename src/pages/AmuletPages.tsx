@@ -69,7 +69,17 @@ export const AmuletPage = () => {
   return (
     <div className={styles.background}>
       <div className={styles.container}>
-        <button onClick={() => navigate('/')} className={styles.goToGoalButton}>
+        <button 
+          onClick={() => {
+            // GA 이벤트 기록
+            window.gtag?.('event', 'click_make_amulet', {
+              'event_category': 'go_button_question',
+              'event_label': '[부적 페이지] 나도 하러 가기 버튼 클릭'
+            });
+            navigate('/');
+          }} 
+          className={styles.goToGoalButton}
+        >
           <span>🔥 나도 하러 가기 {next_icon}</span>
         </button>
         <h1 className={styles.title}>✨ {name}의 목표 부적 ✨</h1>

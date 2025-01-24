@@ -30,6 +30,12 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+  }
+  
+  .amuletImage.loading {
+    opacity: 0;
   }
   
    /* 바로 위 이미지 아래에 위치할 순 없는지 물어보기. */
@@ -128,7 +134,7 @@
     visibility: visible;
   }
 
-  /* 툴팁 화살표 */
+  /* 툴크 화살표 */
   .tooltip::before {
     content: '';
     position: absolute;
