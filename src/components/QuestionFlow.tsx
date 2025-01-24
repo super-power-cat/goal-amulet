@@ -104,7 +104,7 @@ export default function QuestionFlow() {
           세운 목표를 지속적으로 확인하는 것이 목표 달성에 중요한 영향을 미칩니다. 목표 부적을 배경화면으로 설정해보는 게 어떨까요?
         </p>
         <button onClick={() => navigate('/amulet')} className={styles.goToAmuletButton}>
-        <span>바로 부적 만들러 가기 {next_icon}</span>
+        <span className={styles.goToAmuletButtonText}>바로 부적 만들러 가기 {next_icon}</span>
         {/* <ArrowRight size={20} /> */}
       </button>
         <div className={styles.questionList}>

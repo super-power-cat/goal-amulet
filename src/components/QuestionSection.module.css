@@ -20,15 +20,20 @@
   margin-top: 3px;
   margin-bottom: 1rem;
   /* margin-left: 0.1rem; */
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #6b7280;
+  font-weight: 700;
+  font-family: 'amulet_content3';
 }
 
 .question {
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #1f2937;
   margin: 0;
+  font-weight: bolder;
+  font-family: 'amulet_content3';
+  
 }
 
 .buttonContainer {

@@ -13,7 +13,8 @@
 }
 
 .title {
-  font-size: 1.875rem;
+  font-family: 'amulet_content2';
+  font-size: 2.4rem;
   font-weight: 700;
   text-align: center;
   color: #111827;
@@ -32,6 +33,8 @@
   text-align: center;
   margin-bottom: 1rem;
   line-height: 1.6;
+  font-family: 'amulet_content3';
+  font-size: 1.1rem;
 } 
 
 .goToAmuletButton {
@@ -52,6 +55,12 @@
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
+}
+
+.goToAmuletButtonText {
+  color: rgba(67, 61, 244, 0.709);
+  font-size: 1.2rem;
+  font-family: 'amulet_content3';
 }
 
 

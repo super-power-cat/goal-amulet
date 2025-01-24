@@ -40,7 +40,7 @@ export default function YesNoAnswer({ answerId, selectedValue, onAnswerChange, o
           selectedValue === "NO" ? styles.selected : styles.unselected
         }`}
       >
-        함께 정하고 싶어요
+        아니요, 함께 정하고 싶어요
       </button>
     </div>
   );

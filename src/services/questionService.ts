@@ -18,7 +18,7 @@ export const fetchQuestions= async (): Promise<NewQuestion[]> => {
     type: 'YN',
     answers: [],
     limitAnswer: 1,
-    tip: '정하셨다면 네를, 아니라면 아니오를 눌러주세요.'
+    tip: '정하셨다면 네를, 아니라면 아니요를 눌러주세요.'
   },
   {
     id: 3,
@@ -50,7 +50,7 @@ export const fetchQuestions= async (): Promise<NewQuestion[]> => {
     type: 'QUESTION',
     answers: [],
     limitAnswer: 3,
-    tip: '스스로 해주고 싶은 말을 생각해보면서 내가 무엇이 부족한지, 스스로 어떤 사람이 되고 싶은지 생각해 볼 수 있어요.<br/>간단한 말이라도 좋으니 적어봐요.'
+    tip: '스스로 해주고 싶은 말을 생각해보면서 내가 무엇이 부족한지, 스스로 어떤 사람이 되고 싶은지 생각해 볼 수 있어요. <br/>간단한 말이라도 좋으니 적어봐요.'
   },
   {
     id: 7,
