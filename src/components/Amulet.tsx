@@ -74,7 +74,7 @@ export const Amulet = ({ title, initialText, initailColor, isLoading, isEditable
 
   const handleShare = () => {
     const url = window.location.href;
-    navigator.clipboard.writeText(url + '\n\n25년 목표를 귀여운 나만의 부적으로 만들어보세요!\n친구의 목표가 궁금하다면 링크를 클릭해 친구의 목표 부적을 확인해보세요!');
+    navigator.clipboard.writeText(url); // '\n\n25년 목표를 귀여운 나만의 부적으로 만들어보세요!\n친구의 목표가 궁금하다면 링크를 클릭해 친구의 목표 부적을 확인해보세요!'
     alert('링크가 복사되었어요, 내 목표를 공유해봐요! \n⚠️ 해당 페이지를 나가면 부적을 수정할 수 없으니 주의해주세요. ⚠️');
   };
 
@@ -101,7 +101,7 @@ export const Amulet = ({ title, initialText, initailColor, isLoading, isEditable
     }
   };
 
-  const shareTitle = `✨ ${title} ✨ \n\n이루고 싶은 목표가 있어? 목표 부적을 만들고 함께 목표를 달성해보자!\n배경화면으로 설정하고 항상 확인해볼 수도 있어!\n`;
+  const shareTitle = `✨ ${title} ✨ \n\n이루고 싶은 목표가 있어? 목표 부적을 만들고 함께 목표를 달성해보자!\n배경화면으로 설정하고 항상 확인해볼 수도 있어!\n#고뮬렛_고고`;
 
   return (
     <div className={styles.container}>
