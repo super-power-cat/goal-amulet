@@ -171,11 +171,15 @@ export default function QuestionSection({
   return (
     <div className={styles.container}>
       <div className={styles.questionHeader}>
-        <h2 className={styles.question}>{content}</h2>
+  <h2
+    className={styles.question}
+    dangerouslySetInnerHTML={{ __html: content }}
+        ></h2>
       </div>
-      <div className={styles.tip}>
-        {tip}
-      </div>
+      <div
+        className={styles.tip}
+        dangerouslySetInnerHTML={{ __html: tip }}
+    ></div>
       <div className={styles.answerInput}>
         <AnswerInput
           questionIndex={index}

@@ -18,10 +18,10 @@ export const fetchQuestions= async (): Promise<NewQuestion[]> => {
     type: 'YN',
     answers: [],
     limitAnswer: 1,
-    tip: '적어주셨다면 네를, 아니라면 아니오를 눌러주세요.'
+    tip: '정하셨다면 네를, 아니라면 아니오를 눌러주세요.'
   },
   {
-    id: 4,
+    id: 3,
     content: '25년 목표를 최대 세 가지 알려주세요!',
     type: 'GOAL-1',
     answers: [],
@@ -29,16 +29,32 @@ export const fetchQuestions= async (): Promise<NewQuestion[]> => {
     tip: '간단한 목표여도 좋아요. 무엇을 이루고 싶나요? 부적을 만들고도 목표를 수정할 수 있으니 편하게 적어주세요.'
   },
   {
-    id: 3,
-    content: '좋아요, 저랑 함께 정해봐요! \n 24년 가장 성장했던 부분이 뭐였나요?',
+    id: 4,
+    content: '좋아요, 저랑 함께 정해봐요! 요즘 관심을 두고 있는 주제나 활동이 있는지 궁금해요.',
     type: 'QUESTION',
     answers: [],
-    limitAnswer: 1,
-    tip: '성장했던 부분을 알려주세요.'
+    limitAnswer: 10,
+    tip: '더 잘 하고 싶거나, 배워보고 싶은 활동 모두 상관 없어요. 최대한 많이 적어볼까요?'
   },
   {
     id: 5,
-    content: '위의 답변을 토대로 한 번 생각해봐요. 25년, 무엇을 이루고 싶나요?',
+    content: '관심있는 분야를 발전시키기 위해서는 무엇을 할 수 있을까요?',
+    type: 'QUESTION',
+    answers: [],
+    limitAnswer: 3,
+    tip: '아주 작은 것이라도 괜찮아요. <br/>예를 들어 배우고 싶은 게 있다면 학원을 등록할 수도, 교재를 살 수도 있을 거예요. 한 번 고민해서 적어볼까요?'
+  },
+  {
+    id: 6,
+    content: '지금의 자신에게 해주고 싶은 조언이 잇다면 무엇일까요?',
+    type: 'QUESTION',
+    answers: [],
+    limitAnswer: 3,
+    tip: '스스로 해주고 싶은 말을 생각해보면서 내가 무엇이 부족한지, 스스로 어떤 사람이 되고 싶은지 생각해 볼 수 있어요.<br/>간단한 말이라도 좋으니 적어봐요.'
+  },
+  {
+    id: 7,
+    content: '수고하셨어요! 이제 위에서 답변한 내용을 토대로, 달성하고 싶은 목표를 정해볼까요?',
     type: 'GOAL-2',
     answers: [],
     limitAnswer: 3, 
