@@ -89,7 +89,7 @@ export const Amulet = ({ title, initialText, initailColor, isLoading, isEditable
     }
   };
 
-  const shareTitle = `✨ ${title} ✨ \n\n이루고 싶은 목표가 있어? 목표 부적을 만들고 함께 목표를 달성해보자!\n배경화면으로 설정하고 항상 확인해볼 수도 있어!`;
+  const shareTitle = `✨ ${title} ✨ \n\n이루고 싶은 목표가 있어? 목표 부적을 만들고 함께 목표를 달성해보자!\n배경화면으로 설정하고 항상 확인해볼 수도 있어!\n`;
 
   return (
     <div className={styles.container}>

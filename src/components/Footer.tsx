@@ -8,7 +8,7 @@ interface Props {
 export const Footer = ({className}: Props) => {
   const FEEDBACK_URL = "https://forms.gle/oQjbsCwfwCkEcMX96";
   const TWITTER_URL = "https://x.com/power_super_cat?s=21";
-  const GITHUB_URL = "https://github.com/super-power-cat";
+  const GITHUB_URL = "https://github.com/super-power-cat/goal-amulet";
   const INSTAGRAM_URL = "https://www.instagram.com/super.power.cat";
 
   return (
@@ -33,6 +33,14 @@ export const Footer = ({className}: Props) => {
         <a className={styles.wall}>|</a>
         <div className={styles.socialLinks}>
         <a 
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.iconLink}
+          >
+            <Github size={20} />
+          </a>
+        <a 
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -47,14 +55,6 @@ export const Footer = ({className}: Props) => {
             className={styles.iconLink}
           >
             <Twitter size={20} />
-          </a>
-          <a 
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.iconLink}
-          >
-            <Github size={20} />
           </a>
         </div>
       </div>
