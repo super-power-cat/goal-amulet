@@ -14,15 +14,15 @@ export const fetchQuestions= async (): Promise<NewQuestion[]> => {
   },
   {
     id: 2,
-    content: '25년 목표 정하셨나요?',
+    content: '달성하고 싶은 목표가 있으신가요?',
     type: 'YN',
     answers: [],
     limitAnswer: 1,
-    tip: '정하셨다면 네를, 아니라면 아니요를 눌러주세요.'
+    tip: '있으시다면 네를, 아니라면 아니요를 눌러주세요.'
   },
   {
     id: 3,
-    content: '25년 목표를 최대 세 가지 알려주세요!',
+    content: '달성하고 싶은 목표를 최대 세 가지 알려주세요!',
     type: 'GOAL-1',
     answers: [],
     limitAnswer: 3,
