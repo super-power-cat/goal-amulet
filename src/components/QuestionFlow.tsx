@@ -109,7 +109,7 @@ export default function QuestionFlow() {
             'event_category': 'go_button_amulet',
             'event_label': '[질문 페이지] 바로 부적 만들러 가기 버튼 클릭'
           });
-          navigate('/');
+          navigate('/amulet');
         }} className={styles.goToAmuletButton}>
         <span className={styles.goToAmuletButtonText}>바로 부적 만들러 가기 {next_icon}</span>
         {/* <ArrowRight size={20} /> */}
