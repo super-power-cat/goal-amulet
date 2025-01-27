@@ -19,7 +19,7 @@
   font-weight: 700;
   color: #1f2937;
   /* margin-top: 1rem; 상단 여백 */
-  margin-bottom: 1rem; /* 하단 여백 (버튼과의 간격) */
+  /* margin-bottom: 1rem; 하단 여백 (버튼과의 간격) */
   font-family: 'amulet_content', sans-serif;
 }
 
@@ -89,4 +89,80 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.cheerButtonContainer {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 0px 0px 20px 0px;
+}
+
+.cheerButton, .messageButton {
+  padding: 10px 20px;
+  border-radius: 1rem;
+  border: none;
+  background-color: #876bf4;
+    color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.cheerButton:hover, .messageButton:hover {
+  background-color: #4d29df;
+  transform: translateY(-2px);
+}
+
+.cheered {
+  background-color: #4d29df !important;
+  color: white;
+}
+
+.cheered:hover {
+  background-color: #3b1fb0 !important;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.messageInput {
+  width: 100%;
+  height: 100px;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modalButtons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
